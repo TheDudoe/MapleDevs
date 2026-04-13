@@ -555,13 +555,13 @@
 <footer>
   <p>
     © 2025 MapleDevs &nbsp;·&nbsp;
-    <a href="mailto:hello@mapledevs.ca">hello@mapledevs.ca</a>
+    <a href="/cdn-cgi/l/email-protection#83ebe6efefecc3eee2f3efe6e7e6f5f0ade0e2"><span class="__cf_email__" data-cfemail="c2aaa7aeaead82afa3b2aea7a6a7b4b1eca1a3">[email&#160;protected]</span></a>
     &nbsp;·&nbsp;
     <a href="https://docs.google.com/document/d/e/2PACX-1vTEr1vsFI4lGMHlzZOP9E5A1sw2_jTSrvEDyZCSHowWJI70wrW62Xvw6m9hmQoyi0tzEcJA7FmucmvU/pub" target="_blank">Privacy &amp; Terms</a>
   </p>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // ─────────────────────────────────────────────
 //  CONFIGURATION — paste your Sheet ID below
 //  Your Sheet URL:
@@ -732,6 +732,7 @@ function cardHTML(j, realIdx, animIdx) {
 // ─── DETAIL ───
 function openDetail(idx) {
   const j = ALL_JOBS[idx];
+  history.pushState({ idx }, "", "#job-" + idx);
   document.getElementById("board-view").classList.add("hidden");
   const dv = document.getElementById("detail-view");
   dv.classList.add("active");
@@ -767,7 +768,52 @@ function openDetail(idx) {
   `;
 }
 
+function renderDetailContent(idx) {
+  const j = ALL_JOBS[idx];
+  const applySection = j.apply
+    ? `<div class="apply-block">
+        <div class="detail-label" style="margin-bottom:12px;">How to apply</div>
+        ${j.apply.startsWith("mailto:")
+          ? `<p class="detail-text" style="margin-bottom:1rem;">${esc(j.apply.replace("mailto:",""))}</p>`
+          : `<p class="detail-text" style="margin-bottom:1rem;"><a href="${esc(j.apply)}" target="_blank" style="color:var(--maple);">View application page</a></p>`
+        }
+        <a class="apply-btn" href="${esc(j.apply)}" target="_blank">Apply now →</a>
+      </div>`
+    : '';
+  document.getElementById("detail-content").innerHTML = `
+    <div class="detail-header">
+      <div class="detail-title">${esc(j.title)}</div>
+      <div class="detail-studio">${esc(j.studio)}${j.posted ? ' &nbsp;·&nbsp; Posted ' + relDate(j.posted) : ''}</div>
+      <div class="detail-pills">
+        ${j.location ? `<span class="pill pill-loc">${esc(j.location)}</span>` : ''}
+        ${j.type ? `<span class="pill pill-type">${esc(j.type)}</span>` : ''}
+        ${j.mode ? `<span class="pill ${modeClass(j.mode)}">${esc(j.mode)}</span>` : ''}
+      </div>
+    </div>
+    ${j.desc ? `
+    <div class="detail-section">
+      <div class="detail-label">About the role</div>
+      <div class="detail-text">${esc(j.desc)}</div>
+    </div>` : ''}
+    ${applySection}
+  `;
+}
+
+window.addEventListener("popstate", function(e) {
+  if (e.state && e.state.idx !== undefined) {
+    document.getElementById("board-view").classList.add("hidden");
+    document.getElementById("detail-view").classList.add("active");
+    window.scrollTo(0, 0);
+    renderDetailContent(e.state.idx);
+  } else {
+    document.getElementById("board-view").classList.remove("hidden");
+    document.getElementById("detail-view").classList.remove("active");
+    window.scrollTo(0, 0);
+  }
+});
+
 function showBoard() {
+  history.pushState(null, "", window.location.pathname);
   document.getElementById("board-view").classList.remove("hidden");
   document.getElementById("detail-view").classList.remove("active");
   window.scrollTo(0, 0);
@@ -781,7 +827,6 @@ function esc(s) {
     .replace(/"/g,"&quot;");
 }
 
-// ─── BOOT ───
 loadJobs();
 </script>
 </body>
