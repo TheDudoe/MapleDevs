@@ -545,6 +545,7 @@
   }
   .job-card.is-featured:hover { border-color: #D4A800; }
   .pill-student { background: #E8F5E9; color: #2E6B35; }
+  .pill-salary { background: #E8F5E9; color: #1B5E20; font-weight: 500; border: 1px solid #A5D6A7; }
 
   /* ── ABOUT PAGE ── */
   #about-view { display: none; }
@@ -732,7 +733,7 @@
     <p>Listings are sourced directly from official studio career pages and verified before going live. We update the board regularly with new roles from studios across Vancouver, Montreal, Toronto, and beyond.</p>
 
     <h2>Get in touch</h2>
-    <p>Want to list a job, report an issue, or just say hello? Email us at <a href="mailto:mapledevsbusiness@gmail.com">mapledevsbusiness@gmail.com</a></p>
+    <p>Want to list a job, report an issue, or just say hello? Email us at <a href="/cdn-cgi/l/email-protection#6f020e1f030a0b0a191c0d1a1c06010a1c1c2f08020e0603410c0002"><span class="__cf_email__" data-cfemail="cca1adbca0a9a8a9babfaeb9bfa5a2a9bfbf8caba1ada5a0e2afa3a1">[email&#160;protected]</span></a></p>
   </div>
 </div>
 
@@ -758,7 +759,7 @@ const SHEET_ID = "2PACX-1vSkt2ROoihRVsL4f0m4dXZ1IzD7KYzEghgOwW7QPC2EN6sE4D_iI3st
 
 // Column mapping — adjust if your sheet columns are in a different order
 // Expected: Job Title | Studio Name | Location | Job Type | Description | How to Apply | Date Posted
-const COL = { title:0, studio:1, location:2, type:3, mode:4, desc:5, apply:6, posted:7, featured:8, student:9 };
+const COL = { title:0, studio:1, location:2, type:3, mode:4, desc:5, apply:6, posted:7, featured:8, student:9, salary:10 };
 // Note: if your sheet doesn't have a "Work Mode" column, set mode to -1 and we'll skip it.
 // Add Work Mode as column E (index 4) between Job Type and Description.
 
@@ -803,6 +804,7 @@ function parseCSV(text) {
       posted:   clean(cols[COL.posted] || ""),
       featured: clean(cols[COL.featured] || "").toLowerCase() === "yes",
       student:  clean(cols[COL.student] || "").toLowerCase() === "yes",
+      salary:   clean(cols[COL.salary] || ""),
     });
   }
   return jobs;
@@ -913,6 +915,7 @@ function cardHTML(j, realIdx, animIdx) {
       ${j.type ? `<span class="pill pill-type">${esc(j.type)}</span>` : ''}
       ${j.mode ? `<span class="pill ${modeClass(j.mode)}">${esc(j.mode)}</span>` : ''}
       ${j.student ? '<span class="pill pill-student">Student-friendly</span>' : ''}
+      ${j.salary ? `<span class="pill pill-salary">\${esc(j.salary)}</span>` : ''}
     </div>
     ${j.desc ? `<div class="card-desc">${esc(j.desc)}</div>` : ''}
     <div class="card-footer">
@@ -951,6 +954,7 @@ function openDetail(idx) {
         ${j.type ? `<span class="pill pill-type">${esc(j.type)}</span>` : ''}
         ${j.mode ? `<span class="pill ${modeClass(j.mode)}">${esc(j.mode)}</span>` : ''}
         ${j.student ? '<span class="pill pill-student">Student-friendly</span>' : ''}
+        ${j.salary ? `<span class="pill pill-salary">\${esc(j.salary)}</span>` : ''}
       </div>
     </div>
     ${j.desc ? `
@@ -983,6 +987,7 @@ function renderDetailContent(idx) {
         ${j.type ? `<span class="pill pill-type">${esc(j.type)}</span>` : ''}
         ${j.mode ? `<span class="pill ${modeClass(j.mode)}">${esc(j.mode)}</span>` : ''}
         ${j.student ? '<span class="pill pill-student">Student-friendly</span>' : ''}
+        ${j.salary ? `<span class="pill pill-salary">\${esc(j.salary)}</span>` : ''}
       </div>
     </div>
     ${j.desc ? `
