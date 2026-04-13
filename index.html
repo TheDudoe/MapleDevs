@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>MapleDevs — Canadian Game Industry Jobs</title>
+<meta name="description" content="Find jobs at Canadian game studios. No US-only roles, no noise." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  /* ── RESET & BASE ── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    background: #F7F5F0;
+    color: #1A1A18;
+    min-height: 100vh;
+    line-height: 1.6;
+  }
+
+  /* ── TOKENS ── */
+  :root {
+    --maple: #C8372D;
+    --maple-light: #FAEAEA;
+    --maple-mid: #E8857F;
+    --forest: #2A5C45;
+    --forest-light: #EAF3EE;
+    --forest-mid: #5A9E7A;
+    --cream: #F7F5F0;
+    --cream-dark: #EDE9E1;
+    --ink: #1A1A18;
+    --ink-mid: #4A4A45;
+    --ink-light: #8A8A83;
+    --border: rgba(26,26,24,0.1);
+    --border-strong: rgba(26,26,24,0.2);
+    --radius: 12px;
+    --radius-sm: 6px;
+    --radius-pill: 100px;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: #fff;
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .header-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    gap: 1rem;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+  .logo-icon {
+    width: 32px;
+    height: 32px;
+  }
+  .logo-wordmark {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+  }
+  .logo-wordmark span {
+    color: var(--maple);
+  }
+  .header-meta {
+    font-size: 13px;
+    color: var(--ink-light);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .header-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--forest-mid);
+    display: inline-block;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: #fff;
+    border-bottom: 1px solid var(--border);
+    padding: 3.5rem 2rem 2.5rem;
+  }
+  .hero-inner {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .hero h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 0.75rem;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--maple);
+  }
+  .hero p {
+    font-size: 16px;
+    color: var(--ink-mid);
+    max-width: 520px;
+    margin-bottom: 1.75rem;
+  }
+  .hero-stats {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  .stat {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .stat-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 26px;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 12px;
+    color: var(--ink-light);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  /* ── CONTROLS ── */
+  .controls-bar {
+    background: var(--cream);
+    padding: 1.25rem 2rem;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 64px;
+    z-index: 90;
+  }
+  .controls-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .search-wrap {
+    flex: 1;
+    min-width: 200px;
+    position: relative;
+  }
+  .search-wrap svg {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--ink-light);
+    pointer-events: none;
+  }
+  .search-wrap input {
+    width: 100%;
+    padding: 10px 12px 10px 38px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    background: #fff;
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  .search-wrap input::placeholder { color: var(--ink-light); }
+  .search-wrap input:focus { border-color: var(--maple); }
+  select {
+    padding: 10px 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    background: #fff;
+    color: var(--ink);
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  select:focus { border-color: var(--maple); }
+  .result-count {
+    font-size: 13px;
+    color: var(--ink-light);
+    margin-left: auto;
+    white-space: nowrap;
+    font-weight: 300;
+  }
+
+  /* ── MAIN LAYOUT ── */
+  main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 1.5rem 2rem 4rem;
+  }
+
+  /* ── LOADING / ERROR / EMPTY ── */
+  .state-msg {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: var(--ink-light);
+    font-size: 15px;
+  }
+  .state-msg .icon {
+    font-size: 36px;
+    margin-bottom: 1rem;
+    display: block;
+  }
+  .spinner {
+    width: 28px; height: 28px;
+    border: 2.5px solid var(--border-strong);
+    border-top-color: var(--maple);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin: 0 auto 1rem;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── JOB LIST ── */
+  .job-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  /* ── JOB CARD ── */
+  .job-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.25rem 1.5rem;
+    cursor: pointer;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    animation: fadeUp 0.25s ease both;
+  }
+  .job-card:hover {
+    border-color: var(--border-strong);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 4px;
+  }
+  .card-title {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--ink);
+  }
+  .badge-new {
+    font-size: 11px;
+    font-weight: 500;
+    background: var(--forest-light);
+    color: var(--forest);
+    padding: 3px 9px;
+    border-radius: var(--radius-pill);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .card-studio {
+    font-size: 13px;
+    color: var(--ink-light);
+    margin-bottom: 10px;
+  }
+  .card-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 10px;
+  }
+  .pill {
+    font-size: 12px;
+    padding: 3px 10px;
+    border-radius: var(--radius-pill);
+  }
+  .pill-loc  { background: var(--cream-dark); color: var(--ink-mid); }
+  .pill-type { background: #EAF0FB; color: #2A4A8A; }
+  .pill-remote { background: #EEEDFE; color: #4A3AAA; }
+  .pill-hybrid { background: #FFF0E8; color: #8A4A10; }
+  .pill-onsite { background: #EAF3EE; color: var(--forest); }
+  .card-desc {
+    font-size: 13px;
+    color: var(--ink-mid);
+    line-height: 1.55;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+  }
+  .card-date {
+    font-size: 12px;
+    color: var(--ink-light);
+  }
+  .card-cta {
+    font-size: 13px;
+    color: var(--maple);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  /* ── DETAIL VIEW ── */
+  #detail-view {
+    display: none;
+  }
+  #detail-view.active {
+    display: block;
+  }
+  #board-view.hidden {
+    display: none;
+  }
+  .back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    color: var(--ink-mid);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin-bottom: 1.5rem;
+    transition: color 0.1s;
+  }
+  .back-btn:hover { color: var(--ink); }
+  .detail-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 2rem;
+  }
+  .detail-header {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+  .detail-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 26px;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+    margin-bottom: 4px;
+  }
+  .detail-studio {
+    font-size: 15px;
+    color: var(--ink-mid);
+    margin-bottom: 12px;
+  }
+  .detail-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .detail-section {
+    margin-bottom: 1.5rem;
+  }
+  .detail-label {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--ink-light);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+  }
+  .detail-text {
+    font-size: 15px;
+    color: var(--ink);
+    line-height: 1.7;
+  }
+  .apply-block {
+    border-top: 1px solid var(--border);
+    padding-top: 1.5rem;
+    margin-top: 1.5rem;
+  }
+  .apply-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: #fff;
+    background: var(--maple);
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 12px 28px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.15s;
+  }
+  .apply-btn:hover { background: #A02820; }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 1.5rem 2rem;
+    text-align: center;
+    font-size: 12px;
+    color: var(--ink-light);
+  }
+  footer a { color: var(--ink-mid); text-decoration: none; }
+  footer a:hover { color: var(--ink); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    header, .hero, .controls-bar { padding-left: 1rem; padding-right: 1rem; }
+    main { padding: 1rem 1rem 3rem; }
+    .hero h1 { font-size: 1.75rem; }
+    .hero-stats { gap: 1.25rem; }
+    .controls-inner { gap: 8px; }
+    select { font-size: 12px; padding: 9px 8px; }
+    .detail-card { padding: 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <a href="#" class="logo" onclick="showBoard()">
+      <svg class="logo-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M16 3C16 3 7 10 7 18C7 22.4 11.1 26 16 26C20.9 26 25 22.4 25 18C25 10 16 3 16 3Z" fill="#C8372D" opacity="0.15"/>
+        <path d="M16 6C16 6 9 13 9 18C9 21.3 12.1 24 16 24C19.9 24 23 21.3 23 18C23 13 16 6 16 6Z" fill="#C8372D" opacity="0.4"/>
+        <path d="M16 10C16 10 11 15 11 18C11 20.2 13.2 22 16 22C18.8 22 21 20.2 21 18C21 15 16 10 16 10Z" fill="#C8372D"/>
+        <line x1="16" y1="22" x2="16" y2="29" stroke="#C8372D" stroke-width="2" stroke-linecap="round"/>
+        <line x1="16" y1="17" x2="12.5" y2="14" stroke="#fff" stroke-width="1.2" stroke-linecap="round" opacity="0.7"/>
+        <line x1="16" y1="17" x2="19.5" y2="13" stroke="#fff" stroke-width="1.2" stroke-linecap="round" opacity="0.7"/>
+      </svg>
+      <span class="logo-wordmark">Maple<span>Devs</span></span>
+    </a>
+    <div class="header-meta">
+      <span class="header-dot"></span>
+      Canadian game studios only
+    </div>
+  </div>
+</header>
+
+<!-- BOARD VIEW -->
+<div id="board-view">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <h1>Game industry jobs,<br><em>actually in Canada.</em></h1>
+      <p>No US-only roles, no noise. Every listing is from a Canadian studio, updated weekly.</p>
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-num" id="stat-jobs">—</span>
+          <span class="stat-label">Open roles</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num" id="stat-studios">—</span>
+          <span class="stat-label">Studios</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num" id="stat-cities">—</span>
+          <span class="stat-label">Cities</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTROLS -->
+  <div class="controls-bar">
+    <div class="controls-inner">
+      <div class="search-wrap">
+        <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="6.5" cy="6.5" r="4.5" stroke="currentColor" stroke-width="1.5"/>
+          <line x1="9.8" y1="9.8" x2="13" y2="13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <input type="text" id="search" placeholder="Search roles, studios…" oninput="render()" />
+      </div>
+      <select id="filter-city" onchange="render()">
+        <option value="">All cities</option>
+      </select>
+      <select id="filter-type" onchange="render()">
+        <option value="">All types</option>
+        <option>Full-time</option>
+        <option>Part-time</option>
+        <option>Contract</option>
+        <option>Internship</option>
+      </select>
+      <select id="filter-mode" onchange="render()">
+        <option value="">All work modes</option>
+        <option>Remote</option>
+        <option>Hybrid</option>
+        <option>On-site</option>
+      </select>
+      <span class="result-count" id="result-count"></span>
+    </div>
+  </div>
+
+  <!-- JOB LIST -->
+  <main>
+    <div id="job-list">
+      <div class="state-msg">
+        <div class="spinner"></div>
+        Loading jobs…
+      </div>
+    </div>
+  </main>
+
+</div><!-- /board-view -->
+
+<!-- DETAIL VIEW -->
+<div id="detail-view">
+  <main>
+    <button class="back-btn" onclick="showBoard()">
+      ← Back to all jobs
+    </button>
+    <div class="detail-card" id="detail-content"></div>
+  </main>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>
+    © 2025 MapleDevs &nbsp;·&nbsp;
+    <a href="mailto:hello@mapledevs.ca">hello@mapledevs.ca</a>
+    &nbsp;·&nbsp;
+    <a href="https://docs.google.com/document/d/e/2PACX-1vTEr1vsFI4lGMHlzZOP9E5A1sw2_jTSrvEDyZCSHowWJI70wrW62Xvw6m9hmQoyi0tzEcJA7FmucmvU/pub" target="_blank">Privacy &amp; Terms</a>
+  </p>
+</footer>
+
+<script>
+// ─────────────────────────────────────────────
+//  CONFIGURATION — paste your Sheet ID below
+//  Your Sheet URL:
+//  https://docs.google.com/spreadsheets/d/e/2PACX-1vSkt2ROoihRVsL4f0m4dXZ1IzD7KYzEghgOwW7QPC2EN6sE4D_iI3stfllfdeq61coOrhdi47eeLmoY/pubhtml
+//
+//  Replace SHEET_ID with the long ID from your URL (between /d/e/ and /pubhtml)
+// ─────────────────────────────────────────────
+const SHEET_ID = "2PACX-1vSkt2ROoihRVsL4f0m4dXZ1IzD7KYzEghgOwW7QPC2EN6sE4D_iI3stfllfdeq61coOrhdi47eeLmoY";
+
+// Column mapping — adjust if your sheet columns are in a different order
+// Expected: Job Title | Studio Name | Location | Job Type | Description | How to Apply | Date Posted
+const COL = { title:0, studio:1, location:2, type:3, mode:4, desc:5, apply:6, posted:7 };
+// Note: if your sheet doesn't have a "Work Mode" column, set mode to -1 and we'll skip it.
+// Add Work Mode as column E (index 4) between Job Type and Description.
+
+let ALL_JOBS = [];
+
+// ─── FETCH FROM GOOGLE SHEETS ───
+async function loadJobs() {
+  const url = `https://docs.google.com/spreadsheets/d/e/${SHEET_ID}/pub?output=csv`;
+  try {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error("Sheet not accessible");
+    const csv = await res.text();
+    ALL_JOBS = parseCSV(csv);
+    initFilters();
+    updateStats();
+    render();
+  } catch(e) {
+    document.getElementById("job-list").innerHTML = `
+      <div class="state-msg">
+        <span class="icon">⚠️</span>
+        Couldn't load jobs right now.<br>
+        <small style="margin-top:8px;display:block;">Make sure your Google Sheet is published to the web (File → Share → Publish to web → CSV).</small>
+      </div>`;
+  }
+}
+
+function parseCSV(text) {
+  const lines = text.trim().split("\n");
+  const jobs = [];
+  // Skip header row (row 0)
+  for (let i = 1; i < lines.length; i++) {
+    const cols = parseCSVLine(lines[i]);
+    if (!cols[COL.title] || !cols[COL.studio]) continue;
+    jobs.push({
+      title:    clean(cols[COL.title]),
+      studio:   clean(cols[COL.studio]),
+      location: clean(cols[COL.location] || ""),
+      type:     clean(cols[COL.type] || ""),
+      mode:     COL.mode >= 0 ? clean(cols[COL.mode] || "") : "",
+      desc:     clean(cols[COL.desc] || ""),
+      apply:    clean(cols[COL.apply] || ""),
+      posted:   clean(cols[COL.posted] || ""),
+    });
+  }
+  return jobs;
+}
+
+function parseCSVLine(line) {
+  const result = [];
+  let cur = "", inQ = false;
+  for (let i = 0; i < line.length; i++) {
+    const c = line[i];
+    if (c === '"') { inQ = !inQ; }
+    else if (c === ',' && !inQ) { result.push(cur); cur = ""; }
+    else { cur += c; }
+  }
+  result.push(cur);
+  return result;
+}
+
+function clean(s) { return s.replace(/^"|"$/g, "").trim(); }
+
+// ─── FILTERS ───
+function initFilters() {
+  const cities = [...new Set(ALL_JOBS.map(j => j.location).filter(Boolean))].sort();
+  const sel = document.getElementById("filter-city");
+  sel.innerHTML = '<option value="">All cities</option>';
+  cities.forEach(c => {
+    const o = document.createElement("option");
+    o.value = c; o.textContent = c;
+    sel.appendChild(o);
+  });
+}
+
+function updateStats() {
+  document.getElementById("stat-jobs").textContent = ALL_JOBS.length;
+  document.getElementById("stat-studios").textContent = new Set(ALL_JOBS.map(j => j.studio)).size;
+  document.getElementById("stat-cities").textContent = new Set(ALL_JOBS.map(j => j.location).filter(Boolean)).size;
+}
+
+function filteredJobs() {
+  const q = document.getElementById("search").value.toLowerCase();
+  const city = document.getElementById("filter-city").value;
+  const type = document.getElementById("filter-type").value;
+  const mode = document.getElementById("filter-mode").value;
+  return ALL_JOBS.filter(j => {
+    if (q && !j.title.toLowerCase().includes(q) && !j.studio.toLowerCase().includes(q) && !j.desc.toLowerCase().includes(q)) return false;
+    if (city && j.location !== city) return false;
+    if (type && j.type !== type) return false;
+    if (mode && j.mode !== mode) return false;
+    return true;
+  });
+}
+
+// ─── RENDER ───
+function render() {
+  const jobs = filteredJobs();
+  const list = document.getElementById("job-list");
+  const countEl = document.getElementById("result-count");
+  countEl.textContent = jobs.length + " role" + (jobs.length !== 1 ? "s" : "");
+  if (jobs.length === 0) {
+    list.innerHTML = '<div class="state-msg"><span class="icon">🍁</span>No roles match your filters.</div>';
+    return;
+  }
+  list.className = "job-list";
+  list.innerHTML = jobs.map((j, idx) => cardHTML(j, ALL_JOBS.indexOf(j), idx)).join("");
+}
+
+function isNew(dateStr) {
+  if (!dateStr) return false;
+  const d = new Date(dateStr);
+  if (isNaN(d)) return false;
+  return (Date.now() - d) / 86400000 <= 4;
+}
+
+function relDate(dateStr) {
+  if (!dateStr) return "";
+  const d = new Date(dateStr);
+  if (isNaN(d)) return dateStr;
+  const days = Math.floor((Date.now() - d) / 86400000);
+  if (days === 0) return "Today";
+  if (days === 1) return "1 day ago";
+  if (days < 30) return days + " days ago";
+  return d.toLocaleDateString("en-CA", { month: "short", day: "numeric" });
+}
+
+function modeClass(mode) {
+  if (!mode) return "";
+  const m = mode.toLowerCase();
+  if (m.includes("remote")) return "pill-remote";
+  if (m.includes("hybrid")) return "pill-hybrid";
+  return "pill-onsite";
+}
+
+function cardHTML(j, realIdx, animIdx) {
+  return `
+  <div class="job-card" style="animation-delay:${animIdx * 40}ms" onclick="openDetail(${realIdx})">
+    <div class="card-top">
+      <span class="card-title">${esc(j.title)}</span>
+      ${isNew(j.posted) ? '<span class="badge-new">New</span>' : ''}
+    </div>
+    <div class="card-studio">${esc(j.studio)}</div>
+    <div class="card-pills">
+      ${j.location ? `<span class="pill pill-loc">${esc(j.location)}</span>` : ''}
+      ${j.type ? `<span class="pill pill-type">${esc(j.type)}</span>` : ''}
+      ${j.mode ? `<span class="pill ${modeClass(j.mode)}">${esc(j.mode)}</span>` : ''}
+    </div>
+    ${j.desc ? `<div class="card-desc">${esc(j.desc)}</div>` : ''}
+    <div class="card-footer">
+      <span class="card-date">${relDate(j.posted)}</span>
+      <span class="card-cta">View &amp; apply →</span>
+    </div>
+  </div>`;
+}
+
+// ─── DETAIL ───
+function openDetail(idx) {
+  const j = ALL_JOBS[idx];
+  document.getElementById("board-view").classList.add("hidden");
+  const dv = document.getElementById("detail-view");
+  dv.classList.add("active");
+  window.scrollTo(0, 0);
+
+  const applySection = j.apply
+    ? `<div class="apply-block">
+        <div class="detail-label" style="margin-bottom:12px;">How to apply</div>
+        ${j.apply.startsWith("mailto:")
+          ? `<p class="detail-text" style="margin-bottom:1rem;">${esc(j.apply.replace("mailto:",""))}</p>`
+          : `<p class="detail-text" style="margin-bottom:1rem;"><a href="${esc(j.apply)}" target="_blank" style="color:var(--maple);">${esc(j.apply)}</a></p>`
+        }
+        <a class="apply-btn" href="${esc(j.apply)}" target="_blank">Apply now →</a>
+      </div>`
+    : '';
+
+  document.getElementById("detail-content").innerHTML = `
+    <div class="detail-header">
+      <div class="detail-title">${esc(j.title)}</div>
+      <div class="detail-studio">${esc(j.studio)}${j.posted ? ' &nbsp;·&nbsp; Posted ' + relDate(j.posted) : ''}</div>
+      <div class="detail-pills">
+        ${j.location ? `<span class="pill pill-loc">${esc(j.location)}</span>` : ''}
+        ${j.type ? `<span class="pill pill-type">${esc(j.type)}</span>` : ''}
+        ${j.mode ? `<span class="pill ${modeClass(j.mode)}">${esc(j.mode)}</span>` : ''}
+      </div>
+    </div>
+    ${j.desc ? `
+    <div class="detail-section">
+      <div class="detail-label">About the role</div>
+      <div class="detail-text">${esc(j.desc)}</div>
+    </div>` : ''}
+    ${applySection}
+  `;
+}
+
+function showBoard() {
+  document.getElementById("board-view").classList.remove("hidden");
+  document.getElementById("detail-view").classList.remove("active");
+  window.scrollTo(0, 0);
+}
+
+function esc(s) {
+  return String(s)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;");
+}
+
+// ─── BOOT ───
+loadJobs();
+</script>
+</body>
+</html>
