@@ -450,6 +450,84 @@
     select { font-size: 12px; padding: 9px 8px; }
     .detail-card { padding: 1.25rem; }
   }
+
+  /* ── EMAIL SIGNUP ── */
+  .signup-section {
+    background: #fff;
+    border-bottom: 1px solid var(--border);
+    padding: 2.5rem 2rem;
+  }
+  .signup-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  .signup-text h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+    margin-bottom: 4px;
+  }
+  .signup-text p {
+    font-size: 13px;
+    color: var(--ink-light);
+  }
+  .signup-form {
+    display: flex;
+    gap: 8px;
+    flex: 1;
+    max-width: 420px;
+    min-width: 260px;
+  }
+  .signup-form input[type="email"] {
+    flex: 1;
+    padding: 10px 14px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    background: var(--cream);
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  .signup-form input[type="email"]::placeholder { color: var(--ink-light); }
+  .signup-form input[type="email"]:focus { border-color: var(--maple); background: #fff; }
+  .signup-submit {
+    padding: 10px 20px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #fff;
+    background: var(--maple);
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.15s;
+  }
+  .signup-submit:hover { background: #A02820; }
+  .signup-success {
+    display: none;
+    font-size: 14px;
+    color: var(--forest);
+    font-weight: 500;
+    align-items: center;
+    gap: 6px;
+  }
+  .signup-success.show { display: flex; }
+  @media (max-width: 600px) {
+    .signup-inner { flex-direction: column; gap: 1rem; }
+    .signup-form { max-width: 100%; width: 100%; }
+    .signup-section { padding: 1.75rem 1rem; }
+  }
+
 </style>
 </head>
 <body>
@@ -496,6 +574,25 @@
           <span class="stat-num" id="stat-cities">—</span>
           <span class="stat-label">Cities</span>
         </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- EMAIL SIGNUP -->
+  <section class="signup-section">
+    <div class="signup-inner">
+      <div class="signup-text">
+        <h2>Get new Canadian game dev jobs weekly</h2>
+        <p>No spam. Just fresh listings from Canadian studios, every week.</p>
+      </div>
+      <form class="signup-form" id="signup-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <input type="email" name="email" placeholder="your@email.com" required autocomplete="email" />
+        <button type="submit" class="signup-submit">Subscribe</button>
+      </form>
+      <div class="signup-success" id="signup-success">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#2A5C45" stroke-width="1.5"/><path d="M5 8l2 2 4-4" stroke="#2A5C45" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        You're on the list!
       </div>
     </div>
   </section>
@@ -556,7 +653,7 @@
 <footer>
   <p>
     © 2025 MapleDevs &nbsp;·&nbsp;
-    <a href="/cdn-cgi/l/email-protection#48252938242d2c2d3e3b2a3d3b21262d3b3b082f25292124662b2725"><span class="__cf_email__" data-cfemail="d9b4b8a9b5bcbdbcafaabbacaab0b7bcaaaa99beb4b8b0b5f7bab6b4">[email&#160;protected]</span></a>
+    <a href="mailto:mapledevsbusiness@gmail.com">mapledevsbusiness@gmail.com</a>
     &nbsp;·&nbsp;
     <a href="https://docs.google.com/document/d/e/2PACX-1vTEr1vsFI4lGMHlzZOP9E5A1sw2_jTSrvEDyZCSHowWJI70wrW62Xvw6m9hmQoyi0tzEcJA7FmucmvU/pub" target="_blank">Privacy &amp; Terms</a>
   </p>
@@ -826,6 +923,35 @@ function esc(s) {
     .replace(/</g,"&lt;")
     .replace(/>/g,"&gt;")
     .replace(/"/g,"&quot;");
+}
+
+
+// ─── EMAIL SIGNUP ───
+const signupForm = document.getElementById('signup-form');
+if (signupForm) {
+  signupForm.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn = signupForm.querySelector('.signup-submit');
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+    try {
+      const res = await fetch(signupForm.action, {
+        method: 'POST',
+        body: new FormData(signupForm),
+        headers: { 'Accept': 'application/json' }
+      });
+      if (res.ok) {
+        signupForm.style.display = 'none';
+        document.getElementById('signup-success').classList.add('show');
+      } else {
+        btn.textContent = 'Try again';
+        btn.disabled = false;
+      }
+    } catch(err) {
+      btn.textContent = 'Try again';
+      btn.disabled = false;
+    }
+  });
 }
 
 loadJobs();
