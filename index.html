@@ -528,6 +528,66 @@
     .signup-section { padding: 1.75rem 1rem; }
   }
 
+
+  .badge-featured {
+    font-size: 11px;
+    font-weight: 500;
+    background: #FFF3CD;
+    color: #7A5200;
+    padding: 3px 9px;
+    border-radius: var(--radius-pill);
+    white-space: nowrap;
+    border: 1px solid #F0D070;
+  }
+  .job-card.is-featured {
+    border-color: #F0D070;
+    background: #FFFDF5;
+  }
+  .job-card.is-featured:hover { border-color: #D4A800; }
+  .pill-student { background: #E8F5E9; color: #2E6B35; }
+
+  /* ── ABOUT PAGE ── */
+  #about-view { display: none; }
+  #about-view.active { display: block; }
+  .about-content {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 3rem 2rem 4rem;
+  }
+  .about-content h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2rem;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+  }
+  .about-content h1 em { color: var(--maple); font-style: italic; }
+  .about-content h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.25rem;
+    color: var(--ink);
+    margin: 2rem 0 0.5rem;
+    font-weight: 400;
+  }
+  .about-content p {
+    font-size: 15px;
+    color: var(--ink-mid);
+    line-height: 1.8;
+    margin-bottom: 1rem;
+  }
+  .about-content a { color: var(--maple); }
+  .about-nav-link {
+    font-size: 13px;
+    color: var(--ink-mid);
+    text-decoration: none;
+    cursor: pointer;
+    padding: 4px 0;
+    border-bottom: 1px solid transparent;
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .about-nav-link:hover { color: var(--ink); border-bottom-color: var(--border-strong); }
+  .about-nav-link.active-nav { color: var(--maple); font-weight: 500; }
+
 </style>
 </head>
 <body>
@@ -546,7 +606,8 @@
       </svg>
       <span class="logo-wordmark">Maple<span>Devs</span></span>
     </a>
-    <div class="header-meta">
+    <div class="header-meta" style="gap:16px;">
+      <a class="about-nav-link" id="about-link" onclick="showAbout()">About</a>
       <span class="header-dot"></span>
       Canadian game studios only
     </div>
@@ -623,6 +684,10 @@
         <option>Hybrid</option>
         <option>On-site</option>
       </select>
+      <label style="display:flex;align-items:center;gap:6px;font-size:13px;color:var(--ink-mid);cursor:pointer;white-space:nowrap;">
+        <input type="checkbox" id="filter-student" onchange="render()" style="accent-color:var(--maple);width:15px;height:15px;cursor:pointer;" />
+        Student-friendly
+      </label>
       <span class="result-count" id="result-count"></span>
     </div>
   </div>
@@ -649,6 +714,28 @@
   </main>
 </div>
 
+
+<!-- ABOUT VIEW -->
+<div id="about-view">
+  <div class="about-content">
+    <button class="back-btn" onclick="showBoard()" style="margin-bottom:1.5rem;">← Back to jobs</button>
+    <h1>About <em>MapleDevs</em></h1>
+    <p>MapleDevs is a job board built exclusively for the Canadian game industry. No US-only roles, no noise — just real opportunities at studios based in Canada.</p>
+
+    <h2>Why we built this</h2>
+    <p>If you've ever searched for game dev jobs in Canada, you know the frustration. Most job boards are flooded with US positions that Canadian candidates can't apply to. MapleDevs exists to fix that — every single listing on this board is from a studio operating in Canada.</p>
+
+    <h2>Who it's for</h2>
+    <p>Whether you're a student looking for your first internship, a seasoned developer considering relocation, or a Canadian game dev who just wants to stay local — MapleDevs is for you. We tag student-friendly roles so newcomers to the industry can find the right opportunities faster.</p>
+
+    <h2>How it works</h2>
+    <p>Listings are sourced directly from official studio career pages and verified before going live. We update the board regularly with new roles from studios across Vancouver, Montreal, Toronto, and beyond.</p>
+
+    <h2>Get in touch</h2>
+    <p>Want to list a job, report an issue, or just say hello? Email us at <a href="mailto:mapledevsbusiness@gmail.com">mapledevsbusiness@gmail.com</a></p>
+  </div>
+</div>
+
 <!-- FOOTER -->
 <footer>
   <p>
@@ -671,7 +758,7 @@ const SHEET_ID = "2PACX-1vSkt2ROoihRVsL4f0m4dXZ1IzD7KYzEghgOwW7QPC2EN6sE4D_iI3st
 
 // Column mapping — adjust if your sheet columns are in a different order
 // Expected: Job Title | Studio Name | Location | Job Type | Description | How to Apply | Date Posted
-const COL = { title:0, studio:1, location:2, type:3, mode:4, desc:5, apply:6, posted:7 };
+const COL = { title:0, studio:1, location:2, type:3, mode:4, desc:5, apply:6, posted:7, featured:8, student:9 };
 // Note: if your sheet doesn't have a "Work Mode" column, set mode to -1 and we'll skip it.
 // Add Work Mode as column E (index 4) between Job Type and Description.
 
@@ -714,6 +801,8 @@ function parseCSV(text) {
       desc:     clean(cols[COL.desc] || ""),
       apply:    clean(cols[COL.apply] || ""),
       posted:   clean(cols[COL.posted] || ""),
+      featured: clean(cols[COL.featured] || "").toLowerCase() === "yes",
+      student:  clean(cols[COL.student] || "").toLowerCase() === "yes",
     });
   }
   return jobs;
@@ -757,13 +846,15 @@ function filteredJobs() {
   const city = document.getElementById("filter-city").value;
   const type = document.getElementById("filter-type").value;
   const mode = document.getElementById("filter-mode").value;
+  const student = document.getElementById("filter-student").checked;
   return ALL_JOBS.filter(j => {
     if (q && !j.title.toLowerCase().includes(q) && !j.studio.toLowerCase().includes(q) && !j.desc.toLowerCase().includes(q)) return false;
     if (city && j.location !== city) return false;
     if (type && j.type !== type) return false;
     if (mode && j.mode !== mode) return false;
+    if (student && !j.student) return false;
     return true;
-  });
+  }).sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
 }
 
 // ─── RENDER ───
@@ -811,13 +902,17 @@ function cardHTML(j, realIdx, animIdx) {
   <div class="job-card" style="animation-delay:${animIdx * 40}ms" onclick="openDetail(${realIdx})">
     <div class="card-top">
       <span class="card-title">${esc(j.title)}</span>
-      ${isNew(j.posted) ? '<span class="badge-new">New</span>' : ''}
+      <span style="display:flex;gap:6px;align-items:center;flex-shrink:0;">
+        ${j.featured ? '<span class="badge-featured">Featured</span>' : ''}
+        ${isNew(j.posted) ? '<span class="badge-new">New</span>' : ''}
+      </span>
     </div>
     <div class="card-studio">${esc(j.studio)}</div>
     <div class="card-pills">
       ${j.location ? `<span class="pill pill-loc">${esc(j.location)}</span>` : ''}
       ${j.type ? `<span class="pill pill-type">${esc(j.type)}</span>` : ''}
       ${j.mode ? `<span class="pill ${modeClass(j.mode)}">${esc(j.mode)}</span>` : ''}
+      ${j.student ? '<span class="pill pill-student">Student-friendly</span>' : ''}
     </div>
     ${j.desc ? `<div class="card-desc">${esc(j.desc)}</div>` : ''}
     <div class="card-footer">
@@ -855,6 +950,7 @@ function openDetail(idx) {
         ${j.location ? `<span class="pill pill-loc">${esc(j.location)}</span>` : ''}
         ${j.type ? `<span class="pill pill-type">${esc(j.type)}</span>` : ''}
         ${j.mode ? `<span class="pill ${modeClass(j.mode)}">${esc(j.mode)}</span>` : ''}
+        ${j.student ? '<span class="pill pill-student">Student-friendly</span>' : ''}
       </div>
     </div>
     ${j.desc ? `
@@ -886,6 +982,7 @@ function renderDetailContent(idx) {
         ${j.location ? `<span class="pill pill-loc">${esc(j.location)}</span>` : ''}
         ${j.type ? `<span class="pill pill-type">${esc(j.type)}</span>` : ''}
         ${j.mode ? `<span class="pill ${modeClass(j.mode)}">${esc(j.mode)}</span>` : ''}
+        ${j.student ? '<span class="pill pill-student">Student-friendly</span>' : ''}
       </div>
     </div>
     ${j.desc ? `
@@ -914,6 +1011,17 @@ function showBoard() {
   history.pushState(null, "", window.location.pathname);
   document.getElementById("board-view").classList.remove("hidden");
   document.getElementById("detail-view").classList.remove("active");
+  document.getElementById("about-view").classList.remove("active");
+  document.getElementById("about-link").classList.remove("active-nav");
+  window.scrollTo(0, 0);
+}
+
+function showAbout() {
+  history.pushState(null, "", window.location.pathname);
+  document.getElementById("board-view").classList.add("hidden");
+  document.getElementById("detail-view").classList.remove("active");
+  document.getElementById("about-view").classList.add("active");
+  document.getElementById("about-link").classList.add("active-nav");
   window.scrollTo(0, 0);
 }
 
