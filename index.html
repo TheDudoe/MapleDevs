@@ -3,601 +3,184 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>MapleDevs — Canadian Game Industry Jobs</title>
-<meta name="description" content="Find jobs at Canadian game studios. No US-only roles, no noise." />
+<title>MapleDevs — Canadian Game Industry Jobs | Find Jobs at Canadian Game Studios</title>
+<meta name="description" content="MapleDevs is Canada's dedicated game industry job board. Browse real jobs at Canadian game studios in Vancouver, Montreal, Toronto and more. No US-only roles." />
+<meta name="keywords" content="Canadian game jobs, game developer jobs Canada, game industry Canada, Vancouver game jobs, Montreal game studio jobs, Toronto game dev" />
+<meta property="og:title" content="MapleDevs — Canadian Game Industry Jobs" />
+<meta property="og:description" content="Find jobs at Canadian game studios. No US-only roles, no noise. Updated weekly." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://mapledevs.ca" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="MapleDevs — Canadian Game Industry Jobs" />
+<meta name="twitter:description" content="Find jobs at Canadian game studios. No US-only roles, no noise." />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href="https://mapledevs.ca" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' fill='none'%3E%3Cpath d='M16 5 L13.2 11 L7 10 L10.5 14.5 L8.5 21 L13.5 19 L13.5 24 L18.5 24 L18.5 19 L23.5 21 L21.5 14.5 L25 10 L18.8 11 Z' fill='%23C8372D' stroke='%23C8372D' stroke-width='0.5' stroke-linejoin='round'/%3E%3Crect x='15' y='24' width='2' height='3.5' rx='1' fill='%23C8372D'/%3E%3C/svg%3E" />
 <style>
-  /* ── RESET & BASE ── */
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-  body {
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 400;
-    background: #F7F5F0;
-    color: #1A1A18;
-    min-height: 100vh;
-    line-height: 1.6;
-  }
-
-  /* ── TOKENS ── */
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body { font-family: 'DM Sans', sans-serif; font-weight: 400; background: #F7F5F0; color: #1A1A18; min-height: 100vh; line-height: 1.65; -webkit-font-smoothing: antialiased; }
   :root {
-    --maple: #C8372D;
-    --maple-light: #FAEAEA;
-    --maple-mid: #E8857F;
-    --forest: #2A5C45;
-    --forest-light: #EAF3EE;
-    --forest-mid: #5A9E7A;
-    --cream: #F7F5F0;
-    --cream-dark: #EDE9E1;
-    --ink: #1A1A18;
-    --ink-mid: #4A4A45;
-    --ink-light: #8A8A83;
-    --border: rgba(26,26,24,0.1);
-    --border-strong: rgba(26,26,24,0.2);
-    --radius: 12px;
-    --radius-sm: 6px;
-    --radius-pill: 100px;
+    --maple: #C8372D; --maple-dark: #A02820;
+    --forest: #2A5C45; --forest-light: #EAF3EE; --forest-mid: #5A9E7A;
+    --cream: #F7F5F0; --cream-dark: #EDE9E1;
+    --ink: #1A1A18; --ink-mid: #4A4A45; --ink-light: #7A7A73;
+    --border: rgba(26,26,24,0.1); --border-strong: rgba(26,26,24,0.2);
+    --radius: 12px; --radius-sm: 8px; --radius-pill: 100px;
+    --shadow-sm: 0 1px 4px rgba(0,0,0,0.06); --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
   }
-
-  /* ── HEADER ── */
-  header {
-    background: #fff;
-    border-bottom: 1px solid var(--border);
-    padding: 0 2rem;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-  .header-inner {
-    max-width: 900px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 64px;
-    gap: 1rem;
-  }
-  .logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    text-decoration: none;
-    flex-shrink: 0;
-  }
-  .logo-icon {
-    width: 32px;
-    height: 32px;
-  }
-  .logo-wordmark {
-    font-family: 'DM Serif Display', serif;
-    font-size: 22px;
-    color: var(--ink);
-    letter-spacing: -0.02em;
-  }
-  .logo-wordmark span {
-    color: var(--maple);
-  }
-  .header-meta {
-    font-size: 13px;
-    color: var(--ink-light);
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-  .header-dot {
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: var(--forest-mid);
-    display: inline-block;
-  }
-
-  /* ── HERO ── */
-  .hero {
-    background: #fff;
-    border-bottom: 1px solid var(--border);
-    padding: 3.5rem 2rem 2.5rem;
-  }
-  .hero-inner {
-    max-width: 900px;
-    margin: 0 auto;
-  }
-  .hero h1 {
-    font-family: 'DM Serif Display', serif;
-    font-size: clamp(2rem, 5vw, 3rem);
-    line-height: 1.15;
-    letter-spacing: -0.02em;
-    color: var(--ink);
-    margin-bottom: 0.75rem;
-  }
-  .hero h1 em {
-    font-style: italic;
-    color: var(--maple);
-  }
-  .hero p {
-    font-size: 16px;
-    color: var(--ink-mid);
-    max-width: 520px;
-    margin-bottom: 1.75rem;
-  }
-  .hero-stats {
-    display: flex;
-    gap: 2rem;
-    flex-wrap: wrap;
-  }
-  .stat {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-  .stat-num {
-    font-family: 'DM Serif Display', serif;
-    font-size: 26px;
-    color: var(--ink);
-    line-height: 1;
-  }
-  .stat-label {
-    font-size: 12px;
-    color: var(--ink-light);
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-  }
-
-  /* ── CONTROLS ── */
-  .controls-bar {
-    background: var(--cream);
-    padding: 1.25rem 2rem;
-    border-bottom: 1px solid var(--border);
-    position: sticky;
-    top: 64px;
-    z-index: 90;
-  }
-  .controls-inner {
-    max-width: 900px;
-    margin: 0 auto;
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    align-items: center;
-  }
-  .search-wrap {
-    flex: 1;
-    min-width: 200px;
-    position: relative;
-  }
-  .search-wrap svg {
-    position: absolute;
-    left: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--ink-light);
-    pointer-events: none;
-  }
-  .search-wrap input {
-    width: 100%;
-    padding: 10px 12px 10px 38px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    border: 1px solid var(--border-strong);
-    border-radius: var(--radius-sm);
-    background: #fff;
-    color: var(--ink);
-    outline: none;
-    transition: border-color 0.15s;
-  }
+  .skip-link { position: absolute; top: -100px; left: 1rem; background: var(--maple); color: #fff; padding: 8px 16px; border-radius: var(--radius-sm); font-size: 14px; font-weight: 500; text-decoration: none; z-index: 9999; transition: top 0.2s; }
+  .skip-link:focus { top: 1rem; }
+  header { background: #fff; border-bottom: 1px solid var(--border); padding: 0 2rem; position: sticky; top: 0; z-index: 100; box-shadow: var(--shadow-sm); }
+  .header-inner { max-width: 960px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 64px; gap: 1rem; }
+  .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; flex-shrink: 0; }
+  .logo-icon { width: 32px; height: 32px; }
+  .logo-wordmark { font-family: 'DM Serif Display', serif; font-size: 22px; color: var(--ink); letter-spacing: -0.02em; }
+  .logo-wordmark span { color: var(--maple); }
+  .header-nav { display: flex; align-items: center; gap: 20px; }
+  .nav-link { font-size: 14px; color: var(--ink-mid); text-decoration: none; cursor: pointer; padding: 6px 2px; border-bottom: 2px solid transparent; border-left: none; border-right: none; border-top: none; transition: color 0.15s, border-color 0.15s; background: none; font-family: 'DM Sans', sans-serif; font-weight: 400; white-space: nowrap; }
+  .nav-link:hover { color: var(--ink); }
+  .nav-link.active-nav { color: var(--maple); border-bottom-color: var(--maple); font-weight: 500; }
+  .nav-post-btn { font-size: 13px; font-weight: 500; color: var(--maple); background: #FAEAEA; border: 1px solid #F5C0BC; border-radius: var(--radius-pill); padding: 7px 16px; cursor: pointer; text-decoration: none; font-family: 'DM Sans', sans-serif; transition: background 0.15s; white-space: nowrap; }
+  .nav-post-btn:hover { background: #F5C0BC; }
+  .hero { background: #fff; border-bottom: 1px solid var(--border); padding: 4rem 2rem 3rem; }
+  .hero-inner { max-width: 960px; margin: 0 auto; }
+  .hero h1 { font-family: 'DM Serif Display', serif; font-size: clamp(2.2rem, 5vw, 3.25rem); line-height: 1.12; letter-spacing: -0.025em; color: var(--ink); margin-bottom: 1rem; }
+  .hero h1 em { font-style: italic; color: var(--maple); }
+  .hero p { font-size: 17px; color: var(--ink-mid); max-width: 540px; margin-bottom: 2rem; line-height: 1.7; }
+  .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 2.5rem; }
+  .btn-primary { display: inline-flex; align-items: center; gap: 8px; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 500; color: #fff; background: var(--maple); border: none; border-radius: var(--radius-sm); padding: 12px 24px; cursor: pointer; text-decoration: none; transition: background 0.15s, transform 0.1s; }
+  .btn-primary:hover { background: var(--maple-dark); transform: translateY(-1px); }
+  .btn-secondary { display: inline-flex; align-items: center; gap: 8px; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 400; color: var(--ink-mid); background: transparent; border: 1px solid var(--border-strong); border-radius: var(--radius-sm); padding: 12px 24px; cursor: pointer; text-decoration: none; transition: background 0.15s; }
+  .btn-secondary:hover { background: var(--cream-dark); }
+  .hero-stats { display: flex; gap: 2.5rem; flex-wrap: wrap; padding-top: 1.5rem; border-top: 1px solid var(--border); }
+  .stat { display: flex; flex-direction: column; gap: 2px; }
+  .stat-num { font-family: 'DM Serif Display', serif; font-size: 28px; color: var(--ink); line-height: 1; }
+  .stat-label { font-size: 12px; color: var(--ink-light); letter-spacing: 0.05em; text-transform: uppercase; }
+  .signup-section { background: #fff; border-bottom: 1px solid var(--border); padding: 2rem 2rem; }
+  .signup-inner { max-width: 960px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap; }
+  .signup-text h2 { font-family: 'DM Serif Display', serif; font-size: 19px; font-weight: 400; color: var(--ink); letter-spacing: -0.01em; margin-bottom: 3px; }
+  .signup-text p { font-size: 13px; color: var(--ink-light); }
+  .signup-form { display: flex; gap: 8px; flex: 1; max-width: 400px; min-width: 240px; }
+  .signup-form input[type="email"] { flex: 1; padding: 11px 14px; font-family: 'DM Sans', sans-serif; font-size: 15px; border: 1px solid var(--border-strong); border-radius: var(--radius-sm); background: var(--cream); color: var(--ink); outline: none; transition: border-color 0.15s; min-height: 44px; }
+  .signup-form input[type="email"]::placeholder { color: var(--ink-light); }
+  .signup-form input[type="email"]:focus { border-color: var(--maple); background: #fff; box-shadow: 0 0 0 3px rgba(200,55,45,0.08); }
+  .signup-submit { padding: 11px 20px; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 500; color: #fff; background: var(--maple); border: none; border-radius: var(--radius-sm); cursor: pointer; white-space: nowrap; transition: background 0.15s; min-height: 44px; }
+  .signup-submit:hover { background: var(--maple-dark); }
+  .signup-success { display: none; font-size: 14px; color: var(--forest); font-weight: 500; align-items: center; gap: 6px; }
+  .signup-success.show { display: flex; }
+  .controls-bar { background: var(--cream); padding: 1rem 2rem; border-bottom: 1px solid var(--border); position: sticky; top: 64px; z-index: 90; }
+  .controls-inner { max-width: 960px; margin: 0 auto; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .search-wrap { flex: 1; min-width: 200px; position: relative; }
+  .search-wrap svg { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--ink-light); pointer-events: none; }
+  .search-wrap input { width: 100%; padding: 10px 12px 10px 38px; font-family: 'DM Sans', sans-serif; font-size: 14px; border: 1px solid var(--border-strong); border-radius: var(--radius-sm); background: #fff; color: var(--ink); outline: none; transition: border-color 0.15s; min-height: 42px; }
   .search-wrap input::placeholder { color: var(--ink-light); }
-  .search-wrap input:focus { border-color: var(--maple); }
-  select {
-    padding: 10px 12px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13px;
-    border: 1px solid var(--border-strong);
-    border-radius: var(--radius-sm);
-    background: #fff;
-    color: var(--ink);
-    cursor: pointer;
-    outline: none;
-    transition: border-color 0.15s;
-  }
+  .search-wrap input:focus { border-color: var(--maple); box-shadow: 0 0 0 3px rgba(200,55,45,0.08); }
+  select { padding: 10px 12px; font-family: 'DM Sans', sans-serif; font-size: 13px; border: 1px solid var(--border-strong); border-radius: var(--radius-sm); background: #fff; color: var(--ink); cursor: pointer; outline: none; transition: border-color 0.15s; min-height: 42px; }
   select:focus { border-color: var(--maple); }
-  .result-count {
-    font-size: 13px;
-    color: var(--ink-light);
-    margin-left: auto;
-    white-space: nowrap;
-    font-weight: 300;
-  }
-
-  /* ── MAIN LAYOUT ── */
-  main {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 1.5rem 2rem 4rem;
-  }
-
-  /* ── LOADING / ERROR / EMPTY ── */
-  .state-msg {
-    text-align: center;
-    padding: 4rem 2rem;
-    color: var(--ink-light);
-    font-size: 15px;
-  }
-  .state-msg .icon {
-    font-size: 36px;
-    margin-bottom: 1rem;
-    display: block;
-  }
-  .spinner {
-    width: 28px; height: 28px;
-    border: 2.5px solid var(--border-strong);
-    border-top-color: var(--maple);
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
-    margin: 0 auto 1rem;
-  }
+  .filter-student-label { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--ink-mid); cursor: pointer; white-space: nowrap; min-height: 42px; }
+  .filter-student-label input[type="checkbox"] { accent-color: var(--maple); width: 16px; height: 16px; cursor: pointer; flex-shrink: 0; }
+  .result-count { font-size: 13px; color: var(--ink-light); margin-left: auto; white-space: nowrap; font-weight: 300; }
+  main { max-width: 960px; margin: 0 auto; padding: 1.5rem 2rem 4rem; }
+  .state-msg { text-align: center; padding: 4rem 2rem; color: var(--ink-light); font-size: 15px; }
+  .state-msg .icon { font-size: 36px; margin-bottom: 1rem; display: block; }
+  .spinner { width: 28px; height: 28px; border: 2.5px solid var(--border-strong); border-top-color: var(--maple); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 1rem; }
   @keyframes spin { to { transform: rotate(360deg); } }
-
-  /* ── JOB LIST ── */
-  .job-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  /* ── JOB CARD ── */
-  .job-card {
-    background: #fff;
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 1.25rem 1.5rem;
-    cursor: pointer;
-    transition: border-color 0.15s, box-shadow 0.15s;
-    animation: fadeUp 0.25s ease both;
-  }
-  .job-card:hover {
-    border-color: var(--border-strong);
-    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-  }
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(8px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-  .card-top {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 12px;
-    margin-bottom: 4px;
-  }
-  .card-title {
-    font-size: 16px;
-    font-weight: 500;
-    color: var(--ink);
-  }
-  .badge-new {
-    font-size: 11px;
-    font-weight: 500;
-    background: var(--forest-light);
-    color: var(--forest);
-    padding: 3px 9px;
-    border-radius: var(--radius-pill);
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-  .card-studio {
-    font-size: 13px;
-    color: var(--ink-light);
-    margin-bottom: 10px;
-  }
-  .card-pills {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-bottom: 10px;
-  }
-  .pill {
-    font-size: 12px;
-    padding: 3px 10px;
-    border-radius: var(--radius-pill);
-  }
-  .pill-loc  { background: var(--cream-dark); color: var(--ink-mid); }
+  .job-list { display: flex; flex-direction: column; gap: 10px; }
+  .job-card { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem 1.5rem; cursor: pointer; transition: border-color 0.15s, box-shadow 0.15s, transform 0.1s; animation: fadeUp 0.2s ease both; }
+  .job-card:hover { border-color: var(--border-strong); box-shadow: var(--shadow-md); transform: translateY(-1px); }
+  .job-card:focus { outline: 2px solid var(--maple); outline-offset: 2px; }
+  .job-card.is-featured { border-color: #F0D070; background: #FFFDF5; }
+  .job-card.is-featured:hover { border-color: #D4A800; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+  .card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 4px; }
+  .card-title { font-size: 16px; font-weight: 500; color: var(--ink); line-height: 1.4; }
+  .card-badges { display: flex; gap: 5px; align-items: center; flex-shrink: 0; }
+  .badge-new { font-size: 11px; font-weight: 500; background: var(--forest-light); color: var(--forest); padding: 3px 9px; border-radius: var(--radius-pill); white-space: nowrap; }
+  .badge-featured { font-size: 11px; font-weight: 500; background: #FFF3CD; color: #7A5200; padding: 3px 9px; border-radius: var(--radius-pill); white-space: nowrap; border: 1px solid #F0D070; }
+  .card-studio { font-size: 13px; color: var(--ink-light); margin-bottom: 10px; }
+  .card-pills { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 10px; }
+  .pill { font-size: 12px; padding: 4px 10px; border-radius: var(--radius-pill); line-height: 1.3; }
+  .pill-loc { background: var(--cream-dark); color: var(--ink-mid); }
   .pill-type { background: #EAF0FB; color: #2A4A8A; }
   .pill-remote { background: #EEEDFE; color: #4A3AAA; }
-  .pill-hybrid { background: #FFF0E8; color: #8A4A10; }
+  .pill-hybrid { background: #FFF0E8; color: #7A3A0A; }
   .pill-onsite { background: #EAF3EE; color: var(--forest); }
-  .card-desc {
-    font-size: 13px;
-    color: var(--ink-mid);
-    line-height: 1.55;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-  .card-footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 12px;
-    padding-top: 10px;
-    border-top: 1px solid var(--border);
-  }
-  .card-date {
-    font-size: 12px;
-    color: var(--ink-light);
-  }
-  .card-cta {
-    font-size: 13px;
-    color: var(--maple);
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-  }
-
-  /* ── DETAIL VIEW ── */
-  #detail-view {
-    display: none;
-  }
-  #detail-view.active {
-    display: block;
-  }
-  #board-view.hidden {
-    display: none;
-  }
-  .back-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13px;
-    color: var(--ink-mid);
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    margin-bottom: 1.5rem;
-    transition: color 0.1s;
-  }
-  .back-btn:hover { color: var(--ink); }
-  .detail-card {
-    background: #fff;
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 2rem;
-  }
-  .detail-header {
-    border-bottom: 1px solid var(--border);
-    padding-bottom: 1.25rem;
-    margin-bottom: 1.5rem;
-  }
-  .detail-title {
-    font-family: 'DM Serif Display', serif;
-    font-size: 26px;
-    color: var(--ink);
-    letter-spacing: -0.01em;
-    margin-bottom: 4px;
-  }
-  .detail-studio {
-    font-size: 15px;
-    color: var(--ink-mid);
-    margin-bottom: 12px;
-  }
-  .detail-pills {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-  }
-  .detail-section {
-    margin-bottom: 1.5rem;
-  }
-  .detail-label {
-    font-size: 11px;
-    font-weight: 500;
-    color: var(--ink-light);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    margin-bottom: 8px;
-  }
-  .detail-text {
-    font-size: 15px;
-    color: var(--ink);
-    line-height: 1.7;
-  }
-  .apply-block {
-    border-top: 1px solid var(--border);
-    padding-top: 1.5rem;
-    margin-top: 1.5rem;
-  }
-  .apply-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 15px;
-    font-weight: 500;
-    color: #fff;
-    background: var(--maple);
-    border: none;
-    border-radius: var(--radius-sm);
-    padding: 12px 28px;
-    cursor: pointer;
-    text-decoration: none;
-    transition: background 0.15s;
-  }
-  .apply-btn:hover { background: #A02820; }
-
-  /* ── FOOTER ── */
-  footer {
-    border-top: 1px solid var(--border);
-    padding: 1.5rem 2rem;
-    text-align: center;
-    font-size: 12px;
-    color: var(--ink-light);
-  }
-  footer a { color: var(--ink-mid); text-decoration: none; }
-  footer a:hover { color: var(--ink); }
-
-  /* ── RESPONSIVE ── */
-  @media (max-width: 600px) {
-    header, .hero, .controls-bar { padding-left: 1rem; padding-right: 1rem; }
-    main { padding: 1rem 1rem 3rem; }
-    .hero h1 { font-size: 1.75rem; }
-    .hero-stats { gap: 1.25rem; }
-    .controls-inner { gap: 8px; }
-    select { font-size: 12px; padding: 9px 8px; }
-    .detail-card { padding: 1.25rem; }
-  }
-
-  /* ── EMAIL SIGNUP ── */
-  .signup-section {
-    background: #fff;
-    border-bottom: 1px solid var(--border);
-    padding: 2.5rem 2rem;
-  }
-  .signup-inner {
-    max-width: 900px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 2rem;
-    flex-wrap: wrap;
-  }
-  .signup-text h2 {
-    font-family: 'DM Serif Display', serif;
-    font-size: 20px;
-    font-weight: 400;
-    color: var(--ink);
-    letter-spacing: -0.01em;
-    margin-bottom: 4px;
-  }
-  .signup-text p {
-    font-size: 13px;
-    color: var(--ink-light);
-  }
-  .signup-form {
-    display: flex;
-    gap: 8px;
-    flex: 1;
-    max-width: 420px;
-    min-width: 260px;
-  }
-  .signup-form input[type="email"] {
-    flex: 1;
-    padding: 10px 14px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    border: 1px solid var(--border-strong);
-    border-radius: var(--radius-sm);
-    background: var(--cream);
-    color: var(--ink);
-    outline: none;
-    transition: border-color 0.15s;
-  }
-  .signup-form input[type="email"]::placeholder { color: var(--ink-light); }
-  .signup-form input[type="email"]:focus { border-color: var(--maple); background: #fff; }
-  .signup-submit {
-    padding: 10px 20px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    color: #fff;
-    background: var(--maple);
-    border: none;
-    border-radius: var(--radius-sm);
-    cursor: pointer;
-    white-space: nowrap;
-    transition: background 0.15s;
-  }
-  .signup-submit:hover { background: #A02820; }
-  .signup-success {
-    display: none;
-    font-size: 14px;
-    color: var(--forest);
-    font-weight: 500;
-    align-items: center;
-    gap: 6px;
-  }
-  .signup-success.show { display: flex; }
-  @media (max-width: 600px) {
-    .signup-inner { flex-direction: column; gap: 1rem; }
-    .signup-form { max-width: 100%; width: 100%; }
-    .signup-section { padding: 1.75rem 1rem; }
-  }
-
-
-  .badge-featured {
-    font-size: 11px;
-    font-weight: 500;
-    background: #FFF3CD;
-    color: #7A5200;
-    padding: 3px 9px;
-    border-radius: var(--radius-pill);
-    white-space: nowrap;
-    border: 1px solid #F0D070;
-  }
-  .job-card.is-featured {
-    border-color: #F0D070;
-    background: #FFFDF5;
-  }
-  .job-card.is-featured:hover { border-color: #D4A800; }
   .pill-student { background: #E8F5E9; color: #2E6B35; }
   .pill-salary { background: #E8F5E9; color: #1B5E20; font-weight: 500; border: 1px solid #A5D6A7; }
-
-  /* ── ABOUT PAGE ── */
-  #about-view { display: none; }
-  #about-view.active { display: block; }
-  .about-content {
-    max-width: 680px;
-    margin: 0 auto;
-    padding: 3rem 2rem 4rem;
-  }
-  .about-content h1 {
-    font-family: 'DM Serif Display', serif;
-    font-size: 2rem;
-    letter-spacing: -0.02em;
-    color: var(--ink);
-    margin-bottom: 0.5rem;
-  }
+  .card-desc { font-size: 14px; color: var(--ink-mid); line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .card-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--border); }
+  .card-date { font-size: 12px; color: var(--ink-light); }
+  .card-cta { font-size: 13px; color: var(--maple); font-weight: 500; }
+  #detail-view { display: none; } #detail-view.active { display: block; }
+  #board-view.hidden { display: none; }
+  #about-view { display: none; } #about-view.active { display: block; }
+  .back-btn { display: inline-flex; align-items: center; gap: 6px; font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--ink-mid); background: none; border: 1px solid var(--border-strong); border-radius: var(--radius-sm); cursor: pointer; padding: 8px 14px; margin-bottom: 1.5rem; transition: background 0.1s; min-height: 40px; }
+  .back-btn:hover { background: var(--cream-dark); color: var(--ink); }
+  .detail-card { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; }
+  .detail-header { border-bottom: 1px solid var(--border); padding-bottom: 1.25rem; margin-bottom: 1.5rem; }
+  .detail-title { font-family: 'DM Serif Display', serif; font-size: 26px; color: var(--ink); letter-spacing: -0.01em; margin-bottom: 4px; line-height: 1.2; }
+  .detail-studio { font-size: 15px; color: var(--ink-mid); margin-bottom: 12px; }
+  .detail-pills { display: flex; flex-wrap: wrap; gap: 6px; }
+  .detail-section { margin-bottom: 1.5rem; }
+  .detail-label { font-size: 11px; font-weight: 500; color: var(--ink-light); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
+  .detail-text { font-size: 15px; color: var(--ink); line-height: 1.75; }
+  .apply-block { border-top: 1px solid var(--border); padding-top: 1.5rem; margin-top: 1.5rem; }
+  .apply-btn { display: inline-flex; align-items: center; gap: 8px; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 500; color: #fff; background: var(--maple); border: none; border-radius: var(--radius-sm); padding: 13px 28px; cursor: pointer; text-decoration: none; transition: background 0.15s, transform 0.1s; min-height: 48px; }
+  .apply-btn:hover { background: var(--maple-dark); transform: translateY(-1px); }
+  .about-content { max-width: 680px; margin: 0 auto; padding: 3rem 2rem 4rem; }
+  .about-content h1 { font-family: 'DM Serif Display', serif; font-size: 2.25rem; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 0.5rem; line-height: 1.15; }
   .about-content h1 em { color: var(--maple); font-style: italic; }
-  .about-content h2 {
-    font-family: 'DM Serif Display', serif;
-    font-size: 1.25rem;
-    color: var(--ink);
-    margin: 2rem 0 0.5rem;
-    font-weight: 400;
+  .about-content h2 { font-family: 'DM Serif Display', serif; font-size: 1.35rem; color: var(--ink); margin: 2.25rem 0 0.6rem; font-weight: 400; }
+  .about-content p { font-size: 16px; color: var(--ink-mid); line-height: 1.8; margin-bottom: 1rem; }
+  .about-content a { color: var(--maple); text-decoration: underline; text-underline-offset: 3px; }
+  .about-cta-box { background: #FAEAEA; border: 1px solid #F5C0BC; border-radius: var(--radius); padding: 1.5rem; margin-top: 2rem; }
+  .about-cta-box p { color: var(--ink); margin-bottom: 0.75rem; }
+  .about-cta-box p:last-child { margin-bottom: 0; }
+  footer { border-top: 1px solid var(--border); padding: 2rem; background: #fff; }
+  .footer-inner { max-width: 960px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+  .footer-brand { display: flex; align-items: center; gap: 8px; font-family: 'DM Serif Display', serif; font-size: 16px; color: var(--ink); }
+  .footer-brand span { color: var(--maple); }
+  .footer-links { display: flex; gap: 20px; flex-wrap: wrap; align-items: center; }
+  .footer-links a { font-size: 13px; color: var(--ink-light); text-decoration: none; transition: color 0.15s; }
+  .footer-links a:hover { color: var(--ink); }
+  .footer-links button { font-size: 13px; color: var(--ink-light); background: none; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; padding: 0; transition: color 0.15s; }
+  .footer-links button:hover { color: var(--ink); }
+  .footer-copy { font-size: 12px; color: var(--ink-light); width: 100%; padding-top: 1rem; border-top: 1px solid var(--border); margin-top: 0.5rem; }
+  .footer-copy a { color: var(--ink-light); text-decoration: none; }
+  .footer-copy a:hover { color: var(--ink); }
+  @media (max-width: 700px) {
+    header { padding: 0 1rem; }
+    .hero { padding: 2.5rem 1rem 2rem; }
+    .hero h1 { font-size: 2rem; }
+    .hero p { font-size: 15px; }
+    .hero-stats { gap: 1.5rem; }
+    .signup-section { padding: 1.5rem 1rem; }
+    .signup-inner { flex-direction: column; gap: 1rem; }
+    .signup-form { max-width: 100%; width: 100%; }
+    .controls-bar { padding: 0.75rem 1rem; }
+    select { font-size: 12px; padding: 9px 8px; min-height: 40px; }
+    main { padding: 1rem 1rem 3rem; }
+    .detail-card { padding: 1.25rem; }
+    .about-content { padding: 2rem 1rem 3rem; }
+    .footer-inner { flex-direction: column; align-items: flex-start; }
+    .hero-cta { flex-direction: column; }
+    .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
+    .nav-post-btn { display: none; }
   }
-  .about-content p {
-    font-size: 15px;
-    color: var(--ink-mid);
-    line-height: 1.8;
-    margin-bottom: 1rem;
-  }
-  .about-content a { color: var(--maple); }
-  .about-nav-link {
-    font-size: 13px;
-    color: var(--ink-mid);
-    text-decoration: none;
-    cursor: pointer;
-    padding: 4px 0;
-    border-bottom: 1px solid transparent;
-    transition: color 0.15s, border-color 0.15s;
-  }
-  .about-nav-link:hover { color: var(--ink); border-bottom-color: var(--border-strong); }
-  .about-nav-link.active-nav { color: var(--maple); font-weight: 500; }
-
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
-<header>
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<header role="banner">
   <div class="header-inner">
-    <a href="#" class="logo" onclick="showBoard()">
-      <svg class="logo-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <a href="#" class="logo" onclick="showBoard(); return false;" aria-label="MapleDevs — Canadian Game Industry Jobs">
+      <svg class="logo-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="MapleDevs maple leaf logo">
         <path d="M16 3C16 3 7 10 7 18C7 22.4 11.1 26 16 26C20.9 26 25 22.4 25 18C25 10 16 3 16 3Z" fill="#C8372D" opacity="0.15"/>
         <path d="M16 6C16 6 9 13 9 18C9 21.3 12.1 24 16 24C19.9 24 23 21.3 23 18C23 13 16 6 16 6Z" fill="#C8372D" opacity="0.4"/>
         <path d="M16 10C16 10 11 15 11 18C11 20.2 13.2 22 16 22C18.8 22 21 20.2 21 18C21 15 16 10 16 10Z" fill="#C8372D"/>
@@ -607,23 +190,24 @@
       </svg>
       <span class="logo-wordmark">Maple<span>Devs</span></span>
     </a>
-    <div class="header-meta" style="gap:16px;">
-      <a class="about-nav-link" id="about-link" onclick="showAbout()">About</a>
-      <span class="header-dot"></span>
-      Canadian game studios only
-    </div>
+    <nav class="header-nav" role="navigation" aria-label="Main navigation">
+      <button class="nav-link" id="about-link" onclick="showAbout()">About</button>
+      <a href="mailto:mapledevsbusiness@gmail.com" class="nav-post-btn">Post a Job</a>
+    </nav>
   </div>
 </header>
 
-<!-- BOARD VIEW -->
 <div id="board-view">
 
-  <!-- HERO -->
-  <section class="hero">
+  <section class="hero" aria-labelledby="hero-heading">
     <div class="hero-inner">
-      <h1>Game industry jobs,<br><em>actually in Canada.</em></h1>
-      <p>No US-only roles, no noise. Every listing is from a Canadian studio, updated weekly.</p>
-      <div class="hero-stats">
+      <h1 id="hero-heading">Game industry jobs,<br><em>actually in Canada.</em></h1>
+      <p>No US-only roles, no noise. Every listing is verified from a Canadian studio — updated weekly.</p>
+      <div class="hero-cta">
+        <a href="#main-content" class="btn-primary" onclick="document.getElementById('search').focus(); return false;">Browse open roles →</a>
+        <button class="btn-secondary" onclick="showAbout()">Learn more</button>
+      </div>
+      <div class="hero-stats" role="region" aria-label="Job board statistics">
         <div class="stat">
           <span class="stat-num" id="stat-jobs">—</span>
           <span class="stat-label">Open roles</span>
@@ -640,134 +224,119 @@
     </div>
   </section>
 
-
-  <!-- EMAIL SIGNUP -->
-  <section class="signup-section">
+  <section class="signup-section" aria-label="Weekly job digest signup">
     <div class="signup-inner">
       <div class="signup-text">
         <h2>Get new Canadian game dev jobs weekly</h2>
         <p>No spam. Just fresh listings from Canadian studios, every week.</p>
       </div>
-      <form class="signup-form" id="signup-form" action="https://formspree.io/f/mlgarqrr" method="POST">
-        <input type="email" name="email" placeholder="your@email.com" required autocomplete="email" />
+      <form class="signup-form" id="signup-form" action="https://formspree.io/f/mlgarqrr" method="POST" aria-label="Email signup">
+        <input type="email" name="email" placeholder="your@email.com" required autocomplete="email" aria-label="Your email address" />
         <button type="submit" class="signup-submit">Subscribe</button>
       </form>
-      <div class="signup-success" id="signup-success">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#2A5C45" stroke-width="1.5"/><path d="M5 8l2 2 4-4" stroke="#2A5C45" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <div class="signup-success" id="signup-success" role="status" aria-live="polite">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="7" stroke="#2A5C45" stroke-width="1.5"/><path d="M5 8l2 2 4-4" stroke="#2A5C45" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         You're on the list!
       </div>
     </div>
   </section>
 
-  <!-- CONTROLS -->
-  <div class="controls-bar">
+  <div class="controls-bar" role="search" aria-label="Search and filter jobs">
     <div class="controls-inner">
       <div class="search-wrap">
-        <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
           <circle cx="6.5" cy="6.5" r="4.5" stroke="currentColor" stroke-width="1.5"/>
           <line x1="9.8" y1="9.8" x2="13" y2="13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
         </svg>
-        <input type="text" id="search" placeholder="Search roles, studios…" oninput="render()" />
+        <input type="text" id="search" placeholder="Search roles, studios…" oninput="render()" aria-label="Search jobs" autocomplete="off" />
       </div>
-      <select id="filter-city" onchange="render()">
+      <select id="filter-city" onchange="render()" aria-label="Filter by city">
         <option value="">All cities</option>
       </select>
-      <select id="filter-type" onchange="render()">
+      <select id="filter-type" onchange="render()" aria-label="Filter by job type">
         <option value="">All types</option>
         <option>Full-time</option>
         <option>Part-time</option>
         <option>Contract</option>
         <option>Internship</option>
       </select>
-      <select id="filter-mode" onchange="render()">
+      <select id="filter-mode" onchange="render()" aria-label="Filter by work mode">
         <option value="">All work modes</option>
         <option>Remote</option>
         <option>Hybrid</option>
         <option>On-site</option>
       </select>
-      <label style="display:flex;align-items:center;gap:6px;font-size:13px;color:var(--ink-mid);cursor:pointer;white-space:nowrap;">
-        <input type="checkbox" id="filter-student" onchange="render()" style="accent-color:var(--maple);width:15px;height:15px;cursor:pointer;" />
+      <label class="filter-student-label">
+        <input type="checkbox" id="filter-student" onchange="render()" />
         Student-friendly
       </label>
-      <span class="result-count" id="result-count"></span>
+      <span class="result-count" id="result-count" aria-live="polite" aria-atomic="true"></span>
     </div>
   </div>
 
-  <!-- JOB LIST -->
-  <main>
-    <div id="job-list">
+  <main id="main-content" role="main">
+    <div id="job-list" aria-label="Job listings">
       <div class="state-msg">
-        <div class="spinner"></div>
+        <div class="spinner" aria-hidden="true"></div>
         Loading jobs…
       </div>
     </div>
   </main>
 
-</div><!-- /board-view -->
+</div>
 
-<!-- DETAIL VIEW -->
-<div id="detail-view">
+<div id="detail-view" role="main">
   <main>
-    <button class="back-btn" onclick="showBoard()">
-      ← Back to all jobs
-    </button>
+    <button class="back-btn" onclick="showBoard()" aria-label="Back to all jobs">← Back to all jobs</button>
     <div class="detail-card" id="detail-content"></div>
   </main>
 </div>
 
-
-<!-- ABOUT VIEW -->
-<div id="about-view">
+<div id="about-view" role="main">
   <div class="about-content">
-    <button class="back-btn" onclick="showBoard()" style="margin-bottom:1.5rem;">← Back to jobs</button>
+    <button class="back-btn" onclick="showBoard()">← Back to jobs</button>
     <h1>About <em>MapleDevs</em></h1>
     <p>MapleDevs is a job board built exclusively for the Canadian game industry. No US-only roles, no noise — just real opportunities at studios based in Canada.</p>
-
     <h2>Why we built this</h2>
     <p>If you've ever searched for game dev jobs in Canada, you know the frustration. Most job boards are flooded with US positions that Canadian candidates can't apply to. MapleDevs exists to fix that — every single listing on this board is from a studio operating in Canada.</p>
-
     <h2>Who it's for</h2>
     <p>Whether you're a student looking for your first internship, a seasoned developer considering relocation, or a Canadian game dev who just wants to stay local — MapleDevs is for you. We tag student-friendly roles so newcomers to the industry can find the right opportunities faster.</p>
-
     <h2>How it works</h2>
     <p>Listings are sourced directly from official studio career pages and verified before going live. We update the board regularly with new roles from studios across Vancouver, Montreal, Toronto, and beyond.</p>
-
-    <h2>Get in touch</h2>
-    <p>Want to list a job, report an issue, or just say hello? Email us at <a href="/cdn-cgi/l/email-protection#6f020e1f030a0b0a191c0d1a1c06010a1c1c2f08020e0603410c0002"><span class="__cf_email__" data-cfemail="cca1adbca0a9a8a9babfaeb9bfa5a2a9bfbf8caba1ada5a0e2afa3a1">[email&#160;protected]</span></a></p>
+    <h2>For studios</h2>
+    <p>Want to reach thousands of Canadian game dev job seekers? Get your roles in front of the right audience.</p>
+    <div class="about-cta-box">
+      <p><strong>Post a job on MapleDevs</strong></p>
+      <p>Email us at <a href="mailto:mapledevsbusiness@gmail.com">mapledevsbusiness@gmail.com</a> to get your roles listed. Free for now while we grow.</p>
+    </div>
   </div>
 </div>
 
-<!-- FOOTER -->
-<footer>
-  <p>
-    © 2025 MapleDevs &nbsp;·&nbsp;
-    <a href="/cdn-cgi/l/email-protection#a6cbc7d6cac3c2c3d0d5c4d3d5cfc8c3d5d5e6c1cbc7cfca88c5c9cb"><span class="__cf_email__" data-cfemail="abc6cadbc7cecfceddd8c9ded8c2c5ced8d8ebccc6cac2c785c8c4c6">[email&#160;protected]</span></a>
-    &nbsp;·&nbsp;
-    <a href="https://docs.google.com/document/d/e/2PACX-1vTEr1vsFI4lGMHlzZOP9E5A1sw2_jTSrvEDyZCSHowWJI70wrW62Xvw6m9hmQoyi0tzEcJA7FmucmvU/pub" target="_blank">Privacy &amp; Terms</a>
-  </p>
+<footer role="contentinfo">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <svg width="18" height="18" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <path d="M16 10C16 10 11 15 11 18C11 20.2 13.2 22 16 22C18.8 22 21 20.2 21 18C21 15 16 10 16 10Z" fill="#C8372D"/>
+        <line x1="16" y1="22" x2="16" y2="27" stroke="#C8372D" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      Maple<span>Devs</span>
+    </div>
+    <nav class="footer-links" aria-label="Footer links">
+      <button onclick="showAbout()">About</button>
+      <a href="mailto:mapledevsbusiness@gmail.com">Contact</a>
+      <a href="https://docs.google.com/document/d/e/2PACX-1vTEr1vsFI4lGMHlzZOP9E5A1sw2_jTSrvEDyZCSHowWJI70wrW62Xvw6m9hmQoyi0tzEcJA7FmucmvU/pub" target="_blank" rel="noopener">Privacy &amp; Terms</a>
+    </nav>
+    <p class="footer-copy">© 2026 MapleDevs · Canada's game industry job board · <a href="mailto:mapledevsbusiness@gmail.com">mapledevsbusiness@gmail.com</a></p>
+  </div>
 </footer>
 
 <script>
-// ─────────────────────────────────────────────
-//  CONFIGURATION — paste your Sheet ID below
-//  Your Sheet URL:
-//  https://docs.google.com/spreadsheets/d/e/2PACX-1vSkt2ROoihRVsL4f0m4dXZ1IzD7KYzEghgOwW7QPC2EN6sE4D_iI3stfllfdeq61coOrhdi47eeLmoY/pubhtml
-//
-//  Replace SHEET_ID with the long ID from your URL (between /d/e/ and /pubhtml)
-// ─────────────────────────────────────────────
 const SHEET_ID = "2PACX-1vSkt2ROoihRVsL4f0m4dXZ1IzD7KYzEghgOwW7QPC2EN6sE4D_iI3stfllfdeq61coOrhdi47eeLmoY";
-
-// Column mapping — adjust if your sheet columns are in a different order
-// Expected: Job Title | Studio Name | Location | Job Type | Description | How to Apply | Date Posted
 const COL = { title:0, studio:1, location:2, type:3, mode:4, desc:5, apply:6, posted:7, featured:8, student:9, salary:10 };
-// Note: if your sheet doesn't have a "Work Mode" column, set mode to -1 and we'll skip it.
-// Add Work Mode as column E (index 4) between Job Type and Description.
-
 let ALL_JOBS = [];
 
-// ─── FETCH FROM GOOGLE SHEETS ───
 async function loadJobs() {
-  const url = `https://docs.google.com/spreadsheets/d/e/${SHEET_ID}/pub?output=csv`;
+  const url = "https://docs.google.com/spreadsheets/d/e/" + SHEET_ID + "/pub?output=csv";
   try {
     const res = await fetch(url);
     if (!res.ok) throw new Error("Sheet not accessible");
@@ -777,19 +346,13 @@ async function loadJobs() {
     updateStats();
     render();
   } catch(e) {
-    document.getElementById("job-list").innerHTML = `
-      <div class="state-msg">
-        <span class="icon">⚠️</span>
-        Couldn't load jobs right now.<br>
-        <small style="margin-top:8px;display:block;">Make sure your Google Sheet is published to the web (File → Share → Publish to web → CSV).</small>
-      </div>`;
+    document.getElementById("job-list").innerHTML = '<div class="state-msg"><span class="icon">⚠️</span>Couldn\'t load jobs right now.<br><small style="margin-top:8px;display:block;">Make sure your Google Sheet is published to the web.</small></div>';
   }
 }
 
 function parseCSV(text) {
   const lines = text.trim().split("\n");
   const jobs = [];
-  // Skip header row (row 0)
   for (let i = 1; i < lines.length; i++) {
     const cols = parseCSVLine(lines[i]);
     if (!cols[COL.title] || !cols[COL.studio]) continue;
@@ -798,7 +361,7 @@ function parseCSV(text) {
       studio:   clean(cols[COL.studio]),
       location: clean(cols[COL.location] || ""),
       type:     clean(cols[COL.type] || ""),
-      mode:     COL.mode >= 0 ? clean(cols[COL.mode] || "") : "",
+      mode:     clean(cols[COL.mode] || ""),
       desc:     clean(cols[COL.desc] || ""),
       apply:    clean(cols[COL.apply] || ""),
       posted:   clean(cols[COL.posted] || ""),
@@ -825,16 +388,11 @@ function parseCSVLine(line) {
 
 function clean(s) { return s.replace(/^"|"$/g, "").trim(); }
 
-// ─── FILTERS ───
 function initFilters() {
   const cities = [...new Set(ALL_JOBS.map(j => j.location).filter(Boolean))].sort();
   const sel = document.getElementById("filter-city");
   sel.innerHTML = '<option value="">All cities</option>';
-  cities.forEach(c => {
-    const o = document.createElement("option");
-    o.value = c; o.textContent = c;
-    sel.appendChild(o);
-  });
+  cities.forEach(c => { const o = document.createElement("option"); o.value = c; o.textContent = c; sel.appendChild(o); });
 }
 
 function updateStats() {
@@ -859,161 +417,101 @@ function filteredJobs() {
   }).sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
 }
 
-// ─── RENDER ───
 function render() {
   const jobs = filteredJobs();
   const list = document.getElementById("job-list");
   const countEl = document.getElementById("result-count");
   countEl.textContent = jobs.length + " role" + (jobs.length !== 1 ? "s" : "");
-  if (jobs.length === 0) {
-    list.innerHTML = '<div class="state-msg"><span class="icon">🍁</span>No roles match your filters.</div>';
-    return;
-  }
+  if (jobs.length === 0) { list.innerHTML = '<div class="state-msg"><span class="icon">🍁</span>No roles match your filters.</div>'; return; }
   list.className = "job-list";
   list.innerHTML = jobs.map((j, idx) => cardHTML(j, ALL_JOBS.indexOf(j), idx)).join("");
 }
 
-function isNew(dateStr) {
-  if (!dateStr) return false;
-  const d = new Date(dateStr);
-  if (isNaN(d)) return false;
-  return (Date.now() - d) / 86400000 <= 4;
-}
+function isNew(d) { if (!d) return false; const dt = new Date(d); if (isNaN(dt)) return false; return (Date.now() - dt) / 86400000 <= 4; }
 
-function relDate(dateStr) {
-  if (!dateStr) return "";
-  const d = new Date(dateStr);
-  if (isNaN(d)) return dateStr;
-  const days = Math.floor((Date.now() - d) / 86400000);
+function relDate(d) {
+  if (!d) return "";
+  const dt = new Date(d);
+  if (isNaN(dt)) return d;
+  const days = Math.floor((Date.now() - dt) / 86400000);
   if (days === 0) return "Today";
   if (days === 1) return "1 day ago";
   if (days < 30) return days + " days ago";
-  return d.toLocaleDateString("en-CA", { month: "short", day: "numeric" });
+  return dt.toLocaleDateString("en-CA", { month: "short", day: "numeric" });
 }
 
-function modeClass(mode) {
-  if (!mode) return "";
-  const m = mode.toLowerCase();
-  if (m.includes("remote")) return "pill-remote";
-  if (m.includes("hybrid")) return "pill-hybrid";
+function modeClass(m) {
+  if (!m) return "";
+  const ml = m.toLowerCase();
+  if (ml.includes("remote")) return "pill-remote";
+  if (ml.includes("hybrid")) return "pill-hybrid";
   return "pill-onsite";
 }
 
-function cardHTML(j, realIdx, animIdx) {
-  return `
-  <div class="job-card" style="animation-delay:${animIdx * 40}ms" onclick="openDetail(${realIdx})">
-    <div class="card-top">
-      <span class="card-title">${esc(j.title)}</span>
-      <span style="display:flex;gap:6px;align-items:center;flex-shrink:0;">
-        ${j.featured ? '<span class="badge-featured">Featured</span>' : ''}
-        ${isNew(j.posted) ? '<span class="badge-new">New</span>' : ''}
-      </span>
-    </div>
-    <div class="card-studio">${esc(j.studio)}</div>
-    <div class="card-pills">
-      ${j.location ? `<span class="pill pill-loc">${esc(j.location)}</span>` : ''}
-      ${j.type ? `<span class="pill pill-type">${esc(j.type)}</span>` : ''}
-      ${j.mode ? `<span class="pill ${modeClass(j.mode)}">${esc(j.mode)}</span>` : ''}
-      ${j.student ? '<span class="pill pill-student">Student-friendly</span>' : ''}
-      ${j.salary ? '<span class="pill pill-salary">' + esc(j.salary) + '</span>' : ''}
-    </div>
-    ${j.desc ? `<div class="card-desc">${esc(j.desc)}</div>` : ''}
-    <div class="card-footer">
-      <span class="card-date">${relDate(j.posted)}</span>
-      <span class="card-cta">View &amp; apply →</span>
-    </div>
-  </div>`;
+function esc(s) {
+  return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
 }
 
-// ─── DETAIL ───
+function cardHTML(j, realIdx, animIdx) {
+  return '<div class="job-card' + (j.featured ? ' is-featured' : '') + '" style="animation-delay:' + (animIdx*30) + 'ms" onclick="openDetail(' + realIdx + ')" tabindex="0" role="article" onkeydown="if(event.key===\'Enter\')openDetail(' + realIdx + ')" aria-label="' + esc(j.title) + ' at ' + esc(j.studio) + '">'
+    + '<div class="card-top"><span class="card-title">' + esc(j.title) + '</span>'
+    + '<span class="card-badges">' + (j.featured ? '<span class="badge-featured">Featured</span>' : '') + (isNew(j.posted) ? '<span class="badge-new">New</span>' : '') + '</span></div>'
+    + '<div class="card-studio">' + esc(j.studio) + '</div>'
+    + '<div class="card-pills">'
+    + (j.location ? '<span class="pill pill-loc">' + esc(j.location) + '</span>' : '')
+    + (j.type ? '<span class="pill pill-type">' + esc(j.type) + '</span>' : '')
+    + (j.mode ? '<span class="pill ' + modeClass(j.mode) + '">' + esc(j.mode) + '</span>' : '')
+    + (j.student ? '<span class="pill pill-student">Student-friendly</span>' : '')
+    + (j.salary ? '<span class="pill pill-salary">' + esc(j.salary) + '</span>' : '')
+    + '</div>'
+    + (j.desc ? '<div class="card-desc">' + esc(j.desc) + '</div>' : '')
+    + '<div class="card-footer"><span class="card-date">' + relDate(j.posted) + '</span><span class="card-cta">View &amp; apply →</span></div>'
+    + '</div>';
+}
+
+function buildDetailHTML(j) {
+  const applySection = j.apply
+    ? '<div class="apply-block"><div class="detail-label" style="margin-bottom:12px;">How to apply</div>'
+      + (j.apply.startsWith("mailto:")
+        ? '<p class="detail-text" style="margin-bottom:1rem;">' + esc(j.apply.replace("mailto:","")) + '</p>'
+        : '<p class="detail-text" style="margin-bottom:1rem;"><a href="' + esc(j.apply) + '" target="_blank" rel="noopener" style="color:var(--maple);">View application page</a></p>')
+      + '<a class="apply-btn" href="' + esc(j.apply) + '" target="_blank" rel="noopener">Apply now →</a></div>'
+    : '';
+  return '<div class="detail-header"><div class="detail-title">' + esc(j.title) + '</div>'
+    + '<div class="detail-studio">' + esc(j.studio) + (j.posted ? ' &nbsp;·&nbsp; Posted ' + relDate(j.posted) : '') + '</div>'
+    + '<div class="detail-pills">'
+    + (j.location ? '<span class="pill pill-loc">' + esc(j.location) + '</span>' : '')
+    + (j.type ? '<span class="pill pill-type">' + esc(j.type) + '</span>' : '')
+    + (j.mode ? '<span class="pill ' + modeClass(j.mode) + '">' + esc(j.mode) + '</span>' : '')
+    + (j.student ? '<span class="pill pill-student">Student-friendly</span>' : '')
+    + (j.salary ? '<span class="pill pill-salary">' + esc(j.salary) + '</span>' : '')
+    + '</div></div>'
+    + (j.desc ? '<div class="detail-section"><div class="detail-label">About the role</div><div class="detail-text">' + esc(j.desc) + '</div></div>' : '')
+    + applySection;
+}
+
 function openDetail(idx) {
-  const j = ALL_JOBS[idx];
   history.pushState({ idx }, "", "#job-" + idx);
   document.getElementById("board-view").classList.add("hidden");
-  const dv = document.getElementById("detail-view");
-  dv.classList.add("active");
+  document.getElementById("detail-view").classList.add("active");
+  document.getElementById("about-view").classList.remove("active");
+  document.getElementById("detail-content").innerHTML = buildDetailHTML(ALL_JOBS[idx]);
   window.scrollTo(0, 0);
-
-  const applySection = j.apply
-    ? `<div class="apply-block">
-        <div class="detail-label" style="margin-bottom:12px;">How to apply</div>
-        ${j.apply.startsWith("mailto:")
-          ? `<p class="detail-text" style="margin-bottom:1rem;">${esc(j.apply.replace("mailto:",""))}</p>`
-          : `<p class="detail-text" style="margin-bottom:1rem;"><a href="${esc(j.apply)}" target="_blank" style="color:var(--maple);">${esc(j.apply)}</a></p>`
-        }
-        <a class="apply-btn" href="${esc(j.apply)}" target="_blank">Apply now →</a>
-      </div>`
-    : '';
-
-  document.getElementById("detail-content").innerHTML = `
-    <div class="detail-header">
-      <div class="detail-title">${esc(j.title)}</div>
-      <div class="detail-studio">${esc(j.studio)}${j.posted ? ' &nbsp;·&nbsp; Posted ' + relDate(j.posted) : ''}</div>
-      <div class="detail-pills">
-        ${j.location ? `<span class="pill pill-loc">${esc(j.location)}</span>` : ''}
-        ${j.type ? `<span class="pill pill-type">${esc(j.type)}</span>` : ''}
-        ${j.mode ? `<span class="pill ${modeClass(j.mode)}">${esc(j.mode)}</span>` : ''}
-        ${j.student ? '<span class="pill pill-student">Student-friendly</span>' : ''}
-      ${j.salary ? '<span class="pill pill-salary">' + esc(j.salary) + '</span>' : ''}
-      </div>
-    </div>
-    ${j.desc ? `
-    <div class="detail-section">
-      <div class="detail-label">About the role</div>
-      <div class="detail-text">${esc(j.desc)}</div>
-    </div>` : ''}
-    ${applySection}
-  `;
-}
-
-function renderDetailContent(idx) {
-  const j = ALL_JOBS[idx];
-  const applySection = j.apply
-    ? `<div class="apply-block">
-        <div class="detail-label" style="margin-bottom:12px;">How to apply</div>
-        ${j.apply.startsWith("mailto:")
-          ? `<p class="detail-text" style="margin-bottom:1rem;">${esc(j.apply.replace("mailto:",""))}</p>`
-          : `<p class="detail-text" style="margin-bottom:1rem;"><a href="${esc(j.apply)}" target="_blank" style="color:var(--maple);">View application page</a></p>`
-        }
-        <a class="apply-btn" href="${esc(j.apply)}" target="_blank">Apply now →</a>
-      </div>`
-    : '';
-  document.getElementById("detail-content").innerHTML = `
-    <div class="detail-header">
-      <div class="detail-title">${esc(j.title)}</div>
-      <div class="detail-studio">${esc(j.studio)}${j.posted ? ' &nbsp;·&nbsp; Posted ' + relDate(j.posted) : ''}</div>
-      <div class="detail-pills">
-        ${j.location ? `<span class="pill pill-loc">${esc(j.location)}</span>` : ''}
-        ${j.type ? `<span class="pill pill-type">${esc(j.type)}</span>` : ''}
-        ${j.mode ? `<span class="pill ${modeClass(j.mode)}">${esc(j.mode)}</span>` : ''}
-        ${j.student ? '<span class="pill pill-student">Student-friendly</span>' : ''}
-      ${j.salary ? '<span class="pill pill-salary">' + esc(j.salary) + '</span>' : ''}
-      </div>
-    </div>
-    ${j.desc ? `
-    <div class="detail-section">
-      <div class="detail-label">About the role</div>
-      <div class="detail-text">${esc(j.desc)}</div>
-    </div>` : ''}
-    ${applySection}
-  `;
 }
 
 window.addEventListener("popstate", function(e) {
   if (e.state && e.state.idx !== undefined) {
     document.getElementById("board-view").classList.add("hidden");
     document.getElementById("detail-view").classList.add("active");
-    window.scrollTo(0, 0);
-    renderDetailContent(e.state.idx);
-  } else {
-    document.getElementById("board-view").classList.remove("hidden");
-    document.getElementById("detail-view").classList.remove("active");
-    window.scrollTo(0, 0);
-  }
+    document.getElementById("about-view").classList.remove("active");
+    document.getElementById("detail-content").innerHTML = buildDetailHTML(ALL_JOBS[e.state.idx]);
+  } else { showBoardContent(); }
+  window.scrollTo(0, 0);
 });
 
-function showBoard() {
-  history.pushState(null, "", window.location.pathname);
+function showBoard() { history.pushState(null, "", window.location.pathname); showBoardContent(); }
+
+function showBoardContent() {
   document.getElementById("board-view").classList.remove("hidden");
   document.getElementById("detail-view").classList.remove("active");
   document.getElementById("about-view").classList.remove("active");
@@ -1030,16 +528,6 @@ function showAbout() {
   window.scrollTo(0, 0);
 }
 
-function esc(s) {
-  return String(s)
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;");
-}
-
-
-// ─── EMAIL SIGNUP ───
 const signupForm = document.getElementById('signup-form');
 if (signupForm) {
   signupForm.addEventListener('submit', async function(e) {
@@ -1048,22 +536,10 @@ if (signupForm) {
     btn.textContent = 'Sending...';
     btn.disabled = true;
     try {
-      const res = await fetch(signupForm.action, {
-        method: 'POST',
-        body: new FormData(signupForm),
-        headers: { 'Accept': 'application/json' }
-      });
-      if (res.ok) {
-        signupForm.style.display = 'none';
-        document.getElementById('signup-success').classList.add('show');
-      } else {
-        btn.textContent = 'Try again';
-        btn.disabled = false;
-      }
-    } catch(err) {
-      btn.textContent = 'Try again';
-      btn.disabled = false;
-    }
+      const res = await fetch(signupForm.action, { method: 'POST', body: new FormData(signupForm), headers: { 'Accept': 'application/json' } });
+      if (res.ok) { signupForm.style.display = 'none'; document.getElementById('signup-success').classList.add('show'); }
+      else { btn.textContent = 'Try again'; btn.disabled = false; }
+    } catch(err) { btn.textContent = 'Try again'; btn.disabled = false; }
   });
 }
 
