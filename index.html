@@ -464,6 +464,10 @@ footer { border-top: 1px solid var(--border); padding: 1.75rem 1.5rem; backgroun
       <button class="n-link" id="nav-studios" onclick="showStudios()">Studios</button>
       <button class="n-link" id="nav-about" onclick="showAbout()">About</button>
       <button class="n-link" id="nav-saved" onclick="showSaved()">Saved<span class="n-badge" id="sv-badge">0</span></button>
+      <a href="https://discord.gg/h9Uxpn5e" target="_blank" class="n-link" style="color:#5865F2; display:flex; align-items:center; gap:5px" aria-label="Join our Discord">
+        <svg width="14" height="14" viewBox="0 0 127.14 96.36" fill="currentColor"><path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a67.59,67.59,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.31,60,73.31,53s5-12.74,11.43-12.74S96.2,46,96.09,53,91.08,65.69,84.69,65.69Z"/></svg>
+        Discord
+      </a>
       <button class="post-job-nav" onclick="openPostModal()">Post a Job</button>
       <button class="theme-btn" id="theme-btn" aria-label="Toggle dark mode"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" id="theme-ic"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button>
     </nav>
@@ -566,11 +570,12 @@ footer { border-top: 1px solid var(--border); padding: 1.75rem 1.5rem; backgroun
   <section class="hero" aria-labelledby="hero-heading">
     <div class="hero-bg" id="hero-bg" aria-hidden="true"></div>
     <div class="hero-inner">
-      <div class="hero-tag"><span class="pulse"></span> Canada's #1 game industry job board</div>
-      <h1 id="hero-heading">Game industry jobs,<br><em>actually in Canada.</em></h1>
-      <p>No US-only roles, no noise. Every listing is verified from a Canadian studio — updated weekly.</p>
+      <div class="hero-tag"><span class="pulse"></span> 100% Verified Canadian Studios Only</div>
+      <h1 id="hero-heading">Find Verified Game Dev Jobs in Canada —<br><em>No US Listings.</em></h1>
+      <p>Student-friendly roles, salaries included, curated from real studios.</p>
       <div class="hero-cta">
         <a href="#main-content" class="btn-p" id="browse-btn">Browse open roles →</a>
+        <a href="https://discord.gg/h9Uxpn5e" target="_blank" rel="noopener" class="btn-s" style="color:#5865F2; border-color:rgba(88,101,242,0.5);">Join the Discord</a>
         <button class="btn-s" onclick="openPostModal()">Post a job — free</button>
       </div>
       <div class="hero-stats" role="region" aria-label="Statistics">
@@ -613,9 +618,11 @@ footer { border-top: 1px solid var(--border); padding: 1.75rem 1.5rem; backgroun
         <span class="s-key">/</span>
       </div>
       <select id="f-city" onchange="render()" aria-label="City"><option value="">All cities</option></select>
+      <select id="f-role" onchange="render()" aria-label="Role"><option value="">All roles</option><option value="programming">Programming & Tech</option><option value="art">Art & Animation</option><option value="design">Design</option><option value="qa">QA</option><option value="production">Production</option><option value="audio">Audio</option></select>
+      <select id="f-exp" onchange="render()" aria-label="Experience"><option value="">All levels</option><option value="junior">Junior / Entry</option><option value="mid">Mid-level</option><option value="senior">Senior</option><option value="lead">Lead / Director</option></select>
       <select id="f-type" onchange="render()" aria-label="Type"><option value="">All types</option><option>Full-time</option><option>Part-time</option><option>Contract</option><option>Internship</option></select>
       <select id="f-mode" onchange="render()" aria-label="Mode"><option value="">All modes</option><option>Remote</option><option>Hybrid</option><option>On-site</option></select>
-      <label class="stu-label"><input type="checkbox" id="f-student" onchange="render()"> Student-friendly</label>
+      <label class="stu-label" title="No experience required / accepts students"><input type="checkbox" id="f-student" onchange="render()"> Student-friendly</label>
       <span class="r-count" id="r-count" aria-live="polite"></span>
     </div>
     <div class="f-pills" id="f-pills"></div>
@@ -739,11 +746,11 @@ function injectJobSchema(jobs){const jld=jobs.map(j=>({"@context":"https://schem
 function buildTrusted(){const studios=[...new Set(ALL.map(j=>j.studio))].slice(0,12);const el=document.getElementById('trusted-logos');el.innerHTML=studios.map(s=>'<span class="trusted-name">'+esc(s)+'</span>').join('');}
 
 /* ═══════ URL FILTERS ═══════ */
-function applyHash(){const p=new URLSearchParams(location.hash.replace('#',''));if(p.get('city'))document.getElementById('f-city').value=p.get('city');if(p.get('type'))document.getElementById('f-type').value=p.get('type');if(p.get('mode'))document.getElementById('f-mode').value=p.get('mode');if(p.get('student')==='1')document.getElementById('f-student').checked=true;if(p.get('q'))document.getElementById('search').value=p.get('q');}
-function syncHash(){const p=new URLSearchParams(),q=document.getElementById('search').value,ci=document.getElementById('f-city').value,ty=document.getElementById('f-type').value,mo=document.getElementById('f-mode').value,st=document.getElementById('f-student').checked;if(q)p.set('q',q);if(ci)p.set('city',ci);if(ty)p.set('type',ty);if(mo)p.set('mode',mo);if(st)p.set('student','1');const h=p.toString();if(h)history.replaceState(null,'','#'+h);}
+function applyHash(){const p=new URLSearchParams(location.hash.replace('#',''));if(p.get('city'))document.getElementById('f-city').value=p.get('city');if(p.get('type'))document.getElementById('f-type').value=p.get('type');if(p.get('mode'))document.getElementById('f-mode').value=p.get('mode');if(p.get('role'))document.getElementById('f-role').value=p.get('role');if(p.get('exp'))document.getElementById('f-exp').value=p.get('exp');if(p.get('student')==='1')document.getElementById('f-student').checked=true;if(p.get('q'))document.getElementById('search').value=p.get('q');}
+function syncHash(){const p=new URLSearchParams(),q=document.getElementById('search').value,ci=document.getElementById('f-city').value,ty=document.getElementById('f-type').value,mo=document.getElementById('f-mode').value,ro=document.getElementById('f-role').value,ex=document.getElementById('f-exp').value,st=document.getElementById('f-student').checked;if(q)p.set('q',q);if(ci)p.set('city',ci);if(ty)p.set('type',ty);if(mo)p.set('mode',mo);if(ro)p.set('role',ro);if(ex)p.set('exp',ex);if(st)p.set('student','1');const h=p.toString();if(h)history.replaceState(null,'','#'+h);}
 
 /* ═══════ FILTER & RENDER ═══════ */
-function filtered(){const q=document.getElementById("search").value.toLowerCase(),ci=document.getElementById("f-city").value,ty=document.getElementById("f-type").value,mo=document.getElementById("f-mode").value,st=document.getElementById("f-student").checked;return ALL.filter(j=>{if(q&&!j.title.toLowerCase().includes(q)&&!j.studio.toLowerCase().includes(q)&&!j.desc.toLowerCase().includes(q)&&!j.location.toLowerCase().includes(q))return false;if(ci&&j.location!==ci)return false;if(ty&&j.type!==ty)return false;if(mo&&j.mode!==mo)return false;if(st&&!j.student)return false;return true;}).sort((a,b)=>(b.featured?1:0)-(a.featured?1:0));}
+function filtered(){const q=document.getElementById("search").value.toLowerCase(),ci=document.getElementById("f-city").value,ty=document.getElementById("f-type").value,mo=document.getElementById("f-mode").value,ro=document.getElementById("f-role").value,ex=document.getElementById("f-exp").value,st=document.getElementById("f-student").checked;return ALL.filter(j=>{const tl=j.title.toLowerCase();if(q&&!tl.includes(q)&&!j.studio.toLowerCase().includes(q)&&!j.desc.toLowerCase().includes(q)&&!j.location.toLowerCase().includes(q))return false;if(ci&&j.location!==ci)return false;if(ty&&j.type!==ty)return false;if(mo&&j.mode!==mo)return false;if(st&&!j.student)return false;if(ro){const r=ro==="programming"?/program|engineer|develop|tech|backend|frontend/i:ro==="art"?/art|animat|vfx|3d|2d|model/i:ro==="design"?/design|level/i:ro==="qa"?/qa|test|quality/i:ro==="production"?/produc|manage/i:ro==="audio"?/audio|sound|music/i:/.*/;if(!r.test(tl))return false;}if(ex){const e=ex==="junior"?/junior|jr|entry|associate|student|intern/i:ex==="mid"?/mid|intermediate|(?!senior)(?!lead)(?!junior)(?!entry)/i:ex==="senior"?/senior|sr|principal/i:ex==="lead"?/lead|director|head|vp/i:/.*/;if(ex==="mid"&&(/senior|lead|director|head|junior|entry|intern/i.test(tl)))return false;else if(ex!=="mid"&&!e.test(tl))return false;}return true;}).sort((a,b)=>(b.featured?1:0)-(a.featured?1:0));}
 
 function render(){dispCount=PER_PAGE;const jobs=filtered(),list=document.getElementById("job-list");document.getElementById("r-count").textContent=jobs.length+" role"+(jobs.length!==1?"s":"");updPills();syncHash();
 if(!jobs.length){list.innerHTML='<div class="state-msg"><span class="ic">🍁</span>No roles match your filters.<span class="sub">Try adjusting your search.</span></div>';return;}
@@ -752,17 +759,19 @@ if(jobs.length>dispCount)list.innerHTML+='<div class="load-wrap"><button class="
 
 function loadMore(){dispCount+=PER_PAGE;const jobs=filtered(),list=document.getElementById("job-list"),vis=jobs.slice(0,dispCount);list.className="job-list";list.innerHTML=vis.map((j,i)=>cardHTML(j,ALL.indexOf(j),i)).join("");if(jobs.length>dispCount)list.innerHTML+='<div class="load-wrap"><button class="load-btn" onclick="loadMore()">Show more ('+(jobs.length-dispCount)+' remaining)</button></div>';}
 
-function updPills(){const c=document.getElementById('f-pills'),q=document.getElementById('search').value,ci=document.getElementById('f-city').value,ty=document.getElementById('f-type').value,mo=document.getElementById('f-mode').value,st=document.getElementById('f-student').checked;let pills=[];
+function updPills(){const c=document.getElementById('f-pills'),q=document.getElementById('search').value,ci=document.getElementById('f-city').value,ty=document.getElementById('f-type').value,mo=document.getElementById('f-mode').value,ro=document.getElementById('f-role').value,ex=document.getElementById('f-exp').value,st=document.getElementById('f-student').checked;let pills=[];
 if(q)pills.push({l:'"'+q+'"',fn:()=>{document.getElementById('search').value='';render();}});
 if(ci)pills.push({l:ci,fn:()=>{document.getElementById('f-city').value='';render();}});
 if(ty)pills.push({l:ty,fn:()=>{document.getElementById('f-type').value='';render();}});
 if(mo)pills.push({l:mo,fn:()=>{document.getElementById('f-mode').value='';render();}});
+if(ro)pills.push({l:document.getElementById('f-role').options[document.getElementById('f-role').selectedIndex].text,fn:()=>{document.getElementById('f-role').value='';render();}});
+if(ex)pills.push({l:document.getElementById('f-exp').options[document.getElementById('f-exp').selectedIndex].text,fn:()=>{document.getElementById('f-exp').value='';render();}});
 if(st)pills.push({l:'Student-friendly',fn:()=>{document.getElementById('f-student').checked=false;render();}});
 if(!pills.length){c.innerHTML='';return;}
 c.innerHTML=pills.map((p,i)=>'<button class="f-pill" data-i="'+i+'">'+esc(p.l)+'<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><line x1="2" y1="2" x2="10" y2="10"/><line x1="10" y1="2" x2="2" y2="10"/></svg></button>').join('')+'<button class="f-clear" id="f-clr">Clear all</button>';
 pills.forEach((p,i)=>c.querySelector('[data-i="'+i+'"]').onclick=p.fn);
 document.getElementById('f-clr').onclick=clearAll;}
-function clearAll(){document.getElementById('search').value='';document.getElementById('f-city').value='';document.getElementById('f-type').value='';document.getElementById('f-mode').value='';document.getElementById('f-student').checked=false;render();}
+function clearAll(){document.getElementById('search').value='';document.getElementById('f-city').value='';document.getElementById('f-type').value='';document.getElementById('f-mode').value='';document.getElementById('f-role').value='';document.getElementById('f-exp').value='';document.getElementById('f-student').checked=false;render();}
 
 /* ═══════ HELPERS ═══════ */
 function isNew(d){if(!d)return false;const dt=new Date(d);return!isNaN(dt)&&(Date.now()-dt)/864e5<=4;}
@@ -774,12 +783,12 @@ function hl(text,q){if(!q)return esc(text);const e=esc(text),qe=esc(q);const rx=
 /* ═══════ CARD ═══════ */
 function cardHTML(j,ri,ai){const q=document.getElementById('search').value.toLowerCase(),sv=isSaved(j),dl=Math.min(ai*25,250);
 return '<div class="jc'+(j.featured?' feat':'')+'" style="animation-delay:'+dl+'ms" onclick="openDet('+ri+')" tabindex="0" role="article" onkeydown="if(event.key===\'Enter\')openDet('+ri+')" aria-label="'+esc(j.title)+' at '+esc(j.studio)+'">'
-+'<div class="jc-top"><span class="jc-title">'+hl(j.title,q)+'</span><div class="jc-acts"><span class="jc-badges">'+(j.featured?'<span class="b-feat">★ Featured</span>':'')+(isNew(j.posted)?'<span class="b-new">New</span>':'')+'</span>'
++'<div class="jc-top"><span class="jc-title">'+hl(j.title,q)+'</span><div class="jc-acts"><span class="jc-badges">'+(j.featured?'<span class="b-feat">★ Featured</span>':'')+(isNew(j.posted)?'<span class="b-new" style="background:var(--maple-glow); color:var(--maple); border:1px solid rgba(200,55,45,0.2);">New</span>':'')+'</span>'
 +'<button class="sv-btn'+(sv?' saved':'')+'" onclick="toggleSave(event,'+ri+')" aria-label="'+(sv?'Unsave':'Save')+'" title="'+(sv?'Saved':'Save')+'"><svg width="16" height="16" viewBox="0 0 24 24" fill="'+(sv?'currentColor':'none')+'" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button></div></div>'
 +'<div class="jc-studio">'+hl(j.studio,q)+'</div>'
-+'<div class="jc-pills">'+(j.location?'<span class="pill p-loc">'+esc(j.location)+'</span>':'')+(j.type?'<span class="pill p-type">'+esc(j.type)+'</span>':'')+(j.mode?'<span class="pill '+modeC(j.mode)+'">'+esc(j.mode)+'</span>':'')+(j.student?'<span class="pill p-stu">🎓 Student</span>':'')+(j.salary?'<span class="pill p-sal">💰 '+esc(j.salary)+'</span>':'')+'</div>'
++'<div class="jc-pills">'+(j.location?'<span class="pill p-loc">'+esc(j.location)+'</span>':'')+(j.type?'<span class="pill p-type">'+esc(j.type)+'</span>':'')+(j.mode?'<span class="pill '+modeC(j.mode)+'">'+esc(j.mode)+'</span>':'')+(j.student?'<span class="pill p-stu">🎓 Student</span>':'')+(j.salary?'<span class="pill p-sal" style="font-size:12px;">💰 '+esc(j.salary)+'</span>':'')+'</div>'
 +(j.desc?'<div class="jc-desc">'+hl(j.desc,q)+'</div>':'')
-+'<div class="jc-foot"><span class="jc-date">'+relDate(j.posted)+'</span><span class="jc-cta">View & apply →</span></div></div>';}
++'<div class="jc-foot"><span class="jc-date" style="font-weight:500; font-size:12px;">'+(j.posted?'Posted '+relDate(j.posted):'')+'</span><div style="display:flex; align-items:center; gap:12px;"><span class="jc-cta" style="font-weight:500;">Details</span>'+(j.apply?'<a href="'+esc(j.apply)+'" target="_blank" rel="noopener" class="btn-p" style="padding:6px 16px; font-size:12px; border-radius:100px; box-shadow:none; text-decoration:none;" onclick="event.stopPropagation()">Apply ↗</a>':'')+'</div></div></div>';}
 
 /* ═══════ DETAIL ═══════ */
 function detailHTML(j,idx){const sv=isSaved(j);
