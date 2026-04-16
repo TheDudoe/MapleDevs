@@ -6,15 +6,42 @@
 <title>MapleDevs — Canadian Game Industry Jobs | Find Jobs at Canadian Game Studios</title>
 <meta name="description" content="MapleDevs is Canada's #1 game industry job board. Browse verified jobs at Canadian game studios in Vancouver, Montreal, Toronto and beyond. No US-only roles, no noise." />
 <meta name="keywords" content="Canadian game jobs, game developer jobs Canada, game industry Canada, Vancouver game jobs, Montreal game studio jobs, Toronto game dev, Canadian game studios hiring" />
+<meta property="og:site_name" content="MapleDevs" />
 <meta property="og:title" content="MapleDevs — Canadian Game Industry Jobs" />
-<meta property="og:description" content="Find jobs at Canadian game studios. No US-only roles, no noise. Updated weekly." />
+<meta property="og:description" content="Canada's #1 game industry job board. Find jobs at Canadian game studios. No US-only roles, no noise." />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://mapledevs.ca" />
+<meta property="og:url" content="https://mapledevs.ca/" />
+<meta property="og:image" content="https://mapledevs.ca/og-image.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="MapleDevs — Canadian Game Industry Jobs" />
 <meta name="twitter:description" content="Canada's #1 game industry job board. Verified roles at real Canadian studios." />
-<meta name="robots" content="index, follow" />
-<link rel="canonical" href="https://mapledevs.ca" />
+<meta name="twitter:image" content="https://mapledevs.ca/og-image.png" />
+<meta name="theme-color" content="#C8372D" />
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+<link rel="canonical" href="https://mapledevs.ca/" />
+<link rel="alternate" hreflang="en-CA" href="https://mapledevs.ca/" />
+<link rel="alternate" hreflang="x-default" href="https://mapledevs.ca/" />
+
+<!-- Static Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "MapleDevs",
+  "url": "https://mapledevs.ca/",
+  "description": "Canada's #1 game industry job board.",
+  "publisher": {
+    "@type": "Organization",
+    "name": "MapleDevs",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://mapledevs.ca/og-image.png"
+    }
+  }
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
@@ -700,7 +727,7 @@ updBadge();
 /* ═══════ DATA ═══════ */
 async function loadJobs(){
   const url="https://docs.google.com/spreadsheets/d/e/"+SHEET_ID+"/pub?output=csv";
-  try{const r=await fetch(url);if(!r.ok)throw 0;const csv=await r.text();ALL=parseCSV(csv);initFilters();updateStats();applyHash();render();buildTrusted();}
+  try{const r=await fetch(url);if(!r.ok)throw 0;const csv=await r.text();ALL=parseCSV(csv);injectJobSchema(ALL);initFilters();updateStats();applyHash();render();buildTrusted();}
   catch(e){document.getElementById("job-list").innerHTML='<div class="state-msg"><span class="ic">⚠️</span>Couldn\'t load jobs.<span class="sub">Check the Google Sheet is published.</span></div>';}
 }
 function parseCSV(t){const ls=t.trim().split("\n"),jobs=[];for(let i=1;i<ls.length;i++){const c=csvLine(ls[i]);if(!c[COL.title]||!c[COL.studio])continue;jobs.push({title:cl(c[COL.title]),studio:cl(c[COL.studio]),location:cl(c[COL.location]||""),type:cl(c[COL.type]||""),mode:cl(c[COL.mode]||""),desc:cl(c[COL.desc]||""),apply:cl(c[COL.apply]||""),posted:cl(c[COL.posted]||""),featured:cl(c[COL.featured]||"").toLowerCase()==="yes",student:cl(c[COL.student]||"").toLowerCase()==="yes",salary:cl(c[COL.salary]||"")});}return jobs;}
@@ -708,6 +735,7 @@ function csvLine(l){const r=[];let c="",q=false;for(let i=0;i<l.length;i++){cons
 function cl(s){return s.replace(/^"|"$/g,"").trim();}
 function initFilters(){const cs=[...new Set(ALL.map(j=>j.location).filter(Boolean))].sort(),s=document.getElementById("f-city");s.innerHTML='<option value="">All cities</option>';cs.forEach(c=>{const o=document.createElement("option");o.value=c;o.textContent=c;s.appendChild(o);});}
 function updateStats(){const jc=ALL.length,sc=new Set(ALL.map(j=>j.studio)).size,cc=new Set(ALL.map(j=>j.location).filter(Boolean)).size;if(!statsAni){statsAni=true;animC(document.getElementById('s-jobs'),jc);animC(document.getElementById('s-studios'),sc);animC(document.getElementById('s-cities'),cc);}}
+function injectJobSchema(jobs){const jld=jobs.map(j=>({"@context":"https://schema.org/","@type":"JobPosting","title":j.title,"description":j.desc||"Opportunity at "+j.studio,"datePosted":j.posted?new Date(j.posted).toISOString():new Date().toISOString(),"validThrough":new Date(Date.now()+30*24*60*60*1000).toISOString(),"employmentType":j.type?j.type.toUpperCase().replace("-","_"):"FULL_TIME","hiringOrganization":{"@type":"Organization","name":j.studio,"logo":"https://mapledevs.ca/og-image.png"},"jobLocation":{"@type":"Place","address":{"@type":"PostalAddress","addressLocality":j.location||"Canada","addressCountry":"CA"}},"jobLocationType":(j.mode||"").toLowerCase().includes("remote")?"TELECOMMUTE":undefined,"applicantLocationRequirements":(j.mode||"").toLowerCase().includes("remote")?{"@type":"Country","name":"Canada"}:undefined}));const el=document.getElementById("job-schema-dynamic");if(el)el.remove();const s=document.createElement("script");s.id="job-schema-dynamic";s.type="application/ld+json";s.text=JSON.stringify(jld);document.head.appendChild(s);}
 function buildTrusted(){const studios=[...new Set(ALL.map(j=>j.studio))].slice(0,12);const el=document.getElementById('trusted-logos');el.innerHTML=studios.map(s=>'<span class="trusted-name">'+esc(s)+'</span>').join('');}
 
 /* ═══════ URL FILTERS ═══════ */
