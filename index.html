@@ -188,6 +188,26 @@ header::after { content: ''; position: absolute; bottom: -1px; left: 0; right: 0
 .trusted-logos { display: flex; gap: 2rem; align-items: center; overflow: hidden; flex: 1; mask-image: linear-gradient(90deg, transparent, black 3%, black 97%, transparent); }
 .trusted-name { font-size: 13px; font-weight: 600; color: var(--text-3); white-space: nowrap; opacity: 0.7; transition: opacity var(--dur); }
 .trusted-name:hover { opacity: 1; }
+/* ═══════ DISCOVERY HUBS ═══════ */
+.hubs-s { background: var(--bg-body); border-bottom: 1px solid var(--border); padding: 3rem 1.5rem; transition: background var(--dur); }
+.hubs-in { max-width: var(--max-w); margin: 0 auto; }
+.hubs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+.hub-group h3 { font-family: 'DM Serif Display', serif; font-size: 18px; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1.5rem; font-weight: 400; }
+.hub-links { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; }
+.hub-card { 
+  display: flex; flex-direction: column; padding: 12px 16px; 
+  background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r); 
+  text-decoration: none; transition: all 0.2s var(--ease);
+}
+.hub-card:hover { transform: translateY(-2px); border-color: var(--maple); box-shadow: var(--shadow-m); }
+.hub-card b { font-size: 14px; color: var(--text-1); line-height: 1.2; }
+.hub-card span { font-size: 11px; color: var(--text-3); font-weight: 500; margin-top: 2px; }
+
+@media (max-width: 768px) {
+  .hubs-s { padding: 2rem 1.5rem; }
+  .hubs-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .hub-links { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); }
+}
 
 /* ═══════ SIGNUP ═══════ */
 .signup-s { background: var(--bg-card); border-bottom: 1px solid var(--border); padding: 1.5rem; transition: background var(--dur); }
@@ -649,6 +669,40 @@ footer { border-top: 1px solid var(--border); padding: 1.75rem 1.5rem; backgroun
       <div class="trusted-logos" id="trusted-logos"></div>
     </div>
   </div>
+
+  <!-- ═══════ DISCOVERY HUBS ═══════ -->
+  <section class="hubs-s" aria-label="Regional and role hubs">
+    <div class="hubs-in">
+      <div class="hubs-grid">
+        <div class="hub-group">
+          <h3>Explore by City</h3>
+          <div class="hub-links">
+            <a href="/vancouver/" class="hub-card"><b>Vancouver</b><span>BC</span></a>
+            <a href="/montreal/" class="hub-card"><b>Montreal</b><span>QC</span></a>
+            <a href="/toronto/" class="hub-card"><b>Toronto</b><span>ON</span></a>
+            <a href="/calgary/" class="hub-card"><b>Calgary</b><span>AB</span></a>
+            <a href="/ottawa/" class="hub-card"><b>Ottawa</b><span>ON</span></a>
+            <a href="/edmonton/" class="hub-card"><b>Edmonton</b><span>AB</span></a>
+            <a href="/victoria/" class="hub-card"><b>Victoria</b><span>BC</span></a>
+            <a href="/london-ontario/" class="hub-card"><b>London</b><span>ON</span></a>
+          </div>
+        </div>
+        <div class="hub-group">
+          <h3>Explore by Role</h3>
+          <div class="hub-links">
+            <a href="/programming/" class="hub-card"><b>Programming</b><span>Tech</span></a>
+            <a href="/art-animation/" class="hub-card"><b>Art</b><span>Visuals</span></a>
+            <a href="/design/" class="hub-card"><b>Design</b><span>Creative</span></a>
+            <a href="/production/" class="hub-card"><b>Production</b><span>Mgmt</span></a>
+            <a href="/qa-testing/" class="hub-card"><b>QA</b><span>Testing</span></a>
+            <a href="/audio-sound/" class="hub-card"><b>Audio</b><span>Sound</span></a>
+            <a href="/internships/" class="hub-card"><b>Internships</b><span>Students</span></a>
+            <a href="/entry-level/" class="hub-card"><b>Entry Level</b><span>Junior</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <section class="signup-s" aria-label="Newsletter signup">
     <div class="signup-in">
