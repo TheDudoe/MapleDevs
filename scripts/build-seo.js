@@ -53,17 +53,12 @@ const SEO_TARGETS = [
 // Helper to inject SEO tags
 function injectSEO(html, target) {
     let output = html;
-
-    // Replace Title
     output = output.replace(/<title>.*?<\/title>/s, `<title>${target.title}</title>`);
-    
-    // Replace Meta Description
     output = output.replace(/<meta name="description" content=".*?">/s, `<meta name="description" content="${target.desc}">`);
     output = output.replace(/<meta property="og:title" content=".*?">/s, `<meta property="og:title" content="${target.title}">`);
     output = output.replace(/<meta property="og:description" content=".*?">/s, `<meta property="og:description" content="${target.desc}">`);
     output = output.replace(/<meta property="og:url" content=".*?">/s, `<meta property="og:url" content="https://mapledevs.ca/${target.folder}/">`);
 
-    // Add immediate hash redirect script at the top of <head> to lock the filter state!
     const redirectScript = `
     <script>
       if(window.location.hash === '') {
@@ -72,22 +67,37 @@ function injectSEO(html, target) {
     </script>
     `;
     output = output.replace('<head>', '<head>\n' + redirectScript);
-    
-    // Adjust relative pathings slightly if necessary, currently everything is absolute or root-relative in index.html like /og-image.png so it should be fine.
     return output;
 }
 
 console.log('Generating SEO Landing Pages...');
+
+let sitemapXML = `<?xml version="1.0" encoding="UTF-8"?>
+<!-- Heartbeat: ${new Date().toISOString()} -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://mapledevs.ca/</loc>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>`;
 
 for (const target of SEO_TARGETS) {
     const targetDir = path.join(ROOT_DIR, target.folder);
     if (!fs.existsSync(targetDir)) {
         fs.mkdirSync(targetDir);
     }
-
     const modifiedHTML = injectSEO(baseHTML, target);
     fs.writeFileSync(path.join(targetDir, 'index.html'), modifiedHTML);
+    sitemapXML += `
+  <url>
+    <loc>https://mapledevs.ca/${target.folder}/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>`;
     console.log(`✅ Generated /${target.folder}/index.html`);
 }
 
-console.log('Done! Push to GitHub to deploy these new SEO endpoints.');
+sitemapXML += `\n</urlset>`;
+fs.writeFileSync(path.join(ROOT_DIR, 'sitemap.xml'), sitemapXML);
+console.log('✅ Generated sitemap.xml');
+console.log('Done! Push to GitHub to deploy.');
