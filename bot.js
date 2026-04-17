@@ -10,7 +10,12 @@ const SHEET_ID = process.env.SHEET_ID || "2PACX-1vSkt2ROoihRVsL4f0m4dXZ1IzD7KYzE
 const DB_FILE = path.join(__dirname, 'tracked_jobs.json');
 
 const client = new Client({
-  intents: [GatewayIntentBits.Guilds]
+  intents: [
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.MessageContent,
+    GatewayIntentBits.GuildMembers
+  ]
 });
 
 let trackedJobs = [];
@@ -58,8 +63,12 @@ client.on('interactionCreate', async interaction => {
 
       const guild = interaction.guild;
       try {
-          const makeCategory = async (name, channels) => {
-              const cat = await guild.channels.create({ name, type: ChannelType.GuildCategory });
+          const makeCategory = async (name, channels, privateMode = false) => {
+              const opts = { name, type: ChannelType.GuildCategory };
+              if (privateMode) {
+                  opts.permissionOverwrites = [{ id: guild.id, deny: [PermissionFlagsBits.ViewChannel] }];
+              }
+              const cat = await guild.channels.create(opts);
               for (const ch of channels) {
                   await guild.channels.create({ name: ch, type: ChannelType.GuildText, parent: cat.id });
               }
@@ -70,6 +79,7 @@ client.on('interactionCreate', async interaction => {
           await makeCategory('💻 INDUSTRY DISCUSSIONS', ['programming-and-tech', 'art-and-animation', 'design-and-production', 'career-advice']);
           await makeCategory('🏢 JOBS & HIRING', ['mapledevs-feed', 'hiring', 'looking-for-work', 'student-and-internships']);
           await makeCategory('📍 LOCAL HUBS', ['bc-chat', 'ontario-chat', 'quebec-chat', 'other-provinces']);
+          await makeCategory('🛡️ MODERATION', ['mod-logs'], true);
 
           await interaction.followUp({ content: '✅ Structure created successfully!', ephemeral: true });
       } catch (err) {
@@ -166,6 +176,72 @@ async function broadcastJobs(jobs) {
         }
     }
 }
+
+// --- AUTO-MODERATOR & MONITORING --- //
+
+const PROFANITY_LIST = ['fuck', 'bitch', 'cunt', 'shit', 'spammer_word_example']; // Basic blocklist
+
+client.on('messageCreate', async message => {
+    if (message.author.bot) return;
+
+    // 1. Profanity & Spam Filter
+    const content = message.content.toLowerCase();
+    const hasProfanity = PROFANITY_LIST.some(word => content.includes(word));
+    
+    if (hasProfanity) {
+        try {
+            await message.delete();
+            await message.author.send("⚠️ Your message was deleted from MapleDevs for containing inappropriate language. Please keep it professional!");
+            
+            // Log to mod-logs
+            const modLog = message.guild.channels.cache.find(c => c.name === 'mod-logs');
+            if (modLog) {
+                const embed = new EmbedBuilder()
+                    .setTitle('🚨 Profanity Blocked')
+                    .setColor('#C8372D')
+                    .addFields(
+                        { name: 'User', value: `${message.author.tag} (${message.author.id})` },
+                        { name: 'Channel', value: `<#${message.channel.id}>` },
+                        { name: 'Content', value: message.content }
+                    )
+                    .setTimestamp();
+                await modLog.send({ embeds: [embed] });
+            }
+        } catch(e) { console.error("Could not delete message or send warning.", e); }
+    }
+});
+
+client.on('messageDelete', async message => {
+    if (message.author?.bot) return;
+
+    const modLog = message.guild.channels.cache.find(c => c.name === 'mod-logs');
+    if (modLog && message.content) {
+        const embed = new EmbedBuilder()
+            .setTitle('🗑️ Message Deleted')
+            .setColor('#E8C94A')
+            .addFields(
+                { name: 'User', value: `${message.author.tag}` },
+                { name: 'Channel', value: `<#${message.channel.id}>` },
+                { name: 'Original Content', value: message.content }
+            )
+            .setTimestamp();
+        await modLog.send({ embeds: [embed] });
+    }
+});
+
+client.on('guildMemberAdd', async member => {
+    const welcomeChannel = member.guild.channels.cache.find(c => c.name === 'introductions' || c.name === 'general');
+    const rulesChannel = member.guild.channels.cache.find(c => c.name === 'rules');
+    
+    if (welcomeChannel) {
+        welcomeChannel.send(`Welcome to MapleDevs, <@${member.id}>! 🍁 Please check out ${rulesChannel ? `<#${rulesChannel.id}>` : 'the rules'} and tell us a bit about what you do!`);
+    }
+
+    const modLog = member.guild.channels.cache.find(c => c.name === 'mod-logs');
+    if (modLog) {
+        modLog.send(`👋 New Member Joined: **${member.user.tag}** (${member.id})`);
+    }
+});
 
 // Log in
 if (process.env.DISCORD_TOKEN) {
