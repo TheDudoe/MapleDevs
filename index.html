@@ -557,7 +557,7 @@ footer { border-top: 1px solid var(--border); padding: 1.75rem 1.5rem; backgroun
     <div class="modal-hdr">
       <div>
         <h2 id="post-modal-title">Post a Job on MapleDevs</h2>
-        <p>Fill in the details below and we'll review & list your role.</p>
+        <p>Featured jobs ($99 CAD via e-Transfer) stay at the top for 30 days and get 5x more clicks.</p>
       </div>
       <button class="modal-close" onclick="closePostModal()" aria-label="Close">&times;</button>
     </div>
@@ -1066,10 +1066,10 @@ function submitPostForm(e){
     body:JSON.stringify(Object.fromEntries(data))
   }).then(r=>r.json()).then(d=>{
     if(d.success){
-      msg.className='form-msg show'; msg.innerHTML='✓ Submitted! We\'ll review and get back to you.';
-      toast('Job submitted for review!','📋');
+      msg.className='form-msg show'; 
+      msg.innerHTML='✓ <b>Submitted!</b> To feature this role ($99 CAD), please send an Interac e-Transfer to <b>mapledevsbusiness@gmail.com</b> with your job title in the notes. We will review and publish within 24 hours.';
+      toast('Job submitted! Email sent.','📋');
       form.reset();
-      setTimeout(closePostModal,2200);
     } else { throw 0; }
   }).catch(()=>{
     msg.className='form-msg show err'; msg.innerHTML='⚠ Error — try emailing mapledevsbusiness@gmail.com directly.';
