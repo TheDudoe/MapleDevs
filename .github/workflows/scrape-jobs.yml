@@ -1,0 +1,38 @@
+# MapleDevs — Automated Job Scraper
+# Runs daily to scrape Canadian game studio career pages and update your Google Sheet.
+# Jobs that are removed from studio websites are automatically removed from your sheet.
+
+name: Scrape Canadian Game Studio Jobs
+
+on:
+  # Run every day at 8:00 AM UTC (3:00 AM EST / 12:00 AM PST)
+  schedule:
+    - cron: '0 8 * * *'
+
+  # Allow manual trigger from GitHub Actions tab
+  workflow_dispatch:
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 🍁 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: 📥 Install dependencies
+        run: npm install googleapis google-auth-library
+        working-directory: scripts
+
+      - name: 🔍 Scrape jobs from studio career pages
+        env:
+          GOOGLE_SHEET_ID: ${{ secrets.GOOGLE_SHEET_ID }}
+          GOOGLE_SERVICE_ACCOUNT_EMAIL: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_EMAIL }}
+          GOOGLE_PRIVATE_KEY: ${{ secrets.GOOGLE_PRIVATE_KEY }}
+        run: node scrape-jobs.js
+        working-directory: scripts
