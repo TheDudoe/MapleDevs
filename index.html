@@ -445,6 +445,12 @@ footer { border-top: 1px solid var(--border); padding: 1.75rem 1.5rem; backgroun
   .theme-btn { width: 30px; height: 30px; }
   .stat-n { font-size: 26px; }
 }
+  .ft-discovery { border-top: 1px solid var(--border); padding: 3rem 1.5rem; background: var(--bg-body); }
+  .ft-disc-in { max-width: var(--max-w); margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; }
+  .ft-col h4 { font-size: 11px; font-weight: 700; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem; }
+  .ft-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+  .ft-col a { font-size: 13px; color: var(--text-2); text-decoration: none; transition: color 0.2s; }
+  .ft-col a:hover { color: var(--maple); }
 </style>
 
 <!-- Google Analytics -->
@@ -711,7 +717,54 @@ footer { border-top: 1px solid var(--border); padding: 1.75rem 1.5rem; backgroun
   <div id="sv-list" class="job-list"></div>
 </div></div>
 
-<footer role="contentinfo"><div class="ft-inner">
+<!-- ═══════ FOOTER ═══════ -->
+<footer role="contentinfo">
+  <section class="ft-discovery">
+    <div class="ft-disc-in">
+      <div class="ft-col">
+        <h4>Jobs by City</h4>
+        <ul>
+          <li><a href="/vancouver/">Vancouver Jobs</a></li>
+          <li><a href="/toronto/">Toronto Jobs</a></li>
+          <li><a href="/montreal/">Montreal Jobs</a></li>
+          <li><a href="/ottawa/">Ottawa Jobs</a></li>
+          <li><a href="/quebec-city/">Quebec City Jobs</a></li>
+          <li><a href="/calgary/">Calgary Jobs</a></li>
+          <li><a href="/halifax/">Halifax Jobs</a></li>
+        </ul>
+      </div>
+      <div class="ft-col">
+        <h4>Jobs by Role</h4>
+        <ul>
+          <li><a href="/programming/">Programming Jobs</a></li>
+          <li><a href="/art/">Artist Jobs</a></li>
+          <li><a href="/design/">Design Jobs</a></li>
+          <li><a href="/ui-ux/">UI/UX Jobs</a></li>
+          <li><a href="/producer/">Producer Jobs</a></li>
+          <li><a href="/qa/">QA & Testing Jobs</a></li>
+          <li><a href="/audio/">Audio Jobs</a></li>
+        </ul>
+      </div>
+      <div class="ft-col">
+        <h4>Categories</h4>
+        <ul>
+          <li><a href="/junior/">Junior Roles</a></li>
+          <li><a href="/remote/">Remote Jobs</a></li>
+          <li><a href="/internship/">Internships</a></li>
+          <li><a href="/#exp=senior">Senior Roles</a></li>
+        </ul>
+      </div>
+      <div class="ft-col">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="/about/">About MapleDevs</a></li>
+          <li><a href="#studios" onclick="showStudios()">Top Studios</a></li>
+          <li><a href="mailto:mapledevsbusiness@gmail.com">Partner with us</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+  <div class="ft-inner">
   <div class="ft-brand"><svg width="16" height="16" viewBox="0 0 32 32" fill="none"><path d="M16 2 L13.5 9.5 L6 8.5 L10.5 13.5 L8 21 L13.5 18.5 L13.5 24 L18.5 24 L18.5 18.5 L24 21 L21.5 13.5 L26 8.5 L18.5 9.5 Z" fill="#C8372D"/><rect x="15" y="24" width="2" height="4" rx="1" fill="#C8372D"/></svg> Maple<span>Devs</span></div>
   <nav class="ft-links"><button onclick="showStudios()">Studios</button><button onclick="showAbout()">About</button><button onclick="openPostModal()">Post a Job</button><a href="mailto:mapledevsbusiness@gmail.com">Contact</a><a href="https://docs.google.com/document/d/e/2PACX-1vTEr1vsFI4lGMHlzZOP9E5A1sw2_jTSrvEDyZCSHowWJI70wrW62Xvw6m9hmQoyi0tzEcJA7FmucmvU/pub" target="_blank" rel="noopener">Privacy</a></nav>
   <p class="ft-copy">© 2026 MapleDevs · Canada's game industry job board · <a href="mailto:mapledevsbusiness@gmail.com">mapledevsbusiness@gmail.com</a></p>
@@ -772,7 +825,28 @@ function injectJobSchema(jobs){const jld=jobs.map(j=>({"@context":"https://schem
 function buildTrusted(){const studios=[...new Set(ALL.map(j=>j.studio))].slice(0,12);const el=document.getElementById('trusted-logos');el.innerHTML=studios.map(s=>'<span class="trusted-name">'+esc(s)+'</span>').join('');}
 
 /* ═══════ URL FILTERS ═══════ */
-function applyHash(){const p=new URLSearchParams(location.hash.replace('#',''));if(p.get('city'))document.getElementById('f-city').value=p.get('city');if(p.get('type'))document.getElementById('f-type').value=p.get('type');if(p.get('mode'))document.getElementById('f-mode').value=p.get('mode');if(p.get('role'))document.getElementById('f-role').value=p.get('role');if(p.get('exp'))document.getElementById('f-exp').value=p.get('exp');if(p.get('student')==='1')document.getElementById('f-student').checked=true;if(p.get('q'))document.getElementById('search').value=p.get('q');}
+function applyHash(){
+  const h = location.hash.replace('#','');
+  if(h.startsWith('id=')){
+    const slug = h.replace('id=','');
+    const idx = ALL.findIndex(j => slugify(`${j.title}-${j.studio}-${j.location}`, {lower:true, strict:true}) === slug);
+    if(idx > -1) openDet(idx);
+    return;
+  }
+  if(h.startsWith('job-')){
+    const idx = parseInt(h.replace('job-',''));
+    if(!isNaN(idx)) openDet(idx);
+    return;
+  }
+  const p = new URLSearchParams(h);
+  if(p.get('city')) document.getElementById('f-city').value=p.get('city');
+  if(p.get('type')) document.getElementById('f-type').value=p.get('type');
+  if(p.get('mode')) document.getElementById('f-mode').value=p.get('mode');
+  if(p.get('role')) document.getElementById('f-role').value=p.get('role');
+  if(p.get('exp')) document.getElementById('f-exp').value=p.get('exp');
+  if(p.get('student')==='1') document.getElementById('f-student').checked=true;
+  if(p.get('q')) document.getElementById('search').value=p.get('q');
+}
 function syncHash(){const p=new URLSearchParams(),q=document.getElementById('search').value,ci=document.getElementById('f-city').value,ty=document.getElementById('f-type').value,mo=document.getElementById('f-mode').value,ro=document.getElementById('f-role').value,ex=document.getElementById('f-exp').value,st=document.getElementById('f-student').checked;if(q)p.set('q',q);if(ci)p.set('city',ci);if(ty)p.set('type',ty);if(mo)p.set('mode',mo);if(ro)p.set('role',ro);if(ex)p.set('exp',ex);if(st)p.set('student','1');const h=p.toString();if(h)history.replaceState(null,'','#'+h);}
 
 /* ═══════ FILTER & RENDER ═══════ */
