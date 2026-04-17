@@ -113,7 +113,13 @@ function parseCSV(t) {
     for(let i=1; i<ls.length; i++){
         const c = csvLine(ls[i]);
         if(!c[0] || !c[1]) continue;
-        jobs.push({ title: cl(c[0]), studio: cl(c[1]), location: cl(c[2]||""), desc: cl(c[5]||"") });
+        jobs.push({ 
+            title: cl(c[0]), 
+            studio: cl(c[1]), 
+            location: cl(c[2]||""), 
+            desc: cl(c[5]||""),
+            featured: cl(c[8]||"").toLowerCase() === "yes"
+        });
     }
     return jobs;
 }
