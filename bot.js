@@ -2,6 +2,14 @@ require('dotenv').config();
 const { Client, GatewayIntentBits, Partials, EmbedBuilder, REST, Routes, SlashCommandBuilder, PermissionFlagsBits, ChannelType } = require('discord.js');
 const fs = require('fs');
 const path = require('path');
+const http = require('http');
+
+// Dummy HTTP Server for Render Hosted Web Service health checks
+const PORT = process.env.PORT || 3000;
+http.createServer((req, res) => {
+    res.writeHead(200);
+    res.end('MapleDevs bot is online.');
+}).listen(PORT, () => console.log(`☁️ Cloud health-check server listening on port ${PORT}`));
 
 // Fallback for native fetch in older Node
 const fetch = (...args) => import('node-fetch').then(({default: _fetch}) => _fetch(...args)).catch(() => globalThis.fetch(...args));
