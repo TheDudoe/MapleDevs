@@ -9,7 +9,17 @@ if (!fs.existsSync(INDEX_PATH)) {
     process.exit(1);
 }
 
-const baseHTML = fs.readFileSync(INDEX_PATH, 'utf8');
+const baseHTML_raw = fs.readFileSync(INDEX_PATH, 'utf8');
+
+// NUCLEAR CLEANUP: Remove any rogue JSON text that might have leaked to the top of index.html
+let baseHTML = baseHTML_raw.trim();
+if (baseHTML.startsWith('{')) {
+    console.log('⚠️ Detected rogue JSON at top of index.html. Scrubbing...');
+    const docTypeIdx = baseHTML.toLowerCase().indexOf('<!doctype');
+    if (docTypeIdx !== -1) {
+        baseHTML = baseHTML.substring(docTypeIdx);
+    }
+}
 
 const SEO_TARGETS = [
     {
@@ -53,6 +63,7 @@ const SEO_TARGETS = [
 // Helper to inject SEO tags
 function injectSEO(html, target) {
     let output = html;
+
     output = output.replace(/<title>.*?<\/title>/s, `<title>${target.title}</title>`);
     output = output.replace(/<meta name="description" content=".*?">/s, `<meta name="description" content="${target.desc}">`);
     output = output.replace(/<meta property="og:title" content=".*?">/s, `<meta property="og:title" content="${target.title}">`);
@@ -86,18 +97,22 @@ for (const target of SEO_TARGETS) {
     if (!fs.existsSync(targetDir)) {
         fs.mkdirSync(targetDir);
     }
+
     const modifiedHTML = injectSEO(baseHTML, target);
     fs.writeFileSync(path.join(targetDir, 'index.html'), modifiedHTML);
+    
     sitemapXML += `
   <url>
     <loc>https://mapledevs.ca/${target.folder}/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>`;
+
     console.log(`✅ Generated /${target.folder}/index.html`);
 }
 
 sitemapXML += `\n</urlset>`;
 fs.writeFileSync(path.join(ROOT_DIR, 'sitemap.xml'), sitemapXML);
 console.log('✅ Generated sitemap.xml');
-console.log('Done! Push to GitHub to deploy.');
+
+console.log('Done! Push to GitHub to deploy these new SEO endpoints.');
