@@ -51,7 +51,12 @@ const SEO_TARGETS = [
     // --- L4: CATEGORIES ---
     { folder: 'junior', hash: '#exp=junior', title: 'Junior & Entry-Level Game Dev Jobs Canada - MapleDevs', desc: 'Break into the Canadian games industry. Browse verified entry-level and junior roles.' },
     { folder: 'remote', hash: '#mode=Remote', title: 'Remote Game Dev Jobs Canada | Work From Home - MapleDevs', desc: 'Find 100% remote game developer jobs at studios operating in Canada.' },
-    { folder: 'internship', hash: '#type=Internship', title: 'Game Development Internships Canada | Student Jobs - MapleDevs', desc: 'Find game dev internships, co-ops, and student roles at Canadian game studios.' }
+    { folder: 'internship', hash: '#type=Internship', title: 'Game Development Internships Canada | Student Jobs - MapleDevs', desc: 'Find game dev internships, co-ops, and student roles at Canadian game studios.' },
+
+    // --- L5: STATIC PAGES ---
+    { folder: 'about', hash: '#about', title: 'About MapleDevs | Canada\'s Game Industry Job Board', desc: 'Why we built MapleDevs and how we are helping Canadian game developers find local opportunities.' },
+    { folder: 'studios', hash: '#studios', title: 'Top Canadian Game Studios Hiring Now | MapleDevs', desc: 'Browse the directory of Canadian game studios currently hiring. Vancouver, Montreal, Toronto and more.' },
+    { folder: 'saved', hash: '#saved', title: 'Your Saved Jobs | MapleDevs', desc: 'Manage your bookmarked game industry opportunities in Canada.' }
 ];
 
 // Helper to safely replace tag content
