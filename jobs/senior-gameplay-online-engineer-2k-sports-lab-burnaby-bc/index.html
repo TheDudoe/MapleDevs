@@ -559,6 +559,11 @@ footer { border-top: 1px solid var(--border); padding: 1.75rem 1.5rem; backgroun
   .ft-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
   .ft-col a { font-size: 13px; color: var(--text-2); text-decoration: none; transition: color 0.2s; }
   .ft-col a:hover { color: var(--maple); }
+  .hub-highlights { background:var(--bg-2); border-left:4px solid var(--maple); padding:1.25rem; border-radius:0 8px 8px 0; margin-bottom:2rem; display:none; }
+  .hub-highlights h3 { margin-top:0; font-size:1rem; color:var(--maple); display:flex; align-items:center; gap:8px; }
+  .hub-highlights p { font-size:0.9rem; color:var(--text-2); margin-bottom:0; line-height:1.5; }
+  .hub-highlights .credit-link { color:var(--maple); text-decoration:none; font-weight:600; border-bottom:1px solid transparent; }
+  .hub-highlights .credit-link:hover { border-bottom-color:var(--maple); }
 </style>
 
 <!-- Google Analytics -->
@@ -596,7 +601,7 @@ footer { border-top: 1px solid var(--border); padding: 1.75rem 1.5rem; backgroun
     <div class="modal-hdr">
       <div>
         <h2 id="post-modal-title">Post a Job on MapleDevs</h2>
-        <p>Featured jobs ($99 CAD via e-Transfer) stay at the top for 30 days and get 5x more clicks.</p>
+        <p>Featured jobs (<b>$99 CAD</b>) stay at the top, get 5x more clicks, and help fund this community.</p>
       </div>
       <button class="modal-close" onclick="closePostModal()" aria-label="Close">&times;</button>
     </div>
@@ -651,6 +656,24 @@ footer { border-top: 1px solid var(--border); padding: 1.75rem 1.5rem; backgroun
         <div class="fg">
           <label>Salary Range <span style="color:var(--text-3)">(optional)</span></label>
           <input type="text" name="Salary Range" placeholder="e.g. $70K–$90K CAD">
+        </div>
+        <div class="fg">
+          <label>Game Engine <span style="color:var(--text-3)">(optional)</span></label>
+          <select name="Game Engine">
+            <option value="">Select Engine…</option>
+            <option>Unreal</option>
+            <option>Unity</option>
+            <option>Godot</option>
+            <option>Proprietary / C++</option>
+            <option>Other / N/A</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label>Visa Sponsorship?</label>
+          <select name="Visa Sponsorship">
+            <option value="No">No / Not for this role</option>
+            <option value="Yes">Yes (helping with relocation/LMIA)</option>
+          </select>
         </div>
         <div class="fg">
           <label>Student-Friendly?</label>
@@ -772,6 +795,8 @@ footer { border-top: 1px solid var(--border); padding: 1.75rem 1.5rem; backgroun
       <select id="f-exp" onchange="render()" aria-label="Experience"><option value="">All levels</option><option value="junior">Junior / Entry</option><option value="mid">Mid-level</option><option value="senior">Senior</option><option value="lead">Lead / Director</option></select>
       <select id="f-type" onchange="render()" aria-label="Type"><option value="">All types</option><option>Full-time</option><option>Part-time</option><option>Contract</option><option>Internship</option></select>
       <select id="f-mode" onchange="render()" aria-label="Mode"><option value="">All modes</option><option>Remote</option><option>Hybrid</option><option>On-site</option></select>
+      <select id="f-engine" onchange="render()" aria-label="Engine"><option value="">All Engines</option><option>Unreal</option><option>Unity</option><option>Godot</option><option>C++ / Proprietary</option></select>
+      <select id="f-visa" onchange="render()" aria-label="Visa"><option value="">Visa Support?</option><option value="yes">Yes</option><option value="no">No / Not Listed</option></select>
       <label class="stu-label" title="No experience required / accepts students"><input type="checkbox" id="f-student" onchange="render()"> Student-friendly</label>
       <button class="alert-btn" onclick="openAlertModal()" title="Get email alerts for this search">🔔 Alert me</button>
       <span class="r-count" id="r-count" aria-live="polite"></span>
@@ -808,6 +833,7 @@ footer { border-top: 1px solid var(--border); padding: 1.75rem 1.5rem; backgroun
   </section>
 
   <main id="main-content" role="main">
+    <div id="hub-highlights" class="hub-highlights"></div>
     <div id="job-list">
             <div class="jc " style="margin-bottom:1rem; border:1px solid #eee; padding:1rem; border-radius:8px;">
                 <div style="font-weight:700; font-size:1.1rem;">Senior Gameplay Online Engineer</div>
@@ -850,7 +876,8 @@ footer { border-top: 1px solid var(--border); padding: 1.75rem 1.5rem; backgroun
   <p>Want to reach thousands of Canadian game dev job seekers? Get your roles in front of the right audience.</p>
   <div class="about-cta">
     <p><strong>Post a job on MapleDevs</strong></p>
-    <p>Use our <a href="#" onclick="closeAllViews();openPostModal();return false;">job submission form</a> or email us at <a href="mailto:mapledevsbusiness@gmail.com">mapledevsbusiness@gmail.com</a>. Free for now while we grow.</p>
+    <p>Use our <a href="#" onclick="closeAllViews();openPostModal();return false;">job submission form</a> or contact us at <a href="mailto:mapledevsbusiness@gmail.com">mapledevsbusiness@gmail.com</a>.</p>
+    <p style="font-size:0.9rem; margin-top:1rem; color:var(--text-3)">Standard listings are <b>Free</b>. <br>Featured listings are <b>$99 CAD</b> (payable via Interac e-Transfer to <b>wupeiheng11@gmail.com</b>).</p>
   </div>
 </div></div>
 
@@ -923,7 +950,7 @@ footer { border-top: 1px solid var(--border); padding: 1.75rem 1.5rem; backgroun
   <div class="ft-inner">
   <div class="ft-brand"><svg width="16" height="16" viewBox="0 0 32 32" fill="none"><path d="M16 2 L13.5 9.5 L6 8.5 L10.5 13.5 L8 21 L13.5 18.5 L13.5 24 L18.5 24 L18.5 18.5 L24 21 L21.5 13.5 L26 8.5 L18.5 9.5 Z" fill="#C8372D"/><rect x="15" y="24" width="2" height="4" rx="1" fill="#C8372D"/></svg> Maple<span>Devs</span></div>
   <nav class="ft-links"><button onclick="showStudios()">Studios</button><button onclick="showAbout()">About</button><button onclick="openPostModal()">Post a Job</button><a href="mailto:mapledevsbusiness@gmail.com">Contact</a><a href="https://docs.google.com/document/d/e/2PACX-1vTEr1vsFI4lGMHlzZOP9E5A1sw2_jTSrvEDyZCSHowWJI70wrW62Xvw6m9hmQoyi0tzEcJA7FmucmvU/pub" target="_blank" rel="noopener">Privacy</a></nav>
-  <p class="ft-copy">© 2026 MapleDevs · Canada's game industry job board · <a href="mailto:wupeiheng11@gmail.com">wupeiheng11@gmail.com</a></p>
+  <p class="ft-copy">© 2026 MapleDevs · Canada's game industry job board · <a href="mailto:mapledevsbusiness@gmail.com">mapledevsbusiness@gmail.com</a></p>
 </div></footer>
 
 <script>
@@ -931,7 +958,7 @@ footer { border-top: 1px solid var(--border); padding: 1.75rem 1.5rem; backgroun
    CONFIG
    ═══════════════════════════════════════════════════ */
 const SHEET_ID = "2PACX-1vSkt2ROoihRVsL4f0m4dXZ1IzD7KYzEghgOwW7QPC2EN6sE4D_iI3stfllfdeq61coOrhdi47eeLmoY";
-const COL = {title:0,studio:1,location:2,type:3,mode:4,desc:5,apply:6,posted:7,featured:8,student:9,salary:10};
+const COL = {title:0,studio:1,location:2,type:3,mode:4,desc:5,apply:6,posted:7,featured:8,student:9,salary:10,engine:11,visa:12};
 const PER_PAGE = 20;
 let ALL = [], dispCount = PER_PAGE;
 let saved = JSON.parse(localStorage.getItem('md_saved')||'[]');
@@ -972,7 +999,7 @@ async function loadJobs(){
   try{const r=await fetch(url);if(!r.ok)throw 0;const csv=await r.text();ALL=parseCSV(csv);injectJobSchema(ALL);initFilters();updateStats();applyHash();render();buildTrusted();}
   catch(e){document.getElementById("job-list").innerHTML='<div class="state-msg"><span class="ic">⚠️</span>Couldn\'t load jobs.<span class="sub">Check the Google Sheet is published.</span></div>';}
 }
-function parseCSV(t){const ls=t.trim().split("\n"),jobs=[];for(let i=1;i<ls.length;i++){const c=csvLine(ls[i]);if(!c[COL.title]||!c[COL.studio])continue;jobs.push({title:cl(c[COL.title]),studio:cl(c[COL.studio]),location:cl(c[COL.location]||""),type:cl(c[COL.type]||""),mode:cl(c[COL.mode]||""),desc:cl(c[COL.desc]||""),apply:cl(c[COL.apply]||""),posted:cl(c[COL.posted]||""),featured:cl(c[COL.featured]||"").toLowerCase()==="yes",student:cl(c[COL.student]||"").toLowerCase()==="yes",salary:cl(c[COL.salary]||"")});}return jobs;}
+function parseCSV(t){const ls=t.trim().split("\n"),jobs=[];for(let i=1;i<ls.length;i++){const c=csvLine(ls[i]);if(!c[COL.title]||!c[COL.studio])continue;jobs.push({title:cl(c[COL.title]),studio:cl(c[COL.studio]),location:cl(c[COL.location]||""),type:cl(c[COL.type]||""),mode:cl(c[COL.mode]||""),desc:cl(c[COL.desc]||""),apply:cl(c[COL.apply]||""),posted:cl(c[COL.posted]||""),featured:cl(c[COL.featured]||"").toLowerCase()==="yes",student:cl(c[COL.student]||"").toLowerCase()==="yes",salary:cl(c[COL.salary]||""),engine:cl(c[COL.engine]||""),visa:cl(c[COL.visa]||"")});}return jobs;}
 function csvLine(l){const r=[];let c="",q=false;for(let i=0;i<l.length;i++){const ch=l[i];if(ch==='"')q=!q;else if(ch===','&&!q){r.push(c);c="";}else c+=ch;}r.push(c);return r;}
 function cl(s){return s.replace(/^"|"$/g,"").trim();}
 function initFilters(){const cs=[...new Set(ALL.map(j=>j.location).filter(Boolean))].sort(),s=document.getElementById("f-city");s.innerHTML='<option value="">All cities</option>';cs.forEach(c=>{const o=document.createElement("option");o.value=c;o.textContent=c;s.appendChild(o);});}
@@ -1012,12 +1039,14 @@ function applyHash(){
   setFilter('f-mode', p.get('mode'));
   setFilter('f-role', p.get('role'));
   setFilter('f-exp', p.get('exp'));
+  setFilter('f-engine', p.get('engine'));
+  setFilter('f-visa', p.get('visa'));
   
   if(p.get('student')==='1') document.getElementById('f-student').checked=true;
   if(p.get('q')) document.getElementById('search').value=p.get('q');
 }
 
-function syncHash(){const p=new URLSearchParams(),q=document.getElementById('search').value,ci=document.getElementById('f-city').value,ty=document.getElementById('f-type').value,mo=document.getElementById('f-mode').value,ro=document.getElementById('f-role').value,ex=document.getElementById('f-exp').value,st=document.getElementById('f-student').checked;if(q)p.set('q',q);if(ci)p.set('city',ci);if(ty)p.set('type',ty);if(mo)p.set('mode',mo);if(ro)p.set('role',ro);if(ex)p.set('exp',ex);if(st)p.set('student','1');const h=p.toString();if(h)history.replaceState(null,'','#'+h);}
+function syncHash(){const p=new URLSearchParams(),q=document.getElementById('search').value,ci=document.getElementById('f-city').value,ty=document.getElementById('f-type').value,mo=document.getElementById('f-mode').value,ro=document.getElementById('f-role').value,ex=document.getElementById('f-exp').value,en=document.getElementById('f-engine').value,vi=document.getElementById('f-visa').value,st=document.getElementById('f-student').checked;if(q)p.set('q',q);if(ci)p.set('city',ci);if(ty)p.set('type',ty);if(mo)p.set('mode',mo);if(ro)p.set('role',ro);if(ex)p.set('exp',ex);if(en)p.set('engine',en);if(vi)p.set('visa',vi);if(st)p.set('student','1');const h=p.toString();if(h)history.replaceState(null,'','#'+h);}
 
 /* ═══════ FILTER & RENDER ═══════ */
 function filtered(){
@@ -1027,6 +1056,8 @@ function filtered(){
         mo=document.getElementById("f-mode").value.toLowerCase(),
         ro=document.getElementById("f-role").value,
         ex=document.getElementById("f-exp").value,
+        en=document.getElementById("f-engine").value.toLowerCase(),
+        vi=document.getElementById("f-visa").value.toLowerCase(),
         st=document.getElementById("f-student").checked;
 
   return ALL.filter(j=>{
@@ -1040,6 +1071,8 @@ function filtered(){
     if(ty && j.type.toLowerCase()!==ty) return false;
     if(mo && j.mode.toLowerCase()!==mo) return false;
     if(st && !j.student) return false;
+    if(en && (j.engine||"").toLowerCase()!==en) return false;
+    if(vi && (j.visa||"").toLowerCase()!==vi) return false;
 
     if(ro){
       const r=ro==="programming"?/program|engineer|develop|tech|backend|frontend/i:ro==="art"?/art|animat|vfx|3d|2d|model/i:ro==="design"?/design|level/i:ro==="qa"?/qa|test|quality/i:ro==="production"?/produc|manage/i:ro==="audio"?/audio|sound|music/i:/.*/;
@@ -1096,6 +1129,8 @@ function render(){
   list.className="job-list";
   list.innerHTML=vis.map((j,i)=>cardHTML(j,ALL.indexOf(j),i)).join("");
   
+  updateHubHighlights();
+  
   if(combined.length>dispCount) {
     list.innerHTML+='<div class="load-wrap"><button class="load-btn" onclick="loadMore()">Show more ('+(combined.length-dispCount)+' remaining)</button></div>';
   }
@@ -1122,12 +1157,14 @@ if(ty)pills.push({l:ty,fn:()=>{document.getElementById('f-type').value='';render
 if(mo)pills.push({l:mo,fn:()=>{document.getElementById('f-mode').value='';render();}});
 if(ro)pills.push({l:document.getElementById('f-role').options[document.getElementById('f-role').selectedIndex].text,fn:()=>{document.getElementById('f-role').value='';render();}});
 if(ex)pills.push({l:document.getElementById('f-exp').options[document.getElementById('f-exp').selectedIndex].text,fn:()=>{document.getElementById('f-exp').value='';render();}});
+if(en)pills.push({l:document.getElementById('f-engine').options[document.getElementById('f-engine').selectedIndex].text,fn:()=>{document.getElementById('f-engine').value='';render();}});
+if(vi)pills.push({l:document.getElementById('f-visa').value==='yes'?'Visa Support':'No Visa',fn:()=>{document.getElementById('f-visa').value='';render();}});
 if(st)pills.push({l:'Student-friendly',fn:()=>{document.getElementById('f-student').checked=false;render();}});
 if(!pills.length){c.innerHTML='';return;}
 c.innerHTML=pills.map((p,i)=>'<button class="f-pill" data-i="'+i+'">'+esc(p.l)+'<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><line x1="2" y1="2" x2="10" y2="10"/><line x1="10" y1="2" x2="2" y2="10"/></svg></button>').join('')+'<button class="f-clear" id="f-clr">Clear all</button>';
 pills.forEach((p,i)=>c.querySelector('[data-i="'+i+'"]').onclick=p.fn);
 document.getElementById('f-clr').onclick=clearAll;}
-function clearAll(){document.getElementById('search').value='';document.getElementById('f-city').value='';document.getElementById('f-type').value='';document.getElementById('f-mode').value='';document.getElementById('f-role').value='';document.getElementById('f-exp').value='';document.getElementById('f-student').checked=false;render();}
+function clearAll(){document.getElementById('search').value='';document.getElementById('f-city').value='';document.getElementById('f-type').value='';document.getElementById('f-mode').value='';document.getElementById('f-role').value='';document.getElementById('f-exp').value='';document.getElementById('f-engine').value='';document.getElementById('f-visa').value='';document.getElementById('f-student').checked=false;render();}
 
 /* ═══════ HELPERS ═══════ */
 function isNew(d){if(!d)return false;const dt=new Date(d);return!isNaN(dt)&&(Date.now()-dt)/864e5<=4;}
@@ -1162,6 +1199,8 @@ function cardHTML(j,ri,ai){
       ${j.mode ? `<span class="pill ${modeC(j.mode)}">${esc(j.mode)}</span>` : ''}
       ${j.student ? `<span class="pill p-stu">🎓 Student-friendly</span>` : ''}
       ${j.salary ? `<span class="pill p-sal">💰 ${esc(j.salary)}</span>` : ''}
+      ${j.engine ? `<span class="pill" style="background:var(--bg-subtle); color:var(--text-1); border:1px solid var(--border)">🎮 ${esc(j.engine)}</span>` : ''}
+      ${j.visa && j.visa.toLowerCase()==='yes' ? `<span class="pill" style="background:var(--maple-glow); color:var(--maple); border:1px solid var(--maple)">🍁 Visa/Relo</span>` : ''}
     </div>
     
     ${j.desc ? `<div class="jc-desc">${hl(j.desc,q)}</div>` : ''}
@@ -1221,6 +1260,39 @@ function openStudioProfile(n){
   trackView(n + ' | MapleDevs');
 }
 
+function updateHubHighlights(){
+  const ci = document.getElementById('f-city').value;
+  const el = document.getElementById('hub-highlights');
+  if(!ci) { el.style.display = 'none'; return; }
+  
+  const h = {
+    'Montreal': { 
+      t: 'Montreal Studio Insights', 
+      p: 'Montreal is a global gamedev powerhouse. Studios here benefit from the <b>MDEC (Multimedia Tax Credit)</b>, which covers up to 37.5% of labor costs. This drives high salaries and job stability.'
+    },
+    'Quebec City': { 
+      t: 'Quebec City Gamedev', 
+      p: 'A tight-knit community with giants like Ubisoft and Beenox. Similar to Montreal, the <b>MDEC tax credit</b> makes this a primary hub for AAA development.'
+    },
+    'Vancouver': { 
+      t: 'Vancouver Studio Insights', 
+      p: 'Canada\'s original gamedev hub. Studios utilize the <b>IDMTC (Interactive Digital Media Tax Credit)</b>, making BC a top destination for both AAA and thriving indie teams.'
+    },
+    'Toronto': { 
+      t: 'Toronto & GTA Gaming', 
+      p: 'Home to a massive indie scene and growing AAA presence. The <b>OIDMTC</b> provides significant incentives for studios throughout Ontario.'
+    }
+  };
+  
+  const match = Object.keys(h).find(k => ci.includes(k));
+  if(match) {
+    el.innerHTML = `<h3><span class="ic">🍁</span> ${h[match].t}</h3><p>${h[match].p}</p>`;
+    el.style.display = 'block';
+  } else {
+    el.style.display = 'none';
+  }
+}
+
 
 /* ═══════ SAVED VIEW ═══════ */
 function showSaved(){history.pushState({v:'saved'},"","#saved");hideAll();document.getElementById("saved-view").classList.add("on");clearNav();document.getElementById("nav-saved").classList.add("active");renderSaved();window.scrollTo(0,0);trackView('Saved Jobs | MapleDevs');}
@@ -1270,7 +1342,7 @@ function submitPostForm(e){
   msg.className='form-msg'; msg.style.display='none';
 
   const data=new FormData(form);
-  fetch('https://formsubmit.co/ajax/wupeiheng11@gmail.com',{
+  fetch('https://formsubmit.co/ajax/mapledevsbusiness@gmail.com',{
     method:'POST',
     headers:{'Content-Type':'application/json','Accept':'application/json'},
     body:JSON.stringify(Object.fromEntries(data))
@@ -1282,7 +1354,7 @@ function submitPostForm(e){
       form.reset();
     } else { throw 0; }
   }).catch(()=>{
-    msg.className='form-msg show err'; msg.innerHTML='⚠ Error — try emailing wupeiheng11@gmail.com directly.';
+    msg.className='form-msg show err'; msg.innerHTML='⚠ Error — try emailing mapledevsbusiness@gmail.com directly.';
   }).finally(()=>{
     btn.disabled=false; btn.textContent='Submit for Review →';
   });
