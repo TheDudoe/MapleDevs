@@ -276,41 +276,78 @@ main { max-width: var(--max-w); margin: 0 auto; padding: 1.25rem 1.5rem 4rem; }
 .jc:hover { border-color: transparent; box-shadow: var(--shadow-l); transform: translateY(-2px); }
 .jc:hover::before { opacity: 0.1; }
 .jc:focus { outline: 2px solid var(--maple); outline-offset: 2px; }
-.jc.feat { border-color: var(--gold); background: linear-gradient(135deg, var(--bg-card) 0%, rgba(255,248,220,0.25) 100%); }
-[data-theme="dark"] .jc.feat { border-color: rgba(232,201,74,0.25); background: linear-gradient(135deg, var(--bg-card) 0%, rgba(60,50,10,0.12) 100%); }
-.jc.feat::before { background: linear-gradient(135deg, #E8C94A 0%, #F0D86E 100%); }
-@keyframes fadeUp { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
-.jc-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 4px; }
-.jc-title { font-size: 15px; font-weight: 600; color: var(--text-1); line-height: 1.35; }
-.jc-acts { display: flex; gap: 3px; align-items: center; flex-shrink: 0; }
-.jc-badges { display: flex; gap: 4px; align-items: center; }
-.b-new { font-size: 10px; font-weight: 700; background: var(--forest-light); color: var(--forest); padding: 2px 8px; border-radius: var(--r-pill); white-space: nowrap; }
-[data-theme="dark"] .b-new { background: rgba(42,92,69,0.2); color: var(--forest-mid); }
-.b-feat { font-size: 10px; font-weight: 700; background: #FFF3CD; color: #7A5200; padding: 2px 8px; border-radius: var(--r-pill); white-space: nowrap; border: 1px solid var(--gold); }
-[data-theme="dark"] .b-feat { background: rgba(60,50,10,0.25); color: var(--gold); border-color: rgba(232,201,74,0.25); }
-.sv-btn { width: 30px; height: 30px; border: none; background: none; cursor: pointer; padding: 0; display: flex; align-items: center; justify-content: center; border-radius: var(--r-s); transition: all var(--dur); color: var(--text-3); }
-.sv-btn:hover { color: var(--maple); background: var(--maple-glow); }
-.sv-btn.saved { color: var(--maple); }
-.jc-studio { font-size: 12px; color: var(--text-3); margin-bottom: 8px; }
-.jc-pills { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 8px; }
-.pill { font-size: 11px; padding: 3px 9px; border-radius: var(--r-pill); line-height: 1.3; font-weight: 500; }
-.p-loc { background: var(--bg-subtle); color: var(--text-2); }
-.p-type { background: #EAF0FB; color: #2A4A8A; }
-[data-theme="dark"] .p-type { background: rgba(42,74,138,0.12); color: #7DA3E0; }
-.p-remote { background: #EEEDFE; color: #4A3AAA; }
-[data-theme="dark"] .p-remote { background: rgba(74,58,170,0.12); color: #9B8CE0; }
-.p-hybrid { background: #FFF0E8; color: #7A3A0A; }
-[data-theme="dark"] .p-hybrid { background: rgba(122,58,10,0.12); color: #D4874A; }
+.jc.feat { border-color: var(--gold); border-width: 1px; }
+[data-theme="dark"] .jc.feat { border-color: rgba(232,201,74,0.3); }
+.jc.feat::before { background: var(--gold); opacity: 0.03; }
+.jc.feat:hover::before { opacity: 0.08; }
+
+@keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+.jc-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 6px; }
+.jc-title-grp { flex: 1; }
+.jc-title { font-size: 1.05rem; font-weight: 750; color: var(--text-1); line-height: 1.3; margin-bottom: 2px; }
+.jc-acts { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+.jc-badges { display: flex; gap: 4px; margin-bottom: 8px; }
+
+.b-new { font-size: 10px; font-weight: 700; background: var(--maple-glow); color: var(--maple); padding: 3px 10px; border-radius: 4px; border: 1px solid rgba(200,55,45,0.1); }
+.b-feat { font-size: 10px; font-weight: 700; background: rgba(232,201,74,0.1); color: var(--gold); padding: 3px 10px; border-radius: 4px; border: 1px solid rgba(232,201,74,0.2); }
+
+.sv-btn { width: 32px; height: 32px; border-radius: 6px; border: 1px solid var(--border); background: var(--bg-card); color: var(--text-3); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; }
+.sv-btn:hover { background: var(--bg-subtle); color: var(--maple); border-color: var(--maple); }
+.sv-btn.saved { background: var(--maple-glow); color: var(--maple); border-color: var(--maple); }
+
+.jc-studio { font-size: 14px; font-weight: 600; color: var(--text-2); margin-bottom: 14px; }
+.jc-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+
+.pill { 
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 4px 10px; border-radius: 6px; font-size: 11.5px; font-weight: 600; 
+  background: var(--bg-subtle); color: var(--text-2); border: 1px solid var(--border);
+}
+
+.p-loc { background: var(--bg-subtle); }
+.p-type { background: rgba(66,133,244,0.08); color: #4285F4; border-color: rgba(66,133,244,0.15); }
+.p-remote { background: rgba(52,168,83,0.08); color: #34A853; border-color: rgba(52,168,83,0.15); }
+.p-hybrid { background: rgba(251,188,4,0.08); color: #FBBC04; border-color: rgba(251,188,4,0.15); }
 .p-onsite { background: var(--forest-light); color: var(--forest); }
-[data-theme="dark"] .p-onsite { background: rgba(42,92,69,0.12); color: var(--forest-mid); }
-.p-stu { background: #E8F5E9; color: #2E6B35; }
-[data-theme="dark"] .p-stu { background: rgba(46,107,53,0.12); color: #6ABF73; }
-.p-sal { background: #E8F5E9; color: #1B5E20; font-weight: 600; border: 1px solid #A5D6A7; }
-[data-theme="dark"] .p-sal { background: rgba(27,94,32,0.12); color: #6ABF73; border-color: rgba(107,175,107,0.2); }
-.jc-desc { font-size: 13px; color: var(--text-2); line-height: 1.55; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-.jc-foot { display: flex; align-items: center; justify-content: space-between; margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--border); }
-.jc-date { font-size: 11px; color: var(--text-3); }
-.jc-cta { font-size: 12px; color: var(--maple); font-weight: 600; }
+.p-stu { background: rgba(167,82,242,0.08); color: #A752F2; border-color: rgba(167,82,242,0.15); }
+.p-sal { font-weight: 800; color: var(--maple); border-color: var(--maple-glow); background: var(--maple-glow); }
+
+.jc-desc { font-size: 14px; color: var(--text-3); line-height: 1.6; margin-bottom: 14px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.jc-foot { display: flex; align-items: center; justify-content: space-between; padding-top: 12px; border-top: 1px solid var(--border); }
+.jc-date { font-size: 11px; color: var(--text-3); font-weight: 500; }
+.jc-cta { font-size: 13px; font-weight: 700; color: var(--maple); }
+
+
+/* ═══════ SPOTLIGHT ═══════ */
+.spotlight-s { background: var(--bg-body); padding: 2rem 1.5rem 0.5rem; transition: background var(--dur); }
+.spotlight-in { max-width: var(--max-w); margin: 0 auto; }
+.spotlight-hdr { display: flex; align-items: center; gap: 8px; margin-bottom: 1rem; }
+.spotlight-hdr h2 { font-family: 'DM Serif Display', serif; font-size: 16px; color: var(--gold); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 400; }
+.spotlight-hdr .line { flex: 1; height: 1px; background: var(--gold); opacity: 0.2; }
+.spotlight-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+
+.sc { 
+  background: var(--bg-card); border: 1px solid var(--gold); border-radius: var(--r); 
+  padding: 1.25rem; cursor: pointer; transition: all 0.2s; position: relative; 
+  display: flex; flex-direction: column; justify-content: space-between; min-height: 140px;
+  box-shadow: 0 4px 12px var(--gold-glow);
+}
+.sc:hover { transform: translateY(-3px); box-shadow: 0 8px 24px var(--gold-glow); }
+.sc::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, var(--gold) 0%, transparent 100%); opacity: 0.05; border-radius: var(--r); }
+.sc-title { font-size: 14px; font-weight: 700; color: var(--text-1); line-height: 1.3; margin-bottom: 4px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.sc-studio { font-size: 11px; color: var(--text-3); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+.sc-tags { display: flex; gap: 4px; margin-top: auto; padding-top: 10px; }
+.sc-loc { font-size: 10px; color: var(--text-2); background: var(--bg-subtle); padding: 2px 6px; border-radius: 4px; }
+.sc-badge { position: absolute; top: -8px; right: 12px; background: var(--gold); color: #000; font-size: 9px; font-weight: 800; padding: 2px 8px; border-radius: 4px; text-transform: uppercase; }
+
+@media (max-width: 900px) {
+  .spotlight-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); overflow-x: auto; display: flex; padding-bottom: 1rem; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
+  .sc { min-width: 280px; scroll-snap-align: start; }
+  .spotlight-grid::-webkit-scrollbar { height: 4px; }
+  .spotlight-grid::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 10px; }
+}
+
 mark.hl { background: rgba(200,55,45,0.1); color: inherit; padding: 1px 2px; border-radius: 3px; }
 [data-theme="dark"] mark.hl { background: rgba(200,55,45,0.22); }
 
@@ -762,6 +799,14 @@ footer { border-top: 1px solid var(--border); padding: 1.75rem 1.5rem; backgroun
     </div>
   </div>
 
+  <!-- ═══════ FEATURED SPOTLIGHT ═══════ -->
+  <section class="spotlight-s" id="spotlight-s" style="display:none">
+    <div class="spotlight-in">
+      <div class="spotlight-hdr"><h2>Featured Opportunities</h2><div class="line"></div></div>
+      <div class="spotlight-grid" id="spotlight-grid"></div>
+    </div>
+  </section>
+
   <main id="main-content" role="main">
     <div id="job-list">
       <div class="skel-list"><div class="skel-card"><div class="sk w6"></div><div class="sk w4"></div><div class="sk-pills"><div class="sk-pill"></div><div class="sk-pill"></div><div class="sk-pill"></div></div><div class="sk w8"></div></div><div class="skel-card"><div class="sk w6"></div><div class="sk w4"></div><div class="sk-pills"><div class="sk-pill"></div><div class="sk-pill"></div></div><div class="sk w8"></div></div><div class="skel-card"><div class="sk w6"></div><div class="sk w4"></div><div class="sk-pills"><div class="sk-pill"></div><div class="sk-pill"></div><div class="sk-pill"></div></div><div class="sk w8"></div></div></div>
@@ -872,7 +917,7 @@ footer { border-top: 1px solid var(--border); padding: 1.75rem 1.5rem; backgroun
   <div class="ft-inner">
   <div class="ft-brand"><svg width="16" height="16" viewBox="0 0 32 32" fill="none"><path d="M16 2 L13.5 9.5 L6 8.5 L10.5 13.5 L8 21 L13.5 18.5 L13.5 24 L18.5 24 L18.5 18.5 L24 21 L21.5 13.5 L26 8.5 L18.5 9.5 Z" fill="#C8372D"/><rect x="15" y="24" width="2" height="4" rx="1" fill="#C8372D"/></svg> Maple<span>Devs</span></div>
   <nav class="ft-links"><button onclick="showStudios()">Studios</button><button onclick="showAbout()">About</button><button onclick="openPostModal()">Post a Job</button><a href="mailto:mapledevsbusiness@gmail.com">Contact</a><a href="https://docs.google.com/document/d/e/2PACX-1vTEr1vsFI4lGMHlzZOP9E5A1sw2_jTSrvEDyZCSHowWJI70wrW62Xvw6m9hmQoyi0tzEcJA7FmucmvU/pub" target="_blank" rel="noopener">Privacy</a></nav>
-  <p class="ft-copy">© 2026 MapleDevs · Canada's game industry job board · <a href="mailto:mapledevsbusiness@gmail.com">mapledevsbusiness@gmail.com</a></p>
+  <p class="ft-copy">© 2026 MapleDevs · Canada's game industry job board · <a href="mailto:wupeiheng11@gmail.com">wupeiheng11@gmail.com</a></p>
 </div></footer>
 
 <script>
@@ -1004,10 +1049,63 @@ function filtered(){
 }
 
 
-function render(){dispCount=PER_PAGE;const jobs=filtered(),list=document.getElementById("job-list");document.getElementById("r-count").textContent=jobs.length+" role"+(jobs.length!==1?"s":"");updPills();syncHash();
-if(!jobs.length){list.innerHTML='<div class="state-msg"><span class="ic">🍁</span>No roles match your filters.<span class="sub">Try adjusting your search.</span></div>';return;}
-const vis=jobs.slice(0,dispCount);list.className="job-list";list.innerHTML=vis.map((j,i)=>cardHTML(j,ALL.indexOf(j),i)).join("");
-if(jobs.length>dispCount)list.innerHTML+='<div class="load-wrap"><button class="load-btn" onclick="loadMore()">Show more ('+( jobs.length-dispCount)+' remaining)</button></div>';}
+function shuffle(array){for(let i=array.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[array[i],array[j]]=[array[j],array[i]];}return array;}
+
+function render(){
+  dispCount=PER_PAGE;
+  const allFiltered=filtered();
+  const spotlightEl=document.getElementById("spotlight-s");
+  const spotlightGrid=document.getElementById("spotlight-grid");
+  const list=document.getElementById("job-list");
+  
+  document.getElementById("r-count").textContent=allFiltered.length+" role"+(allFiltered.length!==1?"s":"");
+  updPills(); syncHash();
+  
+  if(!allFiltered.length){
+    spotlightEl.style.display='none';
+    list.innerHTML='<div class="state-msg"><span class="ic">🍁</span>No roles match your filters.<span class="sub">Try adjusting your search.</span></div>';
+    return;
+  }
+
+  // Split into Featured and Standard
+  const featured = allFiltered.filter(j => j.featured);
+  const standard = allFiltered.filter(j => !j.featured);
+  
+  // Randomize Featured for fair priority
+  shuffle(featured);
+  
+  // Spotlight: Top 3 randomized featured
+  if(featured.length > 0 && !document.getElementById('search').value && !document.getElementById('f-city').value){
+    spotlightEl.style.display='block';
+    const spotJobs = featured.slice(0, 3);
+    spotlightGrid.innerHTML = spotJobs.map(j => spotlightHTML(j, ALL.indexOf(j))).join('');
+  } else {
+    spotlightEl.style.display='none';
+  }
+
+  // Primary list: Combine (with featured still at top of list but full set)
+  const combined = [...featured, ...standard];
+  const vis = combined.slice(0, dispCount);
+  
+  list.className="job-list";
+  list.innerHTML=vis.map((j,i)=>cardHTML(j,ALL.indexOf(j),i)).join("");
+  
+  if(combined.length>dispCount) {
+    list.innerHTML+='<div class="load-wrap"><button class="load-btn" onclick="loadMore()">Show more ('+(combined.length-dispCount)+' remaining)</button></div>';
+  }
+}
+
+function spotlightHTML(j, ri){
+  return `<div class="sc" onclick="openDet(${ri})">
+    <span class="sc-badge">Featured</span>
+    <div class="sc-title">${esc(j.title)}</div>
+    <div class="sc-studio">${esc(j.studio)}</div>
+    <div class="sc-tags">
+      <span class="sc-loc">${esc(j.location)}</span>
+      ${j.mode ? `<span class="sc-loc">${esc(j.mode)}</span>` : ''}
+    </div>
+  </div>`;
+}
 
 function loadMore(){dispCount+=PER_PAGE;const jobs=filtered(),list=document.getElementById("job-list"),vis=jobs.slice(0,dispCount);list.className="job-list";list.innerHTML=vis.map((j,i)=>cardHTML(j,ALL.indexOf(j),i)).join("");if(jobs.length>dispCount)list.innerHTML+='<div class="load-wrap"><button class="load-btn" onclick="loadMore()">Show more ('+(jobs.length-dispCount)+' remaining)</button></div>';}
 
@@ -1033,14 +1131,44 @@ function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").repl
 function hl(text,q){if(!q)return esc(text);const e=esc(text),qe=esc(q);const rx=new RegExp('('+qe.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi');return e.replace(rx,'<mark class="hl">$1</mark>');}
 
 /* ═══════ CARD ═══════ */
-function cardHTML(j,ri,ai){const q=document.getElementById('search').value.toLowerCase(),sv=isSaved(j),dl=Math.min(ai*25,250);
-return '<div class="jc'+(j.featured?' feat':'')+'" style="animation-delay:'+dl+'ms" onclick="openDet('+ri+')" tabindex="0" role="article" onkeydown="if(event.key===\'Enter\')openDet('+ri+')" aria-label="'+esc(j.title)+' at '+esc(j.studio)+'">'
-+'<div class="jc-top"><span class="jc-title">'+hl(j.title,q)+'</span><div class="jc-acts"><span class="jc-badges">'+(j.featured?'<span class="b-feat">★ Featured</span>':'')+(isNew(j.posted)?'<span class="b-new" style="background:var(--maple-glow); color:var(--maple); border:1px solid rgba(200,55,45,0.2);">New</span>':'')+'</span>'
-+'<button class="sv-btn'+(sv?' saved':'')+'" onclick="toggleSave(event,'+ri+')" aria-label="'+(sv?'Unsave':'Save')+'" title="'+(sv?'Saved':'Save')+'"><svg width="16" height="16" viewBox="0 0 24 24" fill="'+(sv?'currentColor':'none')+'" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button></div></div>'
-+'<div class="jc-studio">'+hl(j.studio,q)+'</div>'
-+'<div class="jc-pills">'+(j.location?'<span class="pill p-loc">'+esc(j.location)+'</span>':'')+(j.type?'<span class="pill p-type">'+esc(j.type)+'</span>':'')+(j.mode?'<span class="pill '+modeC(j.mode)+'">'+esc(j.mode)+'</span>':'')+(j.student?'<span class="pill p-stu">🎓 Student</span>':'')+(j.salary?'<span class="pill p-sal" style="font-size:12px;">💰 '+esc(j.salary)+'</span>':'')+'</div>'
-+(j.desc?'<div class="jc-desc">'+hl(j.desc,q)+'</div>':'')
-+'<div class="jc-foot"><span class="jc-date" style="font-weight:500; font-size:12px;">'+(j.posted?'Posted '+relDate(j.posted):'')+'</span><div style="display:flex; align-items:center; gap:12px;"><span class="jc-cta" style="font-weight:500;">Details</span>'+(j.apply?'<a href="'+esc(j.apply)+'" target="_blank" rel="noopener" class="btn-p" style="padding:6px 16px; font-size:12px; border-radius:100px; box-shadow:none; text-decoration:none;" onclick="event.stopPropagation()">Apply ↗</a>':'')+'</div></div></div>';}
+function cardHTML(j,ri,ai){
+  const q=document.getElementById('search').value.toLowerCase(),sv=isSaved(j),dl=Math.min(ai*25,250);
+  const badges=(j.featured?'<span class="b-feat">★ Featured</span>':'')+(isNew(j.posted)?'<span class="b-new">New</span>':'');
+  
+  return `<div class="jc${j.featured?' feat':''}" style="animation-delay:${dl}ms" onclick="openDet(${ri})" tabindex="0" role="article" onkeydown="if(event.key==='Enter')openDet(${ri})" aria-label="${esc(j.title)} at ${esc(j.studio)}">
+    <div class="jc-top">
+      <div class="jc-title-grp">
+        ${badges ? `<div class="jc-badges">${badges}</div>` : ''}
+        <div class="jc-title">${hl(j.title,q)}</div>
+      </div>
+      <div class="jc-acts">
+        <button class="sv-btn${sv?' saved':''}" onclick="toggleSave(event,${ri})" aria-label="${sv?'Unsave':'Save'}" title="${sv?'Saved':'Save'}">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="${sv?'currentColor':'none'}" stroke="currentColor" stroke-width="2.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </button>
+      </div>
+    </div>
+    
+    <div class="jc-studio">${hl(j.studio,q)}</div>
+    
+    <div class="jc-pills">
+      ${j.location ? `<span class="pill p-loc">${esc(j.location)}</span>` : ''}
+      ${j.type ? `<span class="pill p-type">${esc(j.type)}</span>` : ''}
+      ${j.mode ? `<span class="pill ${modeC(j.mode)}">${esc(j.mode)}</span>` : ''}
+      ${j.student ? `<span class="pill p-stu">🎓 Student-friendly</span>` : ''}
+      ${j.salary ? `<span class="pill p-sal">💰 ${esc(j.salary)}</span>` : ''}
+    </div>
+    
+    ${j.desc ? `<div class="jc-desc">${hl(j.desc,q)}</div>` : ''}
+    
+    <div class="jc-foot">
+      <span class="jc-date">${j.posted ? 'Posted '+relDate(j.posted) : ''}</span>
+      <div style="display:flex; align-items:center; gap:12px;">
+        <span class="jc-cta">Details</span>
+        ${j.apply ? `<a href="${esc(j.apply)}" target="_blank" rel="noopener" class="btn-p" style="padding:6px 16px; font-size:12px; border-radius:100px; box-shadow:none; text-decoration:none;" onclick="event.stopPropagation()">Apply ↗</a>` : ''}
+      </div>
+    </div>
+  </div>`;
+}
 
 /* ═══════ DETAIL ═══════ */
 function detailHTML(j,idx){const sv=isSaved(j);
@@ -1107,7 +1235,7 @@ function trackView(title) {
     gtag('event', 'page_view', {
       page_title: title || document.title,
       page_location: window.location.href,
-      page_path: window.location.pathname + window.location.hash
+      page_path: window.location.pathname + (window.location.hash || '')
     });
   }
 }
@@ -1136,19 +1264,19 @@ function submitPostForm(e){
   msg.className='form-msg'; msg.style.display='none';
 
   const data=new FormData(form);
-  fetch('https://formsubmit.co/ajax/mapledevsbusiness@gmail.com',{
+  fetch('https://formsubmit.co/ajax/wupeiheng11@gmail.com',{
     method:'POST',
     headers:{'Content-Type':'application/json','Accept':'application/json'},
     body:JSON.stringify(Object.fromEntries(data))
   }).then(r=>r.json()).then(d=>{
     if(d.success){
       msg.className='form-msg show'; 
-      msg.innerHTML='✓ <b>Submitted!</b> To feature this role ($99 CAD), please send an Interac e-Transfer to <b>mapledevsbusiness@gmail.com</b> with your job title in the notes. We will review and publish within 24 hours.';
+      msg.innerHTML='✓ <b>Submitted!</b> To feature this role ($99 CAD) and get 5x more applicants, please send an Interac e-Transfer to <b>wupeiheng11@gmail.com</b> with your job title in the notes. We will review and publish within 24 hours.';
       toast('Job submitted! Email sent.','📋');
       form.reset();
     } else { throw 0; }
   }).catch(()=>{
-    msg.className='form-msg show err'; msg.innerHTML='⚠ Error — try emailing mapledevsbusiness@gmail.com directly.';
+    msg.className='form-msg show err'; msg.innerHTML='⚠ Error — try emailing wupeiheng11@gmail.com directly.';
   }).finally(()=>{
     btn.disabled=false; btn.textContent='Submit for Review →';
   });
