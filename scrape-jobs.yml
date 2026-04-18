@@ -51,5 +51,7 @@ jobs:
           git config --global user.email "mapledevsbusiness@gmail.com"
           git add .
           git commit -m "🤖 Auto-update: Scraped jobs and rebuilt SEO pages [skip ci]" || echo "No changes to commit"
-          git push
+          git pull --rebase origin main
+          git push origin main
+
 
