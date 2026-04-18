@@ -944,18 +944,65 @@ function applyHash(){
     return;
   }
   const p = new URLSearchParams(h);
-  if(p.get('city')) document.getElementById('f-city').value=p.get('city');
-  if(p.get('type')) document.getElementById('f-type').value=p.get('type');
-  if(p.get('mode')) document.getElementById('f-mode').value=p.get('mode');
-  if(p.get('role')) document.getElementById('f-role').value=p.get('role');
-  if(p.get('exp')) document.getElementById('f-exp').value=p.get('exp');
+  
+  const setFilter = (id, val) => {
+    const el = document.getElementById(id);
+    if(!val || !el) return;
+    el.value = val; 
+    if(!el.value) { // Partial match fallback
+      const options = Array.from(el.options);
+      const match = options.find(o => o.text.toLowerCase().includes(val.toLowerCase()) || o.value.toLowerCase().includes(val.toLowerCase()));
+      if(match) el.value = match.value;
+    }
+  };
+
+  setFilter('f-city', p.get('city'));
+  setFilter('f-type', p.get('type'));
+  setFilter('f-mode', p.get('mode'));
+  setFilter('f-role', p.get('role'));
+  setFilter('f-exp', p.get('exp'));
+  
   if(p.get('student')==='1') document.getElementById('f-student').checked=true;
   if(p.get('q')) document.getElementById('search').value=p.get('q');
 }
+
 function syncHash(){const p=new URLSearchParams(),q=document.getElementById('search').value,ci=document.getElementById('f-city').value,ty=document.getElementById('f-type').value,mo=document.getElementById('f-mode').value,ro=document.getElementById('f-role').value,ex=document.getElementById('f-exp').value,st=document.getElementById('f-student').checked;if(q)p.set('q',q);if(ci)p.set('city',ci);if(ty)p.set('type',ty);if(mo)p.set('mode',mo);if(ro)p.set('role',ro);if(ex)p.set('exp',ex);if(st)p.set('student','1');const h=p.toString();if(h)history.replaceState(null,'','#'+h);}
 
 /* ═══════ FILTER & RENDER ═══════ */
-function filtered(){const q=document.getElementById("search").value.toLowerCase(),ci=document.getElementById("f-city").value,ty=document.getElementById("f-type").value,mo=document.getElementById("f-mode").value,ro=document.getElementById("f-role").value,ex=document.getElementById("f-exp").value,st=document.getElementById("f-student").checked;return ALL.filter(j=>{const tl=j.title.toLowerCase();if(q&&!tl.includes(q)&&!j.studio.toLowerCase().includes(q)&&!j.desc.toLowerCase().includes(q)&&!j.location.toLowerCase().includes(q))return false;if(ci&&j.location!==ci)return false;if(ty&&j.type!==ty)return false;if(mo&&j.mode!==mo)return false;if(st&&!j.student)return false;if(ro){const r=ro==="programming"?/program|engineer|develop|tech|backend|frontend/i:ro==="art"?/art|animat|vfx|3d|2d|model/i:ro==="design"?/design|level/i:ro==="qa"?/qa|test|quality/i:ro==="production"?/produc|manage/i:ro==="audio"?/audio|sound|music/i:/.*/;if(!r.test(tl))return false;}if(ex){const e=ex==="junior"?/junior|jr|entry|associate|student|intern/i:ex==="mid"?/mid|intermediate|(?!senior)(?!lead)(?!junior)(?!entry)/i:ex==="senior"?/senior|sr|principal/i:ex==="lead"?/lead|director|head|vp/i:/.*/;if(ex==="mid"&&(/senior|lead|director|head|junior|entry|intern/i.test(tl)))return false;else if(ex!=="mid"&&!e.test(tl))return false;}return true;}).sort((a,b)=>(b.featured?1:0)-(a.featured?1:0));}
+function filtered(){
+  const q=document.getElementById("search").value.toLowerCase(),
+        ci=document.getElementById("f-city").value.toLowerCase(),
+        ty=document.getElementById("f-type").value.toLowerCase(),
+        mo=document.getElementById("f-mode").value.toLowerCase(),
+        ro=document.getElementById("f-role").value,
+        ex=document.getElementById("f-exp").value,
+        st=document.getElementById("f-student").checked;
+
+  return ALL.filter(j=>{
+    const tl=j.title.toLowerCase();
+    const sl=j.studio.toLowerCase();
+    const ll=j.location.toLowerCase();
+    const dl=j.desc.toLowerCase();
+
+    if(q && !tl.includes(q) && !sl.includes(q) && !dl.includes(q) && !ll.includes(q)) return false;
+    if(ci && !ll.includes(ci)) return false;
+    if(ty && j.type.toLowerCase()!==ty) return false;
+    if(mo && j.mode.toLowerCase()!==mo) return false;
+    if(st && !j.student) return false;
+
+    if(ro){
+      const r=ro==="programming"?/program|engineer|develop|tech|backend|frontend/i:ro==="art"?/art|animat|vfx|3d|2d|model/i:ro==="design"?/design|level/i:ro==="qa"?/qa|test|quality/i:ro==="production"?/produc|manage/i:ro==="audio"?/audio|sound|music/i:/.*/;
+      if(!r.test(tl)) return false;
+    }
+    if(ex){
+      const e=ex==="junior"?/junior|jr|entry|associate|student|intern/i:ex==="mid"?/mid|intermediate|(?!senior)(?!lead)(?!junior)(?!entry)/i:ex==="senior"?/senior|sr|principal/i:ex==="lead"?/lead|director|head|vp/i:/.*/;
+      if(ex==="mid"&&(/senior|lead|director|head|junior|entry|intern/i.test(tl))) return false;
+      else if(ex!=="mid"&&!e.test(tl)) return false;
+    }
+    return true;
+  }).sort((a,b)=>(b.featured?1:0)-(a.featured?1:0));
+}
+
 
 function render(){dispCount=PER_PAGE;const jobs=filtered(),list=document.getElementById("job-list");document.getElementById("r-count").textContent=jobs.length+" role"+(jobs.length!==1?"s":"");updPills();syncHash();
 if(!jobs.length){list.innerHTML='<div class="state-msg"><span class="ic">🍁</span>No roles match your filters.<span class="sub">Try adjusting your search.</span></div>';return;}
@@ -1013,11 +1060,14 @@ document.getElementById("d-crumbs").innerHTML='<button onclick="showBoard()">Job
 document.getElementById("d-content").innerHTML=detailHTML(j,idx);
 const sim=getSimilar(j,idx),ss=document.getElementById("sim-sec"),sl=document.getElementById("sim-jobs");
 if(sim.length){ss.style.display="block";sl.innerHTML=sim.map((s,i)=>cardHTML(s,ALL.indexOf(s),i)).join("");}else ss.style.display="none";
-window.scrollTo(0,0);}
+window.scrollTo(0,0);
+trackView(j.title + ' | MapleDevs');}
+
 function filterCity(c){showBoard();document.getElementById('f-city').value=c;render();setTimeout(()=>document.getElementById('main-content').scrollIntoView({behavior:'smooth'}),100);}
 
 /* ═══════ STUDIOS ═══════ */
-function showStudios(){history.pushState({v:'studios'},"","#studios");hideAll();document.getElementById("studios-view").classList.add("on");clearNav();document.getElementById("nav-studios").classList.add("active");renderStudios();window.scrollTo(0,0);}
+function showStudios(){history.pushState({v:'studios'},"","#studios");hideAll();document.getElementById("studios-view").classList.add("on");clearNav();document.getElementById("nav-studios").classList.add("active");renderStudios();window.scrollTo(0,0);trackView('Studios | MapleDevs');}
+
 function renderStudios(){const m={};ALL.forEach(j=>{if(!m[j.studio])m[j.studio]={n:j.studio,c:j.location,ct:0};m[j.studio].ct++;});const ss=Object.values(m).sort((a,b)=>b.ct-a.ct),g=document.getElementById("st-grid");if(!ss.length){g.innerHTML='<div class="state-msg"><span class="ic">🏢</span>No studios yet.</div>';return;}
 g.innerHTML=ss.map(s=>'<div class="st-card" onclick="openStudioProfile(\''+esc(s.n).replace(/'/g,"\\'")+'\')"><div class="st-name">'+esc(s.n)+'</div><div class="st-city">'+esc(s.c||'Canada')+'</div><span class="st-count">'+s.ct+' role'+(s.ct!==1?'s':'')+'</span></div>').join('');}
 function openStudioProfile(n){
@@ -1034,20 +1084,44 @@ function openStudioProfile(n){
     +(kw.length?'<div class="d-pills" style="margin-top:1rem;">'+kw.map(k=>'<span class="pill" style="background:var(--bg-2); color:var(--text-1); border:1px solid var(--border-color);">'+k+'</span>').join('')+'</div>':'')
     +'</div><div class="job-list" style="margin-top:1.5rem;">'+jobs.map((j,i)=>cardHTML(j, ALL.indexOf(j), i)).join("")+'</div>';
   window.scrollTo(0,0);
+  trackView(n + ' | MapleDevs');
 }
 
+
 /* ═══════ SAVED VIEW ═══════ */
-function showSaved(){history.pushState({v:'saved'},"","#saved");hideAll();document.getElementById("saved-view").classList.add("on");clearNav();document.getElementById("nav-saved").classList.add("active");renderSaved();window.scrollTo(0,0);}
+function showSaved(){history.pushState({v:'saved'},"","#saved");hideAll();document.getElementById("saved-view").classList.add("on");clearNav();document.getElementById("nav-saved").classList.add("active");renderSaved();window.scrollTo(0,0);trackView('Saved Jobs | MapleDevs');}
+
 function renderSaved(){const l=document.getElementById("sv-list"),sv=ALL.filter(j=>isSaved(j));if(!sv.length){l.innerHTML='<div class="state-msg"><span class="ic">♡</span>No saved jobs yet.<span class="sub">Click the heart on any job to save it.</span></div>';return;}l.innerHTML=sv.map((j,i)=>cardHTML(j,ALL.indexOf(j),i)).join("");}
 
 /* ═══════ NAV ═══════ */
 function clearNav(){document.querySelectorAll('.n-link').forEach(e=>e.classList.remove('active'));}
 function hideAll(){document.getElementById("board-view").classList.add("off");document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));clearNav();}
 function closeAllViews(){showBoard();}
-function showBoard(){history.pushState(null,"",location.pathname);document.getElementById("board-view").classList.remove("off");document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));clearNav();window.scrollTo(0,0);}
-function showAbout(){history.pushState({v:'about'},"","#about");hideAll();document.getElementById("about-view").classList.add("on");clearNav();document.getElementById("nav-about").classList.add("active");window.scrollTo(0,0);}
+function showBoard(){history.pushState(null,"",location.pathname);document.getElementById("board-view").classList.remove("off");document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));clearNav();window.scrollTo(0,0);trackView();}
 
-window.addEventListener("popstate",function(e){if(e.state&&e.state.idx!==undefined)openDet(e.state.idx);else if(e.state&&e.state.v==='about')showAbout();else if(e.state&&e.state.v==='studios')showStudios();else if(e.state&&e.state.v==='saved')showSaved();else if(e.state&&e.state.v==='studio')openStudioProfile(e.state.n);else showBoard();});
+function showAbout(){history.pushState({v:'about'},"","#about");hideAll();document.getElementById("about-view").classList.add("on");clearNav();document.getElementById("nav-about").classList.add("active");window.scrollTo(0,0);trackView('About | MapleDevs');}
+
+
+function trackView(title) {
+  if (typeof gtag === 'function') {
+    gtag('event', 'page_view', {
+      page_title: title || document.title,
+      page_location: window.location.href,
+      page_path: window.location.pathname + window.location.hash
+    });
+  }
+}
+
+window.addEventListener("popstate",function(e){
+  if(e.state&&e.state.idx!==undefined) openDet(e.state.idx);
+  else if(e.state&&e.state.v==='about') showAbout();
+  else if(e.state&&e.state.v==='studios') showStudios();
+  else if(e.state&&e.state.v==='saved') showSaved();
+  else if(e.state&&e.state.v==='studio') openStudioProfile(e.state.n);
+  else showBoard();
+  trackView();
+});
+
 
 /* ═══════ POST A JOB MODAL ═══════ */
 function openPostModal(){document.getElementById('post-modal').classList.add('on');document.body.style.overflow='hidden';}
@@ -1095,7 +1169,8 @@ document.getElementById('browse-btn').addEventListener('click',function(e){e.pre
 
 /* ═══════ INIT ═══════ */
 function handleHash(){const h=location.hash;if(h==='#about')showAbout();else if(h==='#studios')showStudios();else if(h==='#saved')showSaved();else if(h.startsWith('#job-')){const i=parseInt(h.replace('#job-',''),10);if(!isNaN(i)&&ALL[i])openDet(i);}else if(h.startsWith('#studio-')){const sn=h.replace('#studio-','').replace(/-/g,' ').toLowerCase();const s=ALL.find(j=>j.studio.toLowerCase()==sn);if(s)openStudioProfile(s.studio);}}
-loadJobs().then(handleHash);
+loadJobs().then(() => { handleHash(); trackView(); });
+
 </script>
 </body>
 </html>
