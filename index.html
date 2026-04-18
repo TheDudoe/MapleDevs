@@ -279,6 +279,44 @@ main { max-width: var(--max-w); margin: 0 auto; padding: 1.25rem 1.5rem 4rem; }
 .jc.feat::before { background: var(--gold); opacity: 0.03; }
 .jc.feat:hover::before { opacity: 0.08; }
 
+@keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+.jc-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 6px; }
+.jc-title-grp { flex: 1; }
+.jc-title { font-size: 1.05rem; font-weight: 750; color: var(--text-1); line-height: 1.3; margin-bottom: 2px; }
+.jc-acts { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+.jc-badges { display: flex; gap: 4px; margin-bottom: 8px; }
+
+.b-new { font-size: 10px; font-weight: 700; background: var(--maple-glow); color: var(--maple); padding: 3px 10px; border-radius: 4px; border: 1px solid rgba(200,55,45,0.1); }
+.b-feat { font-size: 10px; font-weight: 700; background: rgba(232,201,74,0.1); color: var(--gold); padding: 3px 10px; border-radius: 4px; border: 1px solid rgba(232,201,74,0.2); }
+
+.sv-btn { width: 32px; height: 32px; border-radius: 6px; border: 1px solid var(--border); background: var(--bg-card); color: var(--text-3); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; }
+.sv-btn:hover { background: var(--bg-subtle); color: var(--maple); border-color: var(--maple); }
+.sv-btn.saved { background: var(--maple-glow); color: var(--maple); border-color: var(--maple); }
+
+.jc-studio { font-size: 14px; font-weight: 600; color: var(--text-2); margin-bottom: 14px; }
+.jc-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+
+.pill { 
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 4px 10px; border-radius: 6px; font-size: 11.5px; font-weight: 600; 
+  background: var(--bg-subtle); color: var(--text-2); border: 1px solid var(--border);
+}
+
+.p-loc { background: var(--bg-subtle); }
+.p-type { background: rgba(66,133,244,0.08); color: #4285F4; border-color: rgba(66,133,244,0.15); }
+.p-remote { background: rgba(52,168,83,0.08); color: #34A853; border-color: rgba(52,168,83,0.15); }
+.p-hybrid { background: rgba(251,188,4,0.08); color: #FBBC04; border-color: rgba(251,188,4,0.15); }
+.p-onsite { background: var(--forest-light); color: var(--forest); }
+.p-stu { background: rgba(167,82,242,0.08); color: #A752F2; border-color: rgba(167,82,242,0.15); }
+.p-sal { font-weight: 800; color: var(--maple); border-color: var(--maple-glow); background: var(--maple-glow); }
+
+.jc-desc { font-size: 14px; color: var(--text-3); line-height: 1.6; margin-bottom: 14px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.jc-foot { display: flex; align-items: center; justify-content: space-between; padding-top: 12px; border-top: 1px solid var(--border); }
+.jc-date { font-size: 11px; color: var(--text-3); font-weight: 500; }
+.jc-cta { font-size: 13px; font-weight: 700; color: var(--maple); }
+
+
 /* ═══════ SPOTLIGHT ═══════ */
 .spotlight-s { background: var(--bg-body); padding: 2rem 1.5rem 0.5rem; transition: background var(--dur); }
 .spotlight-in { max-width: var(--max-w); margin: 0 auto; }
@@ -1091,14 +1129,44 @@ function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").repl
 function hl(text,q){if(!q)return esc(text);const e=esc(text),qe=esc(q);const rx=new RegExp('('+qe.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi');return e.replace(rx,'<mark class="hl">$1</mark>');}
 
 /* ═══════ CARD ═══════ */
-function cardHTML(j,ri,ai){const q=document.getElementById('search').value.toLowerCase(),sv=isSaved(j),dl=Math.min(ai*25,250);
-return '<div class="jc'+(j.featured?' feat':'')+'" style="animation-delay:'+dl+'ms" onclick="openDet('+ri+')" tabindex="0" role="article" onkeydown="if(event.key===\'Enter\')openDet('+ri+')" aria-label="'+esc(j.title)+' at '+esc(j.studio)+'">'
-+'<div class="jc-top"><span class="jc-title">'+hl(j.title,q)+'</span><div class="jc-acts"><span class="jc-badges">'+(j.featured?'<span class="b-feat">★ Featured</span>':'')+(isNew(j.posted)?'<span class="b-new" style="background:var(--maple-glow); color:var(--maple); border:1px solid rgba(200,55,45,0.2);">New</span>':'')+'</span>'
-+'<button class="sv-btn'+(sv?' saved':'')+'" onclick="toggleSave(event,'+ri+')" aria-label="'+(sv?'Unsave':'Save')+'" title="'+(sv?'Saved':'Save')+'"><svg width="16" height="16" viewBox="0 0 24 24" fill="'+(sv?'currentColor':'none')+'" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button></div></div>'
-+'<div class="jc-studio">'+hl(j.studio,q)+'</div>'
-+'<div class="jc-pills">'+(j.location?'<span class="pill p-loc">'+esc(j.location)+'</span>':'')+(j.type?'<span class="pill p-type">'+esc(j.type)+'</span>':'')+(j.mode?'<span class="pill '+modeC(j.mode)+'">'+esc(j.mode)+'</span>':'')+(j.student?'<span class="pill p-stu">🎓 Student</span>':'')+(j.salary?'<span class="pill p-sal" style="font-size:12px;">💰 '+esc(j.salary)+'</span>':'')+'</div>'
-+(j.desc?'<div class="jc-desc">'+hl(j.desc,q)+'</div>':'')
-+'<div class="jc-foot"><span class="jc-date" style="font-weight:500; font-size:12px;">'+(j.posted?'Posted '+relDate(j.posted):'')+'</span><div style="display:flex; align-items:center; gap:12px;"><span class="jc-cta" style="font-weight:500;">Details</span>'+(j.apply?'<a href="'+esc(j.apply)+'" target="_blank" rel="noopener" class="btn-p" style="padding:6px 16px; font-size:12px; border-radius:100px; box-shadow:none; text-decoration:none;" onclick="event.stopPropagation()">Apply ↗</a>':'')+'</div></div></div>';}
+function cardHTML(j,ri,ai){
+  const q=document.getElementById('search').value.toLowerCase(),sv=isSaved(j),dl=Math.min(ai*25,250);
+  const badges=(j.featured?'<span class="b-feat">★ Featured</span>':'')+(isNew(j.posted)?'<span class="b-new">New</span>':'');
+  
+  return `<div class="jc${j.featured?' feat':''}" style="animation-delay:${dl}ms" onclick="openDet(${ri})" tabindex="0" role="article" onkeydown="if(event.key==='Enter')openDet(${ri})" aria-label="${esc(j.title)} at ${esc(j.studio)}">
+    <div class="jc-top">
+      <div class="jc-title-grp">
+        ${badges ? `<div class="jc-badges">${badges}</div>` : ''}
+        <div class="jc-title">${hl(j.title,q)}</div>
+      </div>
+      <div class="jc-acts">
+        <button class="sv-btn${sv?' saved':''}" onclick="toggleSave(event,${ri})" aria-label="${sv?'Unsave':'Save'}" title="${sv?'Saved':'Save'}">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="${sv?'currentColor':'none'}" stroke="currentColor" stroke-width="2.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </button>
+      </div>
+    </div>
+    
+    <div class="jc-studio">${hl(j.studio,q)}</div>
+    
+    <div class="jc-pills">
+      ${j.location ? `<span class="pill p-loc">${esc(j.location)}</span>` : ''}
+      ${j.type ? `<span class="pill p-type">${esc(j.type)}</span>` : ''}
+      ${j.mode ? `<span class="pill ${modeC(j.mode)}">${esc(j.mode)}</span>` : ''}
+      ${j.student ? `<span class="pill p-stu">🎓 Student-friendly</span>` : ''}
+      ${j.salary ? `<span class="pill p-sal">💰 ${esc(j.salary)}</span>` : ''}
+    </div>
+    
+    ${j.desc ? `<div class="jc-desc">${hl(j.desc,q)}</div>` : ''}
+    
+    <div class="jc-foot">
+      <span class="jc-date">${j.posted ? 'Posted '+relDate(j.posted) : ''}</span>
+      <div style="display:flex; align-items:center; gap:12px;">
+        <span class="jc-cta">Details</span>
+        ${j.apply ? `<a href="${esc(j.apply)}" target="_blank" rel="noopener" class="btn-p" style="padding:6px 16px; font-size:12px; border-radius:100px; box-shadow:none; text-decoration:none;" onclick="event.stopPropagation()">Apply ↗</a>` : ''}
+      </div>
+    </div>
+  </div>`;
+}
 
 /* ═══════ DETAIL ═══════ */
 function detailHTML(j,idx){const sv=isSaved(j);
