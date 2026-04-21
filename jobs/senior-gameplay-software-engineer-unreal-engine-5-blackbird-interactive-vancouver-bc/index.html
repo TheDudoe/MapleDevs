@@ -1075,6 +1075,61 @@ Blackbird Interactive is a creative-fueled, future-driven, independent game stud
   <div id="sv-list" class="job-list"></div>
 </div></div>
 
+<!-- ═══════ PRIVACY VIEW ═══════ -->
+<div id="privacy-view" class="view" role="main"><div class="about-c">
+  <button class="back-b" onclick="showBoard()">← Back to jobs</button>
+  <h1>Privacy <em>Policy</em></h1>
+  <p style="font-size:12px; color:var(--text-3); margin-bottom:1.5rem;">Last updated: April 20, 2026</p>
+  
+  <h2>1. Who we are</h2>
+  <p>MapleDevs (mapledevs.ca) is Canada's #1 game industry job board. We are a Canadian-owned and operated platform dedicated to helping talent find roles at verified Canadian studios. You can contact us at <a href="mailto:mapledevsbusiness@gmail.com">mapledevsbusiness@gmail.com</a>.</p>
+  
+  <h2>2. Data we collect</h2>
+  <p><strong>For Job Seekers:</strong> We do not require account creation. We collect your email address only if you voluntarily sign up for our newsletter or job alerts. Basic usage data is collected via Google Analytics to help us improve the platform.</p>
+  <p><strong>For Employers:</strong> We collect your name, studio email, and job details when you submit a listing. We do <strong>not</strong> collect or store credit card or banking information. All payments for featured listings are handled externally via Interac e-Transfer.</p>
+  
+  <h2>3. Automated Data Collection</h2>
+  <p>We aggregate job listings from official studio career pages (via Greenhouse, Lever, and other ATS platforms). This information is publicly available and we process it to provide a centralized hub for Canadian developers. If you are a studio owner and wish to have your listings removed or updated, please contact us.</p>
+  
+  <h2>4. Third-Party Services</h2>
+  <p>We use the following services to power MapleDevs:</p>
+  <ul>
+    <li><strong>Google Analytics:</strong> To understand site traffic (anonymous).</li>
+    <li><strong>Mailchimp:</strong> To manage our newsletter and job alert emails.</li>
+    <li><strong>Google Sheets:</strong> To securely store our job database.</li>
+    <li><strong>Discord:</strong> Our community the hub is hosted on Discord, which has its own privacy policy.</li>
+  </ul>
+  
+  <h2>5. Your Rights</h2>
+  <p>You have the right to request the deletion of your email from our newsletter at any time using the "Unsubscribe" link in any email, or by contacting us directly. We do not sell or trade your personal data with third parties.</p>
+</div></div>
+
+<!-- ═══════ TERMS VIEW ═══════ -->
+<div id="terms-view" class="view" role="main"><div class="about-c">
+  <button class="back-b" onclick="showBoard()">← Back to jobs</button>
+  <h1>Terms of <em>Use</em></h1>
+  <p style="font-size:12px; color:var(--text-3); margin-bottom:1.5rem;">Last updated: April 20, 2026</p>
+  
+  <h2>1. Acceptance of Terms</h2>
+  <p>By using MapleDevs (mapledevs.ca), you agree to these terms. If you do not agree, please discontinue use of the site. We reserve the right to update these terms at any time.</p>
+  
+  <h2>2. Our Verification Guarantee</h2>
+  <p>We promise that every job listing on MapleDevs is for a <strong>verified Canadian studio</strong>. We manually vet new studios to ensure they have a real presence in Canada. We do not post "ghost jobs," unpaid roles (unless internships), or roles from studios outside of Canada.</p>
+  
+  <h2>3. For Job Seekers</h2>
+  <p>MapleDevs is free for job seekers. We provide links to external application portals. We are not responsible for the content of external sites, nor are we involved in the hiring process or decisions made by studios.</p>
+  
+  <h2>4. For Employers & Payments</h2>
+  <p>Standard job listings are currently free. <strong>Featured Listings</strong> are available for <strong>$99 CAD</strong>. Featured roles stay at the top of the board, receive priority in our newsletter, and are highlighted on social media. 
+  <br><br>Payments must be sent via <strong>Interac e-Transfer</strong> to <a href="mailto:wupeiheng11@gmail.com">wupeiheng11@gmail.com</a>. Listings are published/featured only after payment is confirmed. All sales are final and non-refundable once the listing is live.</p>
+  
+  <h2>5. Intellectual Property</h2>
+  <p>The MapleDevs brand, logo, and custom code are property of MapleDevs. Job titles and studio logos remain the intellectual property of their respective owners.</p>
+  
+  <h2>6. Governing Law</h2>
+  <p>These terms are governed by the laws of British Columbia, Canada.</p>
+</div></div>
+
 <!-- ═══════ FOOTER ═══════ -->
 <footer role="contentinfo">
   <section class="ft-discovery">
@@ -1124,7 +1179,7 @@ Blackbird Interactive is a creative-fueled, future-driven, independent game stud
   </section>
   <div class="ft-inner">
   <div class="ft-brand"><img src="/favicon.png" alt="MapleDevs" width="16" height="16" style="border-radius:2px;"> Maple<span>Devs</span></div>
-  <nav class="ft-links"><button onclick="showStudios()">Studios</button><button onclick="showAbout()">About</button><button onclick="openPostModal()">Post a Job</button><a href="mailto:mapledevsbusiness@gmail.com">Contact</a><a href="https://docs.google.com/document/d/e/2PACX-1vTEr1vsFI4lGMHlzZOP9E5A1sw2_jTSrvEDyZCSHowWJI70wrW62Xvw6m9hmQoyi0tzEcJA7FmucmvU/pub" target="_blank" rel="noopener">Privacy</a></nav>
+  <nav class="ft-links"><button onclick="showStudios()">Studios</button><button onclick="showAbout()">About</button><button onclick="openPostModal()">Post a Job</button><a href="mailto:mapledevsbusiness@gmail.com">Contact</a><button onclick="showPrivacy()">Privacy</button><button onclick="showTerms()">Terms</button></nav>
   <p class="ft-copy">© 2026 MapleDevs · Canada's game industry job board · <a href="mailto:mapledevsbusiness@gmail.com">mapledevsbusiness@gmail.com</a></p>
 </div></footer>
 
@@ -1703,6 +1758,10 @@ function showBoard(){history.pushState(null,"",location.pathname);document.getEl
 
 function showAbout(){history.pushState({v:'about'},"","#about");hideAll();document.getElementById("about-view").classList.add("on");clearNav();document.getElementById("nav-about").classList.add("active");window.scrollTo(0,0);trackView('About | MapleDevs');}
 
+function showPrivacy(){history.pushState({v:'privacy'},"","#privacy");hideAll();document.getElementById("privacy-view").classList.add("on");window.scrollTo(0,0);trackView('Privacy Policy | MapleDevs');}
+
+function showTerms(){history.pushState({v:'terms'},"","#terms");hideAll();document.getElementById("terms-view").classList.add("on");window.scrollTo(0,0);trackView('Terms of Use | MapleDevs');}
+
 function trackView(title) {
   if (typeof gtag === 'function') {
     gtag('event', 'page_view', {
@@ -1716,6 +1775,8 @@ function trackView(title) {
 window.addEventListener("popstate",function(e){
   if(e.state&&e.state.idx!==undefined) openDet(e.state.idx);
   else if(e.state&&e.state.v==='about') showAbout();
+  else if(e.state&&e.state.v==='privacy') showPrivacy();
+  else if(e.state&&e.state.v==='terms') showTerms();
   else if(e.state&&e.state.v==='studios') showStudios();
   else if(e.state&&e.state.v==='saved') showSaved();
   else if(e.state&&e.state.v==='studio') openStudioProfile(e.state.n);
@@ -1834,7 +1895,7 @@ document.getElementById('browse-btn').addEventListener('click',function(e){e.pre
 })();
 
 /* ═══════ INIT ═══════ */
-function handleHash(){const h=location.hash;if(h==='#about')showAbout();else if(h==='#studios')showStudios();else if(h==='#saved')showSaved();else if(h.startsWith('#job-')){const i=parseInt(h.replace('#job-',''),10);if(!isNaN(i)&&ALL[i])openDet(i);}else if(h.startsWith('#studio-')){const sn=h.replace('#studio-','').replace(/-/g,' ').toLowerCase();const s=ALL.find(j=>j.studio.toLowerCase()==sn);if(s)openStudioProfile(s.studio);}}
+function handleHash(){const h=location.hash;if(h==='#about')showAbout();else if(h==='#privacy')showPrivacy();else if(h==='#terms')showTerms();else if(h==='#studios')showStudios();else if(h==='#saved')showSaved();else if(h.startsWith('#job-')){const i=parseInt(h.replace('#job-',''),10);if(!isNaN(i)&&ALL[i])openDet(i);}else if(h.startsWith('#studio-')){const sn=h.replace('#studio-','').replace(/-/g,' ').toLowerCase();const s=ALL.find(j=>j.studio.toLowerCase()==sn);if(s)openStudioProfile(s.studio);}}
 loadJobs().then(() => { handleHash(); trackView(); });
 </script>
 </body>
