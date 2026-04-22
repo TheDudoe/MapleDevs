@@ -1,0 +1,51 @@
+name: Update MapleDevs pricing copy
+
+on:
+  push:
+    paths:
+      - .github/workflows/update-mapledevs-pricing.yml
+
+permissions:
+  contents: write
+
+jobs:
+  update-pricing:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Update pricing copy
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('index.html')
+          text = path.read_text(encoding='utf-8')
+          replacements = {
+              'Featured jobs (<b>$29 CAD</b>) stay at the top, get 5x more clicks, and help fund this community.':
+              'Featured jobs (<b>$49 CAD</b>) stay at the top, get 5x more clicks, and help fund this community.',
+
+              'Standard listings are <b>Free</b>. <br>Featured listings are <b>$29 CAD</b> (payable via Interac e-Transfer to <b>wupeiheng11@gmail.com</b>).':
+              'Standard listings are <b>Free</b>. <br>Featured listings are <b>$49 CAD</b>. Hiring Boost placements are <b>$149 CAD</b> and include extra homepage, newsletter, and community visibility. Payments are payable via Interac e-Transfer to <b>wupeiheng11@gmail.com</b>.',
+
+              'Standard job listings are currently free. <strong>Featured Listings</strong> are available for <strong>$29 CAD</strong>. Featured roles stay at the top of the board, receive priority in our newsletter, and are highlighted on social media.':
+              'Standard job listings are currently free. <strong>Featured Listings</strong> are available for <strong>$49 CAD</strong>. <strong>Hiring Boost</strong> placements are available for <strong>$149 CAD</strong>. Featured roles stay at the top of the board, receive priority in our newsletter, and can be highlighted on social media or community channels.',
+
+              'To feature this role ($29 CAD) and get 5x more applicants, please send an Interac e-Transfer to <b>wupeiheng11@gmail.com</b> with your job title in the notes. We will review and publish within 24 hours.':
+              'To feature this role ($49 CAD) and get 5x more applicants, please send an Interac e-Transfer to <b>wupeiheng11@gmail.com</b> with your job title in the notes. Hiring Boost placements are $149 CAD. We will review and publish within 24 hours.',
+          }
+          for old, new in replacements.items():
+              if old not in text:
+                  raise SystemExit(f'Missing expected text: {old[:80]}')
+              text = text.replace(old, new)
+          path.write_text(text, encoding='utf-8')
+          Path('.github/workflows/update-mapledevs-pricing.yml').unlink()
+          PY
+      - name: Commit pricing update
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html .github/workflows/update-mapledevs-pricing.yml
+          git commit -m "Update employer pricing copy"
+          git push
