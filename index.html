@@ -749,7 +749,8 @@ footer { border-top: 1px solid var(--border); padding: 1.75rem 1.5rem; backgroun
     <div class="modal-hdr">
       <div>
         <h2 id="post-modal-title">Post a Job on MapleDevs</h2>
-        <p>Featured jobs (<b>$29 CAD</b>) stay at the top, get 5x more clicks, and help fund this community.</p>
+        <p>Featured jobs (<b>$49 CAD</b>) stay at the top, get 5x more clicks, and help fund this community.</p>
+        <p>Hiring Boost placements are <b>$149 CAD</b> and include homepage, newsletter, and community visibility.</p>
         <p style="font-size:12px;color:var(--text-3);margin-top:6px;">💳 <strong style="color:var(--text-2)">Payment via Interac e-Transfer:</strong> <a href="mailto:wupeiheng11@gmail.com" style="color:var(--maple);text-decoration:underline;">wupeiheng11@gmail.com</a></p>
       </div>
       <button class="modal-close" onclick="closePostModal()" aria-label="Close">&times;</button>
@@ -1042,7 +1043,7 @@ footer { border-top: 1px solid var(--border); padding: 1.75rem 1.5rem; backgroun
   <div class="about-cta">
     <p><strong>Post a job on MapleDevs</strong></p>
     <p>Use our <a href="#" onclick="closeAllViews();openPostModal();return false;">job submission form</a> or contact us at <a href="mailto:mapledevsbusiness@gmail.com">mapledevsbusiness@gmail.com</a>.</p>
-    <p style="font-size:0.9rem; margin-top:1rem; color:var(--text-3)">Standard listings are <b>Free</b>. <br>Featured listings are <b>$29 CAD</b> (payable via Interac e-Transfer to <b>wupeiheng11@gmail.com</b>).</p>
+    <p style="font-size:0.9rem; margin-top:1rem; color:var(--text-3)">Standard listings are <b>Free</b>. <br>Featured listings are <b>$49 CAD</b>. Hiring Boost placements are <b>$149 CAD</b> and include extra homepage, newsletter, and community visibility. Payments are payable via Interac e-Transfer to <b>wupeiheng11@gmail.com</b>.</p>
   </div>
 </div></div>
 
@@ -1110,7 +1111,7 @@ footer { border-top: 1px solid var(--border); padding: 1.75rem 1.5rem; backgroun
   <p>MapleDevs is free for job seekers. We provide links to external application portals. We are not responsible for the content of external sites, nor are we involved in the hiring process or decisions made by studios.</p>
   
   <h2>4. For Employers & Payments</h2>
-  <p>Standard job listings are currently free. <strong>Featured Listings</strong> are available for <strong>$29 CAD</strong>. Featured roles stay at the top of the board, receive priority in our newsletter, and are highlighted on social media. 
+  <p>Standard job listings are currently free. <strong>Featured Listings</strong> are available for <strong>$49 CAD</strong>. <strong>Hiring Boost</strong> placements are available for <strong>$149 CAD</strong>. Featured roles stay at the top of the board, receive priority in our newsletter, and can be highlighted on social media or community channels. 
   <br><br>Payments must be sent via <strong>Interac e-Transfer</strong> to <a href="mailto:wupeiheng11@gmail.com">wupeiheng11@gmail.com</a>. Listings are published/featured only after payment is confirmed. All sales are final and non-refundable once the listing is live.</p>
   
   <h2>5. Intellectual Property</h2>
@@ -1796,7 +1797,7 @@ function submitPostForm(e){
   }).then(r=>r.json()).then(d=>{
     if(d.success){
       msg.className='form-msg show'; 
-      msg.innerHTML='✓ <b>Submitted!</b> To feature this role ($29 CAD) and get 5x more applicants, please send an Interac e-Transfer to <b>wupeiheng11@gmail.com</b> with your job title in the notes. We will review and publish within 24 hours.';
+      msg.innerHTML='✓ <b>Submitted!</b> To feature this role ($49 CAD) and get 5x more applicants, please send an Interac e-Transfer to <b>wupeiheng11@gmail.com</b> with your job title in the notes. Hiring Boost placements are $149 CAD. We will review and publish within 24 hours.';
       toast('Job submitted! Email sent.','📋');
       form.reset();
     } else { throw 0; }
