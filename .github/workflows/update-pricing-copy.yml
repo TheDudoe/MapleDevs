@@ -1,0 +1,57 @@
+name: Update pricing copy
+
+on:
+  push:
+    branches: [pipeline-jobs-live]
+    paths:
+      - .github/workflows/update-pricing-copy.yml
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Patch index.html pricing copy
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const path = 'index.html';
+          let html = fs.readFileSync(path, 'utf8');
+
+          html = html.replace(/Featured jobs \(<b>\$29 CAD<\/b>\) stay at the top[^<]*<\/p>/g,
+            'Featured jobs (<b>$49 CAD</b>) stay at the top, get 5x more clicks, and help fund this community.</p>');
+          html = html.replace(/To feature this role \(\$29 CAD\)/g, 'To feature this role ($49 CAD)');
+
+          const featuredLine = '        <p>Featured jobs (<b>$49 CAD</b>) stay at the top, get 5x more clicks, and help fund this community.</p>';
+          const boostLine = '        <p>Hiring Boost placements are <b>$149 CAD</b> and include homepage, newsletter, and community visibility.</p>';
+          if (!html.includes(boostLine)) html = html.replace(featuredLine, `${featuredLine}\n${boostLine}`);
+          html = html.replace(/Hiring Boost placements are \$149 CAD\./g, 'Hiring Boost placements are $149 CAD.');
+          if (!html.includes('Hiring Boost placements are $149 CAD')) {
+            html = html.replace('with your job title in the notes. We will review and publish within 24 hours.', 'with your job title in the notes. Hiring Boost placements are $149 CAD. We will review and publish within 24 hours.');
+          }
+
+          html = html.replace(/<p style="font-size:0\.9rem; margin-top:1rem; color:var\(--text-3\)">[\s\S]*?<\/p>/,
+            '<p style="font-size:0.9rem; margin-top:1rem; color:var(--text-3)">Standard listings are <b>Free</b>. <br>Featured listings are <b>$49 CAD</b>. Hiring Boost placements are <b>$149 CAD</b> and include extra homepage, newsletter, and community visibility. Payments are payable via Interac e-Transfer to <b>wupeiheng11@gmail.com</b>.</p>');
+
+          html = html.replace(/<h2>4\. For Employers & Payments<\/h2>\s*<p>[\s\S]*?<\/p>\s*\n\s*<h2>5\. Intellectual Property<\/h2>/,
+            '<h2>4. For Employers & Payments</h2>\n  <p>Standard job listings are currently free. <strong>Featured Listings</strong> are available for <strong>$49 CAD</strong>. <strong>Hiring Boost</strong> placements are available for <strong>$149 CAD</strong>. Featured roles stay at the top of the board, receive priority in our newsletter, and can be highlighted on social media or community channels. \n  <br><br>Payments must be sent via <strong>Interac e-Transfer</strong> to <a href="mailto:wupeiheng11@gmail.com">wupeiheng11@gmail.com</a>. Listings are published/featured only after payment is confirmed. All sales are final and non-refundable once the listing is live.</p>\n  \n  <h2>5. Intellectual Property</h2>');
+
+          if (/\$29|29 CAD/.test(html)) throw new Error('Old $29 pricing remains in index.html');
+          if (!html.includes('$49 CAD') || !html.includes('$149 CAD')) throw new Error('Expected $49 CAD and $149 CAD copy missing');
+          fs.writeFileSync(path, html, 'utf8');
+          NODE
+      - name: Commit patched source and remove workflow
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm .github/workflows/update-pricing-copy.yml
+          git add index.html
+          if git diff --cached --quiet; then
+            echo "No source changes needed."
+            exit 0
+          fi
+          git commit -m "Update employer pricing copy [skip ci]"
+          git push
