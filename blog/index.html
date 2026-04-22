@@ -4,116 +4,139 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MapleDevs | Industry Insights & News</title>
+    <title>The Maple Feed | MapleDevs Industry News</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
     <style>
         :root {
+            --maple: #C8372D;
+            --bg: #0A0A09;
+            --card-bg: #151514;
+            --text: #FFFFFF;
+            --text-dim: #8A8A82;
+            --border: rgba(255, 255, 255, 0.08);
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
             margin: 0;
             line-height: 1.6;
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 900px;
             margin: 0 auto;
-            padding: 80px 20px;
+            padding: 80px 24px;
         }
 
         header {
-            text-align: center;
             margin-bottom: 80px;
+            text-align: center;
         }
 
         h1 {
+            font-family: 'DM Serif Display', serif;
             font-size: 56px;
-            font-weight: 800;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 16px;
-            letter-spacing: -1px;
+            margin: 0 0 16px 0;
+            font-weight: 400;
         }
 
         .subtitle {
-            color: var(--text-dim);
             font-size: 18px;
+            color: var(--text-dim);
             max-width: 600px;
             margin: 0 auto;
         }
 
         .blog-grid {
             display: grid;
-            grid-template-columns: 1fr;
             gap: 32px;
         }
 
         .blog-card {
-            background: var(--card);
+            background: var(--card-bg);
             border: 1px solid var(--border);
-            border-radius: 24px;
-            padding: 40px;
+            border-radius: 16px;
+            padding: 32px;
             text-decoration: none;
             color: inherit;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+            display: block;
         }
 
         .blog-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent);
-            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-4px);
+            border-color: var(--maple);
         }
 
         .blog-card .date {
             font-size: 12px;
+            color: var(--maple);
             text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--accent);
-            margin-bottom: 12px;
+            letter-spacing: 1px;
+            font-weight: 700;
             display: block;
+            margin-bottom: 12px;
         }
 
         .blog-card h2 {
+            font-family: 'DM Serif Display', serif;
             font-size: 28px;
-            margin-bottom: 16px;
+            margin: 0 0 12px 0;
+            font-weight: 400;
         }
 
         .blog-card p {
             color: var(--text-dim);
+            margin: 0;
             font-size: 16px;
         }
 
-        .nav-links {
-            margin-top: 40px;
-            display: flex;
-            gap: 20px;
-            justify-content: center;
+        .back-nav {
+            margin-bottom: 40px;
         }
 
-        .nav-links a {
-            color: var(--accent);
+        .back-link {
+            color: var(--text-dim);
             text-decoration: none;
             font-size: 14px;
             font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .back-link:hover {
+            color: var(--maple);
         }
     </style>
 </head>
 <body>
     <div class="container">
+        <nav class="back-nav">
+            <a href="/" class="back-link">← Back to MapleDevs</a>
+        </nav>
+
         <header>
-            <a href="/" style="color: var(--accent); text-decoration: none; font-size: 14px; display: block; margin-bottom: 20px;">← Back to MapleDevs</a>
             <h1>The Maple Feed</h1>
             <p class="subtitle">Latest industry insights, studio news, and career opportunities for the Canadian gaming community.</p>
         </header>
 
         <div class="blog-grid" id="blog-archive">
             <!-- ═══════ BLOG POSTS START ═══════ -->
+            <a href="/blog/mapledevs-editorial-launch.html" class="blog-card">
+                <span class="date">April 22, 2026</span>
+                <h2>Introducing The Maple Feed</h2>
+                <p>Welcome to your definitive source for Canadian game industry news and insights.</p>
+            </a>
+            
             <a href="/blog/canadian-gaming-thrives-industry-jobs-roundup.html" class="blog-card">
                 <span class="date">April 22, 2026</span>
                 <h2>Canadian Gaming Thrives: Industry Jobs Roundup</h2>
-                <p>A deep dive into the current landscape of Canadian game development, highlighting new opportunities at major studios and emerging trends.</p>
+                <p>A deep dive into the current landscape of Canadian game development, highlighting new opportunities at major studios.</p>
             </a>
 
             <a href="/blog/canadian-gaming-industry-news-opportunities.html" class="blog-card">
@@ -126,7 +149,7 @@
 
         <footer>
             <p style="text-align: center; margin-top: 100px; color: var(--text-dim); font-size: 14px;">
-                &copy; 2026 MapleDevs Editorial.
+                &copy; 2026 MapleDevs. All rights reserved.
             </p>
         </footer>
     </div>
