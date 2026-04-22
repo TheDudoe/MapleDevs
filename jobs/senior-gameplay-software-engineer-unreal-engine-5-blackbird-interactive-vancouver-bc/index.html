@@ -1187,8 +1187,8 @@ Blackbird Interactive is a creative-fueled, future-driven, independent game stud
 /* ═══════════════════════════════════════════════════
    CONFIG
    ═══════════════════════════════════════════════════ */
-const SHEET_ID = "2PACX-1vSkt2ROoihRVsL4f0m4dXZ1IzD7KYzEghgOwW7QPC2EN6sE4D_iI3stfllfdeq61coOrhdi47eeLmoY";
-const COL = {title:0,studio:1,location:2,type:3,mode:4,desc:5,apply:6,posted:7,featured:8,student:9,salary:10,engine:11,visa:12};
+const SHEET_DOC_ID = "1L2KcTO32jK5MVY1m3qdqdja7LTZ38f8lYXsK5mNMMDo";
+const LIVE_SHEET_NAME = "jobs_live";
 const PER_PAGE = 20;
 let ALL = [], dispCount = PER_PAGE;
 let saved = JSON.parse(localStorage.getItem('md_saved')||'[]');
@@ -1432,11 +1432,13 @@ updBadge();
 
 /* ═══════ DATA ═══════ */
 async function loadJobs(){
-  const url="https://docs.google.com/spreadsheets/d/e/"+SHEET_ID+"/pub?output=csv";
+  const url="https://docs.google.com/spreadsheets/d/"+SHEET_DOC_ID+"/gviz/tq?tqx=out:csv&sheet="+encodeURIComponent(LIVE_SHEET_NAME);
   try{const r=await fetch(url);if(!r.ok)throw 0;const csv=await r.text();ALL=parseCSV(csv);injectJobSchema(ALL);initFilters();updateStats();applyHash();render();buildTrusted();}
   catch(e){console.error('Job Load Error:',e);document.getElementById("job-list").innerHTML='<div class="state-msg"><span class="ic">⚠️</span>Couldn\'t load jobs.<span class="sub">Please refresh or check back later.</span></div>';}
 }
-function parseCSV(t){const rows=[],jobs=[];let r=[],c="",q=false;for(let i=0;i<t.length;i++){const ch=t[i],nx=t[i+1];if(ch==='"'){if(q&&nx==='"'){c+='"';i++;}else{q=!q;}}else if(ch===','&&!q){r.push(c);c="";}else if(ch==='\n'&&!q){r.push(c);rows.push(r);r=[];c="";}else if(ch!=='\r'||q){c+=ch;}}if(r.length||c){r.push(c);rows.push(r);}for(let i=1;i<rows.length;i++){const rw=rows[i];if(!rw||!rw[COL.title]||!rw[COL.studio])continue;jobs.push({title:cl(rw[COL.title]),studio:cl(rw[COL.studio]),location:cl(rw[COL.location]),type:cl(rw[COL.type]),mode:cl(rw[COL.mode]),desc:cl(rw[COL.desc]),apply:cl(rw[COL.apply]),posted:cl(rw[COL.posted]),featured:cl(rw[COL.featured]||"").toLowerCase()==="yes",student:cl(rw[COL.student]||"").toLowerCase()==="yes",salary:cl(rw[COL.salary]),engine:cl(rw[COL.engine]),visa:cl(rw[COL.visa])});}return jobs;}
+function hkey(s){return cl(s).toLowerCase().replace(/[^a-z0-9]+/g,'_').replace(/^_|_$/g,'');}
+function cell(r,h,names,fallback){for(const n of names){const i=h.indexOf(hkey(n));if(i>-1)return cl(r[i]);}return fallback!==undefined?cl(r[fallback]):"";}
+function parseCSV(t){const rows=[],jobs=[];let r=[],c="",q=false;for(let i=0;i<t.length;i++){const ch=t[i],nx=t[i+1];if(ch==='"'){if(q&&nx==='"'){c+='"';i++;}else{q=!q;}}else if(ch===','&&!q){r.push(c);c="";}else if(ch==='\n'&&!q){r.push(c);rows.push(r);r=[];c="";}else if(ch!=='\r'||q){c+=ch;}}if(r.length||c){r.push(c);rows.push(r);}if(!rows.length)return jobs;const h=rows[0].map(hkey),seen=new Set();for(let i=1;i<rows.length;i++){const rw=rows[i];const status=cell(rw,h,['status']);const link=cell(rw,h,['link_status']);if(status&&!['approved','live','active'].includes(hkey(status)))continue;if(['expired','dead','missing_from_source','inactive'].includes(hkey(link)))continue;const title=cell(rw,h,['Job Title','title'],0),studio=cell(rw,h,['Studio Name','studio'],1),location=cell(rw,h,['Location'],2),apply=cell(rw,h,['How to Apply','Apply URL','apply'],6),id=cell(rw,h,['job_id']);if(!rw||!title||!studio)continue;const key=hkey(title+'|'+studio+'|'+location);if(seen.has(key))continue;seen.add(key);jobs.push({id,title,studio,location,type:cell(rw,h,['Job Type','type'],3),mode:cell(rw,h,['Work Mode','mode'],4),desc:cell(rw,h,['Description','desc'],5),apply,posted:cell(rw,h,['Date Posted','posted'],7),featured:cell(rw,h,['Featured','(Featured)'],8).toLowerCase()==="yes",student:cell(rw,h,['Student Friendly','(Student Friendly)'],9).toLowerCase()==="yes",salary:cell(rw,h,['Salary'],10),engine:cell(rw,h,['Engine'],11),visa:cell(rw,h,['Visa Sponsorship','visa'],12)});}return jobs;}
 function cl(s){return s?s.trim():"";}
 function toSlug(s){return s.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');}
 function initFilters(){const cs=[...new Set(ALL.map(j=>j.location).filter(Boolean))].sort(),s=document.getElementById("f-city");s.innerHTML='<option value="">All cities</option>';cs.forEach(c=>{const o=document.createElement("option");o.value=c;o.textContent=c;s.appendChild(o);});}
