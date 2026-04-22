@@ -1,200 +1,134 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>The Maple Feed | MapleDevs Editorial</title>
-<meta name="description" content="The Maple Feed collects MapleDevs Editorial posts for Canadian game developers, job seekers, students, and studios." />
-<meta name="theme-color" content="#C8372D" />
-<link rel="canonical" href="https://mapledevs.ca/blog/" />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
-<link rel="icon" type="image/png" href="/favicon.png" />
-<style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-:root {
-  --maple: #C8372D;
-  --maple-dark: #A02820;
-  --maple-glow: rgba(200,55,45,0.12);
-  --forest: #2A5C45;
-  --bg-body: #F8F7F4;
-  --bg-card: #FFFFFF;
-  --text-1: #111110;
-  --text-2: #4A4A45;
-  --text-3: #8A8A82;
-  --border: rgba(17,17,16,0.09);
-  --shadow-l: 0 16px 48px rgba(0,0,0,0.1);
-  --r-s: 8px;
-  --r: 12px;
-  --max-w: 980px;
-}
-body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  background: var(--bg-body);
-  color: var(--text-1);
-  min-height: 100vh;
-  line-height: 1.65;
-  -webkit-font-smoothing: antialiased;
-}
-.site-header {
-  background: rgba(255,255,255,0.82);
-  backdrop-filter: blur(22px) saturate(180%);
-  border-bottom: 1px solid var(--border);
-  position: sticky;
-  top: 0;
-  z-index: 10;
-}
-.header-inner {
-  max-width: 1080px;
-  margin: 0 auto;
-  padding: 14px 22px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-}
-.logo {
-  font-family: 'DM Serif Display', serif;
-  font-size: 22px;
-  text-decoration: none;
-  color: var(--text-1);
-}
-.logo span { color: var(--maple); }
-.nav-link {
-  color: var(--text-2);
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--r-s);
-  padding: 8px 12px;
-  font-size: 13px;
-  font-weight: 600;
-  text-decoration: none;
-}
-.hero {
-  background: linear-gradient(135deg, rgba(200,55,45,0.12), rgba(42,92,69,0.08)), var(--bg-card);
-  border-bottom: 1px solid var(--border);
-}
-.hero-inner {
-  max-width: var(--max-w);
-  margin: 0 auto;
-  padding: 76px 22px 54px;
-}
-.eyebrow {
-  display: inline-flex;
-  color: var(--maple);
-  background: var(--maple-glow);
-  border: 1px solid rgba(200,55,45,0.16);
-  border-radius: 999px;
-  padding: 6px 12px;
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  margin-bottom: 18px;
-}
-h1 {
-  font-family: 'DM Serif Display', serif;
-  font-size: clamp(2.4rem, 7vw, 4.5rem);
-  line-height: 1.02;
-  letter-spacing: -0.02em;
-}
-.subtitle {
-  color: var(--text-2);
-  font-size: 18px;
-  max-width: 720px;
-  margin-top: 18px;
-}
-.archive {
-  max-width: var(--max-w);
-  margin: 0 auto;
-  padding: 42px 22px 80px;
-}
-.blog-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-  gap: 18px;
-}
-.blog-card {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  min-height: 230px;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--r);
-  box-shadow: 0 6px 24px rgba(0,0,0,0.05);
-  padding: 24px;
-  color: inherit;
-  text-decoration: none;
-  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-}
-.blog-card:hover {
-  transform: translateY(-3px);
-  border-color: rgba(200,55,45,0.3);
-  box-shadow: var(--shadow-l);
-}
-.date {
-  color: var(--maple);
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-.blog-card h2 {
-  font-family: 'DM Serif Display', serif;
-  font-size: 25px;
-  line-height: 1.15;
-}
-.blog-card p {
-  color: var(--text-2);
-  font-size: 14px;
-}
-.read {
-  color: var(--maple-dark);
-  font-size: 13px;
-  font-weight: 800;
-  margin-top: auto;
-}
-footer {
-  border-top: 1px solid var(--border);
-  color: var(--text-3);
-  font-size: 13px;
-  padding: 26px 22px;
-  text-align: center;
-}
-@media (max-width: 640px) {
-  .header-inner, .hero-inner, .archive { padding-left: 16px; padding-right: 16px; }
-  .hero-inner { padding-top: 52px; padding-bottom: 40px; }
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MapleDevs | Industry Insights & News</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 80px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        h1 {
+            font-size: 56px;
+            font-weight: 800;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 16px;
+            letter-spacing: -1px;
+        }
+
+        .subtitle {
+            color: var(--text-dim);
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 32px;
+        }
+
+        .blog-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 40px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .blog-card .date {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent);
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .blog-card h2 {
+            font-size: 28px;
+            margin-bottom: 16px;
+        }
+
+        .blog-card p {
+            color: var(--text-dim);
+            font-size: 16px;
+        }
+
+        .nav-links {
+            margin-top: 40px;
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .nav-links a {
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+        }
+    </style>
 </head>
 <body>
-<header class="site-header">
-  <div class="header-inner">
-    <a class="logo" href="/">Maple<span>Devs</span></a>
-    <a class="nav-link" href="/">Browse jobs</a>
-  </div>
-</header>
-<section class="hero">
-  <div class="hero-inner">
-    <div class="eyebrow">MapleDevs Editorial</div>
-    <h1>The Maple Feed</h1>
-    <p class="subtitle">Helpful posts for Canadian game developers, job seekers, students, and studios. New articles stack here as they are published.</p>
-  </div>
-</section>
-<main class="archive">
-  <div class="blog-grid" id="blog-archive">
-<!-- BLOG_POSTS_START -->
-    <a href="/blog/mapledevs-editorial-launch.html" class="blog-card">
-      <span class="date">MapleDevs Editorial</span>
-      <h2>Introducing The Maple Feed</h2>
-      <p>MapleDevs Editorial is adding practical coverage for Canadian game developers, studios, students, and job seekers.</p>
-      <span class="read">Read post</span>
-    </a>
-<!-- BLOG_POSTS_END -->
-  </div>
-</main>
-<footer>MapleDevs Editorial</footer>
+    <div class="container">
+        <header>
+            <a href="/" style="color: var(--accent); text-decoration: none; font-size: 14px; display: block; margin-bottom: 20px;">← Back to MapleDevs</a>
+            <h1>The Maple Feed</h1>
+            <p class="subtitle">Latest industry insights, studio news, and career opportunities for the Canadian gaming community.</p>
+        </header>
+
+        <div class="blog-grid" id="blog-archive">
+            <!-- ═══════ BLOG POSTS START ═══════ -->
+            <a href="/blog/canadian-gaming-thrives-industry-jobs-roundup.html" class="blog-card">
+                <span class="date">April 22, 2026</span>
+                <h2>Canadian Gaming Thrives: Industry Jobs Roundup</h2>
+                <p>A deep dive into the current landscape of Canadian game development, highlighting new opportunities at major studios and emerging trends.</p>
+            </a>
+
+            <a href="/blog/canadian-gaming-industry-news-opportunities.html" class="blog-card">
+                <span class="date">April 21, 2026</span>
+                <h2>Maple Leaf Momentum: A Buzzing Week in Canadian Gaming!</h2>
+                <p>Discover the latest news and career opportunities in Canada's vibrant game development sector.</p>
+            </a>
+            <!-- ═══════ BLOG POSTS END ═══════ -->
+        </div>
+
+        <footer>
+            <p style="text-align: center; margin-top: 100px; color: var(--text-dim); font-size: 14px;">
+                &copy; 2026 MapleDevs Editorial.
+            </p>
+        </footer>
+    </div>
 </body>
 </html>

@@ -1,215 +1,137 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Introducing The Maple Feed | MapleDevs Editorial</title>
-<meta name="description" content="MapleDevs Editorial is adding practical coverage for Canadian game developers, studios, students, and job seekers." />
-<meta property="og:site_name" content="MapleDevs" />
-<meta property="og:title" content="Introducing The Maple Feed" />
-<meta property="og:description" content="MapleDevs Editorial is adding practical coverage for Canadian game developers, studios, students, and job seekers." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://mapledevs.ca/blog/mapledevs-editorial-launch.html" />
-<meta property="og:image" content="https://mapledevs.ca/og-image.png" />
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Introducing The Maple Feed" />
-<meta name="twitter:description" content="MapleDevs Editorial is adding practical coverage for Canadian game developers, studios, students, and job seekers." />
-<meta name="twitter:image" content="https://mapledevs.ca/og-image.png" />
-<meta name="theme-color" content="#C8372D" />
-<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-<link rel="canonical" href="https://mapledevs.ca/blog/mapledevs-editorial-launch.html" />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
-<link rel="icon" type="image/png" href="/favicon.png" />
-<style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-:root {
-  --maple: #C8372D;
-  --maple-dark: #A02820;
-  --maple-glow: rgba(200,55,45,0.12);
-  --forest: #2A5C45;
-  --bg-body: #F8F7F4;
-  --bg-card: #FFFFFF;
-  --bg-subtle: #F0EEEA;
-  --text-1: #111110;
-  --text-2: #4A4A45;
-  --text-3: #8A8A82;
-  --border: rgba(17,17,16,0.09);
-  --shadow-l: 0 16px 48px rgba(0,0,0,0.1);
-  --r-s: 8px;
-  --r: 12px;
-  --max-w: 880px;
-}
-body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  background: var(--bg-body);
-  color: var(--text-1);
-  min-height: 100vh;
-  line-height: 1.7;
-  -webkit-font-smoothing: antialiased;
-}
-a { color: inherit; }
-.site-header {
-  background: rgba(255,255,255,0.82);
-  backdrop-filter: blur(22px) saturate(180%);
-  border-bottom: 1px solid var(--border);
-  position: sticky;
-  top: 0;
-  z-index: 10;
-}
-.header-inner {
-  max-width: 1080px;
-  margin: 0 auto;
-  padding: 14px 22px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-}
-.logo {
-  font-family: 'DM Serif Display', serif;
-  font-size: 22px;
-  text-decoration: none;
-  color: var(--text-1);
-}
-.logo span { color: var(--maple); }
-.nav-link {
-  font-size: 13px;
-  color: var(--text-2);
-  text-decoration: none;
-  border: 1px solid var(--border);
-  border-radius: var(--r-s);
-  padding: 8px 12px;
-  background: var(--bg-card);
-  font-weight: 600;
-}
-.article-hero {
-  border-bottom: 1px solid var(--border);
-  background: linear-gradient(135deg, rgba(200,55,45,0.12), rgba(42,92,69,0.08)), var(--bg-card);
-}
-.article-hero-inner {
-  max-width: var(--max-w);
-  margin: 0 auto;
-  padding: 72px 22px 54px;
-}
-.eyebrow {
-  display: inline-flex;
-  color: var(--maple);
-  background: var(--maple-glow);
-  border: 1px solid rgba(200,55,45,0.16);
-  border-radius: 999px;
-  padding: 6px 12px;
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  margin-bottom: 18px;
-}
-h1 {
-  font-family: 'DM Serif Display', serif;
-  font-size: clamp(2.1rem, 7vw, 4rem);
-  line-height: 1.05;
-  letter-spacing: -0.02em;
-  max-width: 820px;
-}
-.dek {
-  color: var(--text-2);
-  font-size: 18px;
-  max-width: 700px;
-  margin-top: 18px;
-}
-.byline {
-  color: var(--text-3);
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  font-size: 13px;
-  margin-top: 24px;
-}
-.article-shell {
-  max-width: var(--max-w);
-  margin: 0 auto;
-  padding: 48px 22px 72px;
-}
-.article-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--r);
-  box-shadow: var(--shadow-l);
-  padding: clamp(24px, 5vw, 48px);
-}
-.article-body {
-  color: var(--text-1);
-  font-size: 17px;
-}
-.article-body > * + * { margin-top: 1.2em; }
-.article-body h2, .article-body h3 {
-  font-family: 'DM Serif Display', serif;
-  line-height: 1.18;
-  letter-spacing: -0.01em;
-  margin-top: 1.8em;
-}
-.article-body h2 { font-size: clamp(1.6rem, 4vw, 2.2rem); }
-.article-body h3 { font-size: 1.35rem; }
-.article-body p, .article-body li { color: var(--text-2); }
-.article-body ul, .article-body ol { padding-left: 1.4rem; }
-.article-body a {
-  color: var(--maple-dark);
-  font-weight: 700;
-  text-decoration-thickness: 2px;
-  text-underline-offset: 3px;
-}
-.article-body blockquote {
-  border-left: 4px solid var(--maple);
-  background: var(--bg-subtle);
-  padding: 18px 20px;
-  border-radius: 0 var(--r-s) var(--r-s) 0;
-  color: var(--text-2);
-}
-.article-footer {
-  max-width: var(--max-w);
-  margin: 0 auto;
-  padding: 0 22px 44px;
-  color: var(--text-3);
-  font-size: 13px;
-}
-@media (max-width: 640px) {
-  .header-inner { padding: 12px 16px; }
-  .article-hero-inner { padding: 52px 16px 38px; }
-  .article-shell { padding: 28px 16px 48px; }
-  .article-card { padding: 22px; }
-  .dek { font-size: 16px; }
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introducing The Maple Feed | MapleDevs Editorial</title>
+    <meta name="description" content="Welcome to the first edition of The Maple Feed, your definitive source for Canadian game industry news and insights.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --maple: #ff4d4d;
+            --maple-gradient: linear-gradient(135deg, #ff4d4d 0%, #b30000 100%);
+            --bg: #0a0b10;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --text: #e0e0e6;
+            --text-dim: #9494a3;
+            --border: rgba(255, 255, 255, 0.1);
+        }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: var(--bg); 
+            color: var(--text); 
+            line-height: 1.8; 
+            margin: 0; 
+            padding: 0; 
+            -webkit-font-smoothing: antialiased;
+        }
+        .container { max-width: 800px; margin: 0 auto; padding: 80px 20px; }
+        
+        .nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 60px;
+        }
+        
+        .back-link { 
+            color: var(--maple); 
+            text-decoration: none; 
+            font-size: 14px; 
+            font-weight: 600; 
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: opacity 0.2s;
+        }
+        .back-link:hover { opacity: 0.8; }
+
+        header { 
+            border-bottom: 1px solid var(--border); 
+            padding-bottom: 40px; 
+            margin-bottom: 40px; 
+        }
+        
+        h1 { 
+            font-size: 48px; 
+            color: #fff; 
+            margin: 0 0 15px 0; 
+            letter-spacing: -1.5px; 
+            font-weight: 800;
+            line-height: 1.1;
+        }
+        
+        .metadata {
+            color: var(--text-dim);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            gap: 15px;
+        }
+
+        .content { font-size: 18px; color: #ced4da; }
+        .content p { margin-bottom: 28px; }
+        .content h2 { 
+            color: #fff; 
+            margin: 50px 0 20px 0; 
+            font-size: 28px; 
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        .content h2::before {
+            content: "";
+            display: block;
+            width: 30px;
+            height: 4px;
+            background: var(--maple-gradient);
+            margin-bottom: 15px;
+            border-radius: 2px;
+        }
+
+        footer { 
+            margin-top: 100px; 
+            padding-top: 40px; 
+            border-top: 1px solid var(--border); 
+            color: var(--text-dim); 
+            font-size: 13px; 
+            text-align: center; 
+        }
+    </style>
 </head>
 <body>
-<header class="site-header">
-  <div class="header-inner">
-    <a class="logo" href="/">Maple<span>Devs</span></a>
-    <a class="nav-link" href="/blog/">The Maple Feed</a>
-  </div>
-</header>
-<section class="article-hero">
-  <div class="article-hero-inner">
-    <div class="eyebrow">MapleDevs Editorial</div>
-    <h1>Introducing The Maple Feed</h1>
-    <p class="dek">MapleDevs Editorial is adding practical coverage for Canadian game developers, studios, students, and job seekers.</p>
-    <div class="byline">
-      <span>By MapleDevs Editorial</span>
-      <span>The Maple Feed</span>
+    <div class="container">
+        <div class="nav-header">
+            <a href="/blog/index.html" class="back-link">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+                Back to Feed
+            </a>
+            <img src="/favicon.png" alt="MapleDevs" style="height: 24px; opacity: 0.5;">
+        </div>
+
+        <header>
+            <h1>Introducing The Maple Feed</h1>
+            <div class="metadata">
+                <span>MapleDevs Editorial</span>
+                <span>•</span>
+                <span>April 22, 2026</span>
+            </div>
+        </header>
+
+        <article class="content">
+            <p>Welcome to the first edition of <strong>The Maple Feed</strong>. This is more than just a blog—it’s a commitment to the Canadian game development community. Every week, our editorial team will bring you the most important news from studios across the country, from the bustling hubs of Montreal and Vancouver to the rising scenes in Alberta and the Maritimes.</p>
+            
+            <h2>Our Mission</h2>
+            <p>We built MapleDevs to cut through the noise of US-centric job boards. The Maple Feed is the next step in that journey. We want to provide you with the context you need to build your career in Canada, whether you’re a junior looking for your first role or a lead developer navigating the changing landscape of major studio acquisitions.</p>
+            
+            <h2>What to Expect</h2>
+            <p>Moving forward, you can expect weekly roundup articles, deep dives into studio culture, and tips for landing roles in the Canadian market. Everything is curated to be relevant to you, the developer working in the Great White North.</p>
+        </article>
+
+        <footer>
+            &copy; 2026 MapleDevs. Verified Industry Insights.
+        </footer>
     </div>
-  </div>
-</section>
-<main class="article-shell">
-  <article class="article-card">
-    <div class="article-body">
-<p>The Maple Feed is the editorial home for MapleDevs: practical updates for people looking for work, hiring talent, or tracking Canada's game development scene.</p><h2>What we will cover</h2><p>Expect short, useful articles about Canadian studio hiring patterns, student-friendly roles, portfolio signals, regional job markets, and how to read listings with more confidence.</p><h2>How it connects to the job board</h2><p>Editorial posts will live beside the job board, but they will stay separate from scraped listings. That keeps the board clean while giving job seekers more context around the market.</p><p>Every article is published through the MapleDevs template, saved as a flat page inside the blog folder, and linked only after the file exists.</p>
-    </div>
-  </article>
-</main>
-<footer class="article-footer">
-  <p>MapleDevs publishes practical editorial coverage for Canada's game development community.</p>
-</footer>
 </body>
 </html>
