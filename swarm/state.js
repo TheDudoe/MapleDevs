@@ -1,6 +1,6 @@
 window.SWARM_STATE = {
   "last_run": "2026-04-22T03:56:48.533Z",
-  "status": "idle",
+  "status": "error",
   "active_agents": [
     "scout"
   ],
@@ -14,9 +14,9 @@ window.SWARM_STATE = {
   "agents": {
     "scout": {
       "status": "Idle",
-      "last_action": "Found 5 industry updates.",
+      "last_action": "Error: MISSING_API_KEY: Please set GOOGLE_API_KEY in your .env file.",
       "project": "Gaming News & Jobs",
-      "last_run": "2026-04-22T03:56:18.602Z"
+      "last_run": "2026-04-22T04:44:10.969Z"
     },
     "reviewer": {
       "status": "Idle",
@@ -43,5 +43,5 @@ window.SWARM_STATE = {
       "last_run": "2026-04-22T03:56:48.535Z"
     }
   },
-  "last_error": "[GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent: [404 Not Found] models/gemini-pro is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods."
+  "last_error": "MISSING_API_KEY: Please set GOOGLE_API_KEY in your .env file."
 };
