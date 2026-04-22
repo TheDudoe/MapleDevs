@@ -1,0 +1,57 @@
+name: Fix encoded MapleDevs pricing copy
+
+on:
+  push:
+    paths:
+      - .github/workflows/fix-encoded-pricing-copy.yml
+
+permissions:
+  contents: write
+
+jobs:
+  fix-pricing:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Fix pricing copy
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          path = Path('index.html')
+          text = path.read_text(encoding='utf-8')
+          price29 = r'(?:\$|&#36;|&dollar;)29\s+CAD'
+
+          text = re.sub(price29, '$49 CAD', text)
+
+          text = re.sub(
+              r'Payment via Interac e-Transfer:\s*(<b>)?wupeiheng11@gmail\.com(</b>)?(?!\. Hiring Boost)',
+              r'Payment via Interac e-Transfer: \1wupeiheng11@gmail.com\2. Hiring Boost placements are <b>$149 CAD</b> and include homepage, newsletter, and community visibility',
+              text,
+          )
+
+          text = re.sub(
+              r'Standard listings are <b>Free</b>\.\s*<br>Featured listings are <b>\$49 CAD</b>\s*\(payable via Interac e-Transfer to <b>wupeiheng11@gmail\.com</b>\)\.',
+              'Standard listings are <b>Free</b>. <br>Featured listings are <b>$49 CAD</b>. Hiring Boost placements are <b>$149 CAD</b> and include extra homepage, newsletter, and community visibility. Payments are payable via Interac e-Transfer to <b>wupeiheng11@gmail.com</b>.',
+              text,
+          )
+
+          text = re.sub(
+              r'Standard job listings are currently free\. <strong>Featured Listings</strong> are available for <strong>\$49 CAD</strong>\. Featured roles stay at the top of the board, receive priority in our newsletter, and are highlighted on social media\.',
+              'Standard job listings are currently free. <strong>Featured Listings</strong> are available for <strong>$49 CAD</strong>. <strong>Hiring Boost</strong> placements are available for <strong>$149 CAD</strong>. Featured roles stay at the top of the board, receive priority in our newsletter, and can be highlighted on social media or community channels.',
+              text,
+          )
+
+          Path('.github/workflows/fix-encoded-pricing-copy.yml').unlink(missing_ok=True)
+          path.write_text(text, encoding='utf-8')
+          PY
+      - name: Commit pricing copy
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html .github/workflows/fix-encoded-pricing-copy.yml
+          git diff --cached --quiet || git commit -m "Fix encoded MapleDevs pricing copy"
+          git push
