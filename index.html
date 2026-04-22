@@ -198,6 +198,7 @@ header::after { content: ''; position: absolute; bottom: -1px; left: 0; right: 0
 .feed-links::-webkit-scrollbar { display: none; }
 .feed-item { display: inline-flex; align-items: center; min-height: 34px; padding: 7px 12px; border: 1px solid var(--border); border-radius: var(--r-s); background: var(--bg-body); color: var(--text-2); font-size: 13px; font-weight: 600; text-decoration: none; white-space: nowrap; transition: all var(--dur); }
 .feed-item:hover { color: var(--maple); border-color: rgba(200,55,45,0.28); background: var(--maple-glow); }
+
 /* ═══════ DISCOVERY HUBS ═══════ */
 .hubs-s { background: var(--bg-body); border-bottom: 1px solid var(--border); padding: 3rem 1.5rem; transition: background var(--dur); }
 .hubs-in { max-width: var(--max-w); margin: 0 auto; }
@@ -702,6 +703,9 @@ footer { border-top: 1px solid var(--border); padding: 1.75rem 1.5rem; backgroun
 
   /* Trusted */
   .trusted { display: none; }
+  .feed-ticker { padding: 0.85rem 1rem; }
+  .feed-inner { align-items: flex-start; flex-direction: column; gap: 0.6rem; }
+  .feed-links { width: 100%; }
 }
 
 @media (max-width: 480px) {
