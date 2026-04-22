@@ -8,30 +8,31 @@ const { updateState, updateAgent } = require('./utils');
  */
 async function publish(contentPackage) {
     const agentId = 'director';
-    await updateAgent(agentId, 'Active', 'Publishing to template...');
+    await updateAgent(agentId, 'Active', 'Publishing to premium template...');
 
     const ROOT_DIR = path.join(__dirname, '..');
     const BLOG_DIR = path.join(ROOT_DIR, 'blog');
 
     try {
         if (contentPackage.blog) {
-            // contentPackage.blog is expected to be { slug, meta_description, html_body, title }
             const { slug, meta_description, html_body, title } = contentPackage.blog;
+            const date = new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
             
             // 1. Template Injection
             const templatePath = path.join(ROOT_DIR, 'blog-template.html');
             if (!await fs.pathExists(templatePath)) throw new Error('MISSING_TEMPLATE: blog-template.html not found.');
             
             let html = await fs.readFile(templatePath, 'utf-8');
-            html = html.replace('{{TITLE}}', title || 'Industry Update');
-            html = html.replace('{{META_DESCRIPTION}}', meta_description || '');
-            html = html.replace('{{CONTENT}}', html_body);
+            html = html.replace(/{{TITLE}}/g, title || 'Industry Update');
+            html = html.replace(/{{META_DESCRIPTION}}/g, meta_description || '');
+            html = html.replace(/{{DATE}}/g, date);
+            html = html.replace(/{{CONTENT}}/g, html_body);
 
             // 2. Strict Routing (Flat file in /blog/)
             const filePath = path.join(BLOG_DIR, `${slug}.html`);
             await fs.writeFile(filePath, html);
             
-            // 3. Update Website Ticker
+            // 3. Update Website Ticker (Force .html extension)
             const indexPath = path.join(ROOT_DIR, 'index.html');
             if (await fs.pathExists(indexPath)) {
                 let indexContent = await fs.readFile(indexPath, 'utf-8');
@@ -53,11 +54,10 @@ async function publish(contentPackage) {
                 }
             }
 
-            // 4. Update Blog Archive
+            // 4. Update Blog Archive (Force .html extension)
             const blogArchivePath = path.join(BLOG_DIR, 'index.html');
             if (await fs.pathExists(blogArchivePath)) {
                 let archiveContent = await fs.readFile(blogArchivePath, 'utf-8');
-                const date = new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
                 const newCardHtml = `<!-- ═══════ BLOG POSTS START ═══════ -->
             <a href="/blog/${slug}.html" class="blog-card">
                 <span class="date">${date}</span>
@@ -66,6 +66,8 @@ async function publish(contentPackage) {
             </a>`;
                 if (archiveContent.includes('<!-- ═══════ BLOG POSTS START ═══════ -->')) {
                     archiveContent = archiveContent.replace('<!-- ═══════ BLOG POSTS START ═══════ -->', newCardHtml);
+                    // Global fix: Remove trailing slashes from other links in archive if they exist
+                    archiveContent = archiveContent.replace(/href="\/blog\/([^\/]+)\/"/g, 'href="/blog/$1.html"');
                     await fs.writeFile(blogArchivePath, archiveContent);
                 }
             }
