@@ -1,134 +1,56 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MapleDevs | Industry Insights & News</title>
+    <title>The Maple Feed | MapleDevs</title>
+    <meta name="description" content="Canadian game industry notes, studio updates, and career context from MapleDevs.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            margin: 0;
-            line-height: 1.6;
+            --bg: #f8f7f4;
+            --card: #ffffff;
+            --text: #111110;
+            --text-dim: #5f5f58;
+            --accent: #C8372D;
+            --border: rgba(17, 17, 16, 0.1);
+            --gradient: linear-gradient(135deg, #C8372D 0%, #E8564C 100%);
         }
-
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 80px 20px;
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 80px;
-        }
-
-        h1 {
-            font-size: 56px;
-            font-weight: 800;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 16px;
-            letter-spacing: -1px;
-        }
-
-        .subtitle {
-            color: var(--text-dim);
-            font-size: 18px;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .blog-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 32px;
-        }
-
-        .blog-card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 24px;
-            padding: 40px;
-            text-decoration: none;
-            color: inherit;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .blog-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent);
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        .blog-card .date {
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--accent);
-            margin-bottom: 12px;
-            display: block;
-        }
-
-        .blog-card h2 {
-            font-size: 28px;
-            margin-bottom: 16px;
-        }
-
-        .blog-card p {
-            color: var(--text-dim);
-            font-size: 16px;
-        }
-
-        .nav-links {
-            margin-top: 40px;
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-        }
-
-        .nav-links a {
-            color: var(--accent);
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 600;
-        }
+        * { box-sizing: border-box; }
+        body { margin: 0; line-height: 1.6; background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; }
+        .container { max-width: 960px; margin: 0 auto; padding: 64px 20px; }
+        header { text-align: center; margin-bottom: 56px; }
+        h1 { font-size: clamp(40px, 7vw, 56px); font-weight: 800; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 0 0 16px; letter-spacing: 0; }
+        .subtitle { color: var(--text-dim); font-size: 18px; max-width: 640px; margin: 0 auto; }
+        .back-link { color: var(--accent); text-decoration: none; font-size: 14px; font-weight: 700; display: inline-block; margin-bottom: 24px; }
+        .blog-grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
+        .blog-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 32px; text-decoration: none; color: inherit; transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease; }
+        .blog-card:hover { transform: translateY(-2px); border-color: var(--accent); box-shadow: 0 12px 32px rgba(17, 17, 16, 0.08); }
+        .blog-card .date { font-size: 12px; text-transform: uppercase; letter-spacing: 0; color: var(--accent); margin-bottom: 12px; display: block; font-weight: 700; }
+        .blog-card h2 { font-size: 28px; line-height: 1.2; margin: 0 0 12px; }
+        .blog-card p { color: var(--text-dim); font-size: 16px; margin: 0; }
+        footer p { text-align: center; margin-top: 80px; color: var(--text-dim); font-size: 14px; }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <a href="/" style="color: var(--accent); text-decoration: none; font-size: 14px; display: block; margin-bottom: 20px;">← Back to MapleDevs</a>
+            <a href="/" class="back-link">Back to MapleDevs</a>
             <h1>The Maple Feed</h1>
-            <p class="subtitle">Latest industry insights, studio news, and career opportunities for the Canadian gaming community.</p>
+            <p class="subtitle">Canadian game industry notes, studio updates, and career context from MapleDevs.</p>
         </header>
-
         <div class="blog-grid" id="blog-archive">
-            <!-- ═══════ BLOG POSTS START ═══════ -->
-            <a href="/blog/canadian-gaming-thrives-industry-jobs-roundup.html" class="blog-card">
+            <!-- BLOG POSTS START -->
+            <a href="/blog/mapledevs-editorial-launch.html" class="blog-card">
                 <span class="date">April 22, 2026</span>
-                <h2>Canadian Gaming Thrives: Industry Jobs Roundup</h2>
-                <p>A deep dive into the current landscape of Canadian game development, highlighting new opportunities at major studios and emerging trends.</p>
+                <h2>Introducing The Maple Feed</h2>
+                <p>A short note on why MapleDevs is adding a practical editorial feed for Canadian game developers and studios.</p>
             </a>
-
-            <a href="/blog/canadian-gaming-industry-news-opportunities.html" class="blog-card">
-                <span class="date">April 21, 2026</span>
-                <h2>Maple Leaf Momentum: A Buzzing Week in Canadian Gaming!</h2>
-                <p>Discover the latest news and career opportunities in Canada's vibrant game development sector.</p>
-            </a>
-            <!-- ═══════ BLOG POSTS END ═══════ -->
+            <!-- BLOG POSTS END -->
         </div>
-
-        <footer>
-            <p style="text-align: center; margin-top: 100px; color: var(--text-dim); font-size: 14px;">
-                &copy; 2026 MapleDevs Editorial.
-            </p>
-        </footer>
+        <footer><p>&copy; 2026 MapleDevs Editorial.</p></footer>
     </div>
 </body>
 </html>
