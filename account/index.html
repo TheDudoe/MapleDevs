@@ -985,6 +985,7 @@
     const SUPABASE_URL = 'https://wihermvoldapicvtksds.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndpaGVybXZvbGRhcGljdnRrc2RzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcwOTQzNTYsImV4cCI6MjA5MjY3MDM1Nn0.zqDWwusOf0qwrzGG7c-sQmCGts3WrNChwqMfKVlkvSg';
     const BUSINESS_EMAIL = 'mapledevsbusiness@gmail.com';
+    const ACCOUNT_REDIRECT_URL = 'https://mapledevs.ca/account/';
 
     const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
       auth: {
@@ -1325,7 +1326,7 @@
       }
       const result = await supabase.auth.signInWithOtp({
         email,
-        options: { emailRedirectTo: window.location.href.split('#')[0] }
+        options: { emailRedirectTo: ACCOUNT_REDIRECT_URL }
       });
       if (result.error) {
         setStatus(result.error.message, 'err');
@@ -1340,7 +1341,7 @@
       const result = await supabase.auth.signUp({
         email: value('signup-email'),
         password: value('signup-password'),
-        options: { emailRedirectTo: window.location.href.split('#')[0] }
+        options: { emailRedirectTo: ACCOUNT_REDIRECT_URL }
       });
       if (result.error) {
         setStatus(result.error.message, 'err');
