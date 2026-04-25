@@ -1035,6 +1035,13 @@
       el.textContent = message;
     }
 
+    function setFormBusy(form, busy) {
+      if (!form) return;
+      form.querySelectorAll('button, input[type="submit"]').forEach(control => {
+        control.disabled = busy;
+      });
+    }
+
     function cleanUrl(url) {
       const trimmed = String(url || '').trim();
       if (!trimmed) return null;
@@ -1365,69 +1372,82 @@
 
     async function saveProfile(event) {
       event.preventDefault();
-      setStatus('Saving account...', 'warn');
-      const payload = {
-        id: state.user.id,
-        email: state.user.email,
-        display_name: cleanText(value('profile-display-name')),
-        username: username(value('profile-username')),
-        account_type: value('profile-account-type') || 'candidate',
-        location: cleanText(value('profile-location')),
-        website_url: cleanUrl(value('profile-website')),
-        headline: cleanText(value('profile-headline')),
-        updated_at: new Date().toISOString()
-      };
-      const profileVisibility = value('profile-visibility') || 'private';
-      const data = await requireOk(
-        await supabase.from('profiles').upsert(payload, { onConflict: 'id' }).select('*').single(),
-        'Could not save account.'
-      );
-      const candidateData = await requireOk(
-        await supabase
-          .from('candidate_profiles')
-          .upsert({
-            user_id: state.user.id,
-            visibility: profileVisibility,
-            updated_at: new Date().toISOString()
-          }, { onConflict: 'user_id' })
-          .select('*')
-          .single(),
-        'Could not save profile visibility.'
-      );
-      state.profile = data;
-      state.candidate = candidateData;
-      renderIdentity();
-      setStatus('Account saved.', 'ok');
+      setFormBusy(event.currentTarget, true);
+      try {
+        setStatus('Saving account...', 'warn');
+        const savedAt = new Date().toISOString();
+        const payload = {
+          id: state.user.id,
+          email: state.user.email,
+          display_name: cleanText(value('profile-display-name')),
+          username: username(value('profile-username')),
+          account_type: value('profile-account-type') || 'candidate',
+          location: cleanText(value('profile-location')),
+          website_url: cleanUrl(value('profile-website')),
+          headline: cleanText(value('profile-headline')),
+          updated_at: savedAt
+        };
+        const profileVisibility = value('profile-visibility') || 'private';
+        const [profileResult, candidateResult] = await Promise.all([
+          supabase.from('profiles').upsert(payload, { onConflict: 'id' }).select('*').single(),
+          supabase
+            .from('candidate_profiles')
+            .upsert({
+              user_id: state.user.id,
+              visibility: profileVisibility,
+              updated_at: savedAt
+            }, { onConflict: 'user_id' })
+            .select('*')
+            .single()
+        ]);
+        const data = await requireOk(profileResult, 'Could not save account.');
+        const candidateData = await requireOk(candidateResult, 'Could not save profile visibility.');
+        state.profile = data;
+        state.candidate = candidateData;
+        renderIdentity();
+        setStatus('Account saved.', 'ok');
+      } catch (error) {
+        showError(error);
+      } finally {
+        setFormBusy(event.currentTarget, false);
+      }
     }
 
     async function saveCandidate(event) {
       event.preventDefault();
-      setStatus('Saving candidate profile...', 'warn');
-      const years = value('candidate-years');
-      const payload = {
-        user_id: state.user.id,
-        resume_title: cleanText(value('candidate-title-input')),
-        years_experience: years === '' ? null : Number(years),
-        portfolio_url: cleanUrl(value('candidate-portfolio')),
-        linkedin_url: cleanUrl(value('candidate-linkedin')),
-        github_url: cleanUrl(value('candidate-github')),
-        visa_status: cleanText(value('candidate-visa')),
-        summary: cleanText(value('candidate-summary')),
-        skills: list(value('candidate-skills')),
-        engines: list(value('candidate-engines')),
-        preferred_locations: list(value('candidate-locations')),
-        preferred_work_modes: list(value('candidate-work-modes')),
-        open_to_work: value('candidate-open'),
-        visibility: value('profile-visibility') || state.candidate?.visibility || 'private',
-        updated_at: new Date().toISOString()
-      };
-      const data = await requireOk(
-        await supabase.from('candidate_profiles').upsert(payload, { onConflict: 'user_id' }).select('*').single(),
-        'Could not save candidate profile.'
-      );
-      state.candidate = data;
-      renderCandidateTags();
-      setStatus('Candidate profile saved.', 'ok');
+      setFormBusy(event.currentTarget, true);
+      try {
+        setStatus('Saving candidate profile...', 'warn');
+        const years = value('candidate-years');
+        const payload = {
+          user_id: state.user.id,
+          resume_title: cleanText(value('candidate-title-input')),
+          years_experience: years === '' ? null : Number(years),
+          portfolio_url: cleanUrl(value('candidate-portfolio')),
+          linkedin_url: cleanUrl(value('candidate-linkedin')),
+          github_url: cleanUrl(value('candidate-github')),
+          visa_status: cleanText(value('candidate-visa')),
+          summary: cleanText(value('candidate-summary')),
+          skills: list(value('candidate-skills')),
+          engines: list(value('candidate-engines')),
+          preferred_locations: list(value('candidate-locations')),
+          preferred_work_modes: list(value('candidate-work-modes')),
+          open_to_work: value('candidate-open'),
+          visibility: value('profile-visibility') || state.candidate?.visibility || 'private',
+          updated_at: new Date().toISOString()
+        };
+        const data = await requireOk(
+          await supabase.from('candidate_profiles').upsert(payload, { onConflict: 'user_id' }).select('*').single(),
+          'Could not save candidate profile.'
+        );
+        state.candidate = data;
+        renderCandidateTags();
+        setStatus('Candidate profile saved.', 'ok');
+      } catch (error) {
+        showError(error);
+      } finally {
+        setFormBusy(event.currentTarget, false);
+      }
     }
 
     async function addResumeSection(event) {
