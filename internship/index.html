@@ -146,25 +146,30 @@
 </script>
 <script>
   (function(h,o,u,n,d) {
-    h[d] = h[d] || { q: [], onReady: function (c) { h.q.push(c) } }
-    d = o.createElement(u); d.async = 1; d.src = n; d.crossOrigin='anonymous'
-    n = o.getElementsByTagName(u)[0]; n.parentNode.insertBefore(d, n)
-  })(window, document, 'script', 'https://www.datadoghq-browser-agent.com/us5/v6/datadog-rum.js', 'DD_RUM')
+    h = h[d] = h[d] || { q: [], onReady: function (c) { h.q.push(c); } };
+    d = o.createElement(u);
+    d.async = 1;
+    d.src = n;
+    d.crossOrigin = 'anonymous';
+    n = o.getElementsByTagName(u)[0];
+    n.parentNode.insertBefore(d, n);
+  })(window, document, 'script', 'https://www.datadoghq-browser-agent.com/us5/v6/datadog-rum.js', 'DD_RUM');
   window.DD_RUM.onReady(function () {
     window.DD_RUM.init({
-      clientToken: 'pub4e371293c377f9ebb8d29cf402719cc4',
       applicationId: 'fac714c5-9145-479b-8e8b-9b5200e4a5a1',
+      clientToken: 'pub4e371293c377f9ebb8d29cf402719cc4',
       site: 'us5.datadoghq.com',
       service: 'mapledevs-web',
-      env: 'prod',
-      version: '1.0.1',
-      sessionSamplerRate: 100,
-      sessionReplaySamplerRate: 100,
+      env: 'production',
+      version: '1.0.2',
+      sessionSampleRate: 100,
+      sessionReplaySampleRate: 20,
       trackResources: true,
       trackLongTasks: true,
       trackUserInteractions: true,
-    })
-  })
+      defaultPrivacyLevel: 'mask-user-input'
+    });
+  });
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -3070,13 +3075,13 @@ select {
 <div id="privacy-view" class="view" role="main"><div class="about-c">
   <button class="back-b" onclick="showBoard()">← Back to jobs</button>
   <h1>Privacy <em>Policy</em></h1>
-  <p style="font-size:12px; color:var(--text-3); margin-bottom:1.5rem;">Last updated: April 20, 2026</p>
+  <p style="font-size:12px; color:var(--text-3); margin-bottom:1.5rem;">Last updated: April 26, 2026</p>
   
   <h2>1. Who we are</h2>
   <p>MapleDevs (mapledevs.ca) is Canada's #1 game industry job board. We are a Canadian-owned and operated platform dedicated to helping talent find roles at verified Canadian studios. You can contact us at <a href="mailto:mapledevsbusiness@gmail.com">mapledevsbusiness@gmail.com</a>.</p>
   
   <h2>2. Data we collect</h2>
-  <p><strong>For Job Seekers:</strong> We do not require account creation to browse jobs. If you create an account, we store the profile, resume, saved job, and studio/candidate information you choose to provide. Candidate profiles stay private unless you mark them Public for the MapleDevs Talent Directory. Public directory pages do not show login email addresses. We collect your email address if you voluntarily sign up for our newsletter or job alerts. Basic usage data is collected via Google Analytics to help us improve the platform.</p>
+  <p><strong>For Job Seekers:</strong> We do not require account creation to browse jobs. If you create an account, we store the profile, resume, saved job, and studio/candidate information you choose to provide. Candidate profiles stay private unless you mark them Public for the MapleDevs Talent Directory. Public directory pages do not show login email addresses. We collect your email address if you voluntarily sign up for our newsletter or job alerts. Basic usage data is collected via Google Analytics and Datadog RUM to help us improve the platform.</p>
   <p><strong>For Employers:</strong> We collect your name, studio email, and job details when you submit a listing. We do <strong>not</strong> collect or store credit card or banking information. All payments for featured listings are handled externally via Interac e-Transfer.</p>
   
   <h2>3. Automated Data Collection</h2>
@@ -3086,6 +3091,7 @@ select {
   <p>We use the following services to power MapleDevs:</p>
   <ul>
     <li><strong>Google Analytics:</strong> To understand site traffic (anonymous).</li>
+    <li><strong>Datadog RUM:</strong> To monitor frontend errors, page performance, and user experience. Form input is masked by default.</li>
     <li><strong>Mailchimp:</strong> To manage our newsletter and job alert emails.</li>
     <li><strong>Google Sheets:</strong> To securely store our job database.</li>
     <li><strong>Discord:</strong> Our community the hub is hosted on Discord, which has its own privacy policy.</li>
