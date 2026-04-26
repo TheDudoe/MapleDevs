@@ -114,7 +114,7 @@ main { flex: 1; padding: 2rem; display: grid; grid-template-columns: 2fr 1fr; ga
     <script>
       (function(h,o,u,n,d) {
         h[d] = h[d] || { q: [], onReady: function (c) { h.q.push(c) } }
-        d = o.createElement(u); d.async = 1; d.src = n; d.crossOrigin=''
+        d = o.createElement(u); d.async = 1; d.src = n; d.crossOrigin='anonymous'
         n = o.getElementsByTagName(u)[0]; n.parentNode.insertBefore(d, n)
       })(window, document, 'script', 'https://www.datadoghq-browser-agent.com/us5/v6/datadog-rum.js', 'DD_RUM')
       window.DD_RUM.onReady(function () {
@@ -126,7 +126,7 @@ main { flex: 1; padding: 2rem; display: grid; grid-template-columns: 2fr 1fr; ga
           env: 'prod',
           version: '1.0.0',
           sessionSamplerRate: 100,
-          sessionReplaySamplerRate: 20,
+          sessionReplaySamplerRate: 100,
           trackResources: true,
           trackLongTasks: true,
           trackUserInteractions: true,
