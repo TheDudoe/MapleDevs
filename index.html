@@ -3533,7 +3533,7 @@ document.getElementById('theme-btn').onclick=togTheme;
 (function(){const bg=document.getElementById('hero-bg'); if(bg) bg.setAttribute('aria-hidden','true');})();
 
 /* ═══════ COUNTER ═══════ */
-function animC(el,target){if(!target){el.textContent='0';return;}const dur=1000,st=performance.now();(function t(now){const p=Math.min((now-st)/dur,1);el.textContent=Math.round(target*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(t);})(performance.now());}
+function animC(el,target){if(!el)return; if(!target){el.textContent='0';return;}const dur=1000,st=performance.now();(function t(now){const p=Math.min((now-st)/dur,1);el.textContent=Math.round(target*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(t);})(performance.now());}
 let statsAni=false;
 const sObs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting&&!statsAni&&ALL.length){statsAni=true;animC(document.getElementById('s-jobs'),ALL.length);animC(document.getElementById('s-studios'),new Set(ALL.map(j=>j.studio)).size);const fresh=ALL.filter(j=>{const d=new Date(j.posted);return !isNaN(d)&&(Date.now()-d)/864e5<=7;}).length;animC(document.getElementById('s-fresh'),fresh);}});},{threshold:0.3});
 sObs.observe(document.querySelector('.hero-stats'));
