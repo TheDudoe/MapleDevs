@@ -2009,9 +2009,9 @@ select {
 #board-view > .controls { order: 2; }
 #board-view > .trust-bar { order: 3; }
 #board-view > #spotlight-s { order: 4; }
-#board-view > main#main-content { order: 5; }
-#board-view > .newsletter-bar { order: 6; }
-#board-view > .featured-pitch { order: 7; }
+#board-view > .featured-pitch { order: 5; }
+#board-view > main#main-content { order: 6; }
+#board-view > .newsletter-bar { order: 7; }
 
 /* ═══════ HIDDEN FILLER SECTIONS ═══════ */
 /* Simplified layout: hero → filters → jobs. All these sections are hidden. */
@@ -3259,7 +3259,7 @@ select {
         <div class="fp-benefit"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.5 4.5L6 12 2.5 8.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Highlighted listing with badge</div>
         <div class="fp-benefit"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.5 4.5L6 12 2.5 8.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Priority visibility in all filters</div>
         <div class="fp-benefit"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.5 4.5L6 12 2.5 8.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Exposure to student developers</div>
-        <div class="fp-benefit"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.5 4.5L6 12 2.5 8.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Promoted on LinkedIn &amp; Reddit</div>
+
         <div class="fp-benefit"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.5 4.5L6 12 2.5 8.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Live within 24 hours</div>
       </div>
       <button class="fp-cta" onclick="openPostModal()">Feature Your Job →</button>
@@ -4006,6 +4006,7 @@ function render(){
   const spotlightEl=document.getElementById("spotlight-s");
   const spotlightGrid=document.getElementById("spotlight-grid");
   const list=document.getElementById("job-list");
+  const hasSearch = document.getElementById('search').value.trim() !== '';
   
   document.getElementById("r-count").textContent=allFiltered.length+" role"+(allFiltered.length!==1?"s":"");
   updPills(); syncHash();
