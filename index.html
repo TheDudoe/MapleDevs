@@ -133,18 +133,18 @@ html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 }
 
 [data-theme="dark"] {
-  --bg-body: #0A0A09;
-  --bg-card: #151514;
-  --bg-elevated: #1A1A18;
-  --bg-subtle: #1E1E1C;
-  --bg-input: #1C1C1A;
+  --bg-body: #0f1115;
+  --bg-card: #16191E;
+  --bg-elevated: #1F2329;
+  --bg-subtle: #252A31;
+  --bg-input: #1B1E24;
   --bg-overlay: rgba(0,0,0,0.65);
-  --text-1: #EDEDEA;
-  --text-2: #9A9A92;
-  --text-3: #5A5A54;
+  --text-1: #F0F4F8;
+  --text-2: #A0ABC0;
+  --text-3: #6B778C;
   --border: rgba(255,255,255,0.06);
   --border-s: rgba(255,255,255,0.1);
-  --glass: rgba(21,21,20,0.82);
+  --glass: rgba(22,25,30,0.85);
   --glass-b: rgba(255,255,255,0.05);
   --shadow-xs: 0 1px 2px rgba(0,0,0,0.3);
   --shadow-s: 0 1px 4px rgba(0,0,0,0.4);
@@ -2682,6 +2682,84 @@ select {
     background: var(--maple-glow);
   }
 }
+
+.split-layout { display: flex; gap: 24px; align-items: flex-start; }
+.list-col { flex: 4; min-width: 0; }
+.detail-col { display: none; width: 55%; flex: 5.5; position: sticky; top: calc(var(--header-h) + 85px); height: calc(100vh - var(--header-h) - 105px); background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; box-shadow: var(--shadow-m); flex-direction: column; overflow: hidden; z-index: 50; }
+@media (min-width: 900px) { .detail-col { display: flex; } }
+.inline-detail-empty { padding: 80px 20px; text-align: center; color: var(--text-3); font-size: 1.1rem; flex: 1; display: flex; align-items: center; justify-content: center; flex-direction: column; }
+.detail-col .d-card { box-shadow: none; border: none; margin: 0; padding: 0; overflow: visible; }
+.jc.active { border-color: var(--maple); background: var(--bg-elevated); }
+
+
+.about-reveal { opacity: 0; transform: translateY(20px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+.about-reveal.visible { opacity: 1; transform: translateY(0); }
+.about-card { transition: transform 0.3s; }
+.about-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-m); border-color: var(--maple); }
+
+
+.detail-col .detail-header {
+  flex-shrink: 0;
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-card);
+  position: relative;
+}
+.detail-col .detail-header .d-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 26px;
+  line-height: 1.1;
+  color: var(--text-1);
+  margin-bottom: 6px;
+  padding-right: 130px; /* Space for apply button */
+  letter-spacing: -0.01em;
+}
+.detail-col .detail-header .d-studio {
+  font-size: 15px;
+  color: var(--text-2);
+  font-weight: 500;
+  margin-bottom: 0;
+}
+.detail-col .detail-apply-btn {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: var(--maple);
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 100px; /* Pill shape for premium look */
+  font-weight: 700;
+  font-size: 14px;
+  text-decoration: none;
+  transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 4px 15px rgba(200, 55, 45, 0.25);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.detail-col .detail-apply-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(200, 55, 45, 0.3);
+  filter: brightness(1.1);
+}
+.detail-col .detail-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.5rem;
+  min-height: 0; /* CRITICAL for flexbox scrolling */
+}
+/* Hide duplicate title/studio in the inline scrollable body */
+.detail-col .detail-body .d-title,
+.detail-col .detail-body .d-studio {
+  display: none;
+}
+/* Adjust padding for d-hdr when title is hidden */
+.detail-col .detail-body .d-hdr {
+  padding-top: 0;
+  margin-top: 0;
+}
+.pill { justify-content: center; text-align: center; }
+
 </style>
 
 <!-- Google Analytics -->
@@ -2735,7 +2813,7 @@ select {
     <div class="modal-hdr">
       <div>
         <h2 id="post-modal-title">Post a Job on MapleDevs</h2>
-        <p>Standard listings are free. Featured placement is optional and remains <b>$29 CAD</b>.</p>
+        <p>Standard listings are free. Featured placement starts at <b>$19 CAD</b>.</p>
         <p style="font-size:12px;color:var(--text-3);margin-top:6px;"><strong style="color:var(--text-2)">Featured payment via Interac e-Transfer:</strong> <a href="mailto:wupeiheng11@gmail.com" style="color:var(--maple);text-decoration:underline;">wupeiheng11@gmail.com</a></p>
         <p style="font-size:12px;color:var(--text-3);margin-top:6px;">Featured placement payments are final and non-refundable once the listing is live.</p>
       </div>
@@ -2825,10 +2903,20 @@ select {
           </select>
         </div>
         <div class="fg full">
-          <label class="option-row">
-            <input type="checkbox" name="Featured Listing" value="Requested - $29 CAD">
-            <span><strong>Request featured placement ($29 CAD)</strong><br>Featured jobs are highlighted on the board and reviewed for priority placement. Standard listings remain free.<small class="policy-note">By requesting featured placement, you agree the payment is final and non-refundable once the listing is live.</small></span>
+          <label style="font-weight:600;display:block;margin-bottom:0.5rem;">Select Package</label>
+          <label class="option-row" style="margin-bottom:8px">
+            <input type="radio" name="Tier" value="free" checked>
+            <span><strong>Free</strong><br>Standard listing in the job feed.</span>
           </label>
+          <label class="option-row" style="margin-bottom:8px">
+            <input type="radio" name="Tier" value="featured">
+            <span><strong>Featured</strong><br>Highlighted card with priority above free jobs.</span>
+          </label>
+          <label class="option-row">
+            <input type="radio" name="Tier" value="hiring_boost">
+            <span><strong>Hiring Boost</strong><br>Pinned to the top of the homepage and searches. Maximum visibility.<small class="policy-note">By requesting a paid tier, you agree the payment is final and non-refundable once the listing is live.</small></span>
+          </label>
+          <input type="hidden" name="Featured Refund Policy" value="Featured placement payments are final and non-refundable once the listing is live.">
         </div>
         <div class="form-divider"></div>
         <div class="fg">
@@ -2867,7 +2955,7 @@ select {
         </form>
         <div class="hero-cta">
           <a href="#main-content" class="btn-p" id="browse-btn">Browse Jobs</a>
-          <button class="btn-feature" onclick="window.location.href='/pricing/index.html'">★ Feature Your Job — $29</button>
+          <button class="btn-feature" onclick="window.location.href='/hire/index.html'">★ Boost Your Job — $39</button>
         </div>
         <div class="hero-stats" role="region" aria-label="MapleDevs statistics">
           <div><span class="stat-n" id="s-jobs" data-t="0">0</span><div class="stat-l">Open roles</div></div>
@@ -2879,10 +2967,10 @@ select {
         <h2>Hiring market snapshot</h2>
         <p>Quick signals candidates need before applying: pay, engine, location model, visa notes, and student-friendly fit.</p>
         <div class="market-list">
-          <a href="/remote/"><span>Remote and hybrid roles</span><b>Browse</b></a>
-          <a href="/junior/"><span>Junior and student pathways</span><b>Find</b></a>
-          <a href="/programming/"><span>Programming and engine roles</span><b>Explore</b></a>
-          <a href="/pricing/index.html"><span>Featured listing price</span><b>$29 CAD</b></a>
+          <a href="/#mode=Remote"><span>Remote and hybrid roles</span><b>Browse</b></a>
+          <a href="/#exp=junior"><span>Junior and student pathways</span><b>Find</b></a>
+          <a href="/#role=programming"><span>Programming and engine roles</span><b>Explore</b></a>
+          <a href="/hire/index.html"><span>Featured listing price</span><b>$19 CAD</b></a>
         </div>
         <div class="signal-engine" aria-label="Animated hiring signal visualization">
           <span class="signal-sweep"></span>
@@ -2963,27 +3051,27 @@ select {
         <div class="hub-group">
           <h3>Explore by City</h3>
           <div class="hub-links">
-            <a href="/vancouver/" class="hub-card"><b>Vancouver</b><span>BC</span></a>
-            <a href="/montreal/" class="hub-card"><b>Montreal</b><span>QC</span></a>
-            <a href="/toronto/" class="hub-card"><b>Toronto</b><span>ON</span></a>
-            <a href="/calgary/" class="hub-card"><b>Calgary</b><span>AB</span></a>
-            <a href="/ottawa/" class="hub-card"><b>Ottawa</b><span>ON</span></a>
-            <a href="/edmonton/" class="hub-card"><b>Edmonton</b><span>AB</span></a>
-            <a href="/victoria/" class="hub-card"><b>Victoria</b><span>BC</span></a>
-            <a href="/london/" class="hub-card"><b>London</b><span>ON</span></a>
+            <a href="/#city=Vancouver" class="hub-card"><b>Vancouver</b><span>BC</span></a>
+            <a href="/#city=Montreal" class="hub-card"><b>Montreal</b><span>QC</span></a>
+            <a href="/#city=Toronto" class="hub-card"><b>Toronto</b><span>ON</span></a>
+            <a href="/#city=Calgary" class="hub-card"><b>Calgary</b><span>AB</span></a>
+            <a href="/#city=Ottawa" class="hub-card"><b>Ottawa</b><span>ON</span></a>
+            <a href="/#city=Edmonton" class="hub-card"><b>Edmonton</b><span>AB</span></a>
+            <a href="/#city=Victoria" class="hub-card"><b>Victoria</b><span>BC</span></a>
+            <a href="/#city=London" class="hub-card"><b>London</b><span>ON</span></a>
           </div>
         </div>
         <div class="hub-group">
           <h3>Explore by Role</h3>
           <div class="hub-links">
-            <a href="/programming/" class="hub-card"><b>Programming</b><span>Tech</span></a>
-            <a href="/art/" class="hub-card"><b>Art</b><span>Visuals</span></a>
-            <a href="/design/" class="hub-card"><b>Design</b><span>Creative</span></a>
-            <a href="/producer/" class="hub-card"><b>Production</b><span>Mgmt</span></a>
-            <a href="/qa/" class="hub-card"><b>QA</b><span>Testing</span></a>
-            <a href="/audio/" class="hub-card"><b>Audio</b><span>Sound</span></a>
-            <a href="/internship/" class="hub-card"><b>Internships</b><span>Students</span></a>
-            <a href="/junior/" class="hub-card"><b>Entry Level</b><span>Junior</span></a>
+            <a href="/#role=programming" class="hub-card"><b>Programming</b><span>Tech</span></a>
+            <a href="/#role=art" class="hub-card"><b>Art</b><span>Visuals</span></a>
+            <a href="/#role=design" class="hub-card"><b>Design</b><span>Creative</span></a>
+            <a href="/#role=production" class="hub-card"><b>Production</b><span>Mgmt</span></a>
+            <a href="/#role=qa" class="hub-card"><b>QA</b><span>Testing</span></a>
+            <a href="/#role=audio" class="hub-card"><b>Audio</b><span>Sound</span></a>
+            <a href="/#type=Internship" class="hub-card"><b>Internships</b><span>Students</span></a>
+            <a href="/#exp=junior" class="hub-card"><b>Entry Level</b><span>Junior</span></a>
           </div>
         </div>
       </div>
@@ -3084,7 +3172,7 @@ select {
         <div class="community-panel">
           <span class="quote-label">Studio promise</span>
           <h3>Reach people who already want Canadian game jobs.</h3>
-          <p>Studios get a focused audience without changing monetization: standard listings stay free, and featured placement remains $29 CAD.</p>
+          <p>Studios get a focused audience without changing monetization: standard listings stay free, and featured placement starts at $19 CAD.</p>
         </div>
         <div class="community-panel">
           <span class="quote-label">Collect real quotes</span>
@@ -3218,10 +3306,18 @@ select {
 
   <main id="main-content" role="main">
     <div id="hub-highlights" class="hub-highlights"></div>
-    <div id="job-list">
+    <div class="split-layout"><div class="list-col"><div id="job-list">
       <div class="skel-list"><div class="skel-card"><div class="sk w6"></div><div class="sk w4"></div><div class="sk-pills"><div class="sk-pill"></div><div class="sk-pill"></div><div class="sk-pill"></div></div><div class="sk w8"></div></div><div class="skel-card"><div class="sk w6"></div><div class="sk w4"></div><div class="sk-pills"><div class="sk-pill"></div><div class="sk-pill"></div></div><div class="sk w8"></div></div><div class="skel-card"><div class="sk w6"></div><div class="sk w4"></div><div class="sk-pills"><div class="sk-pill"></div><div class="sk-pill"></div><div class="sk-pill"></div></div><div class="sk w8"></div></div></div>
     </div>
-  </main>
+  </div>
+  <div class="detail-col" id="inline-detail-pane">
+    <div class="inline-detail-empty">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="opacity:0.5;margin-bottom:16px;"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="3" x2="9" y2="21"></line></svg>
+      <p>Select a job to see more details</p>
+    </div>
+  </div>
+</div>
+</main>
 
   <section class="newsletter-bar" aria-label="Newsletter">
     <div class="newsletter-bar-inner">
@@ -3311,7 +3407,7 @@ select {
   <section class="about-cta about-reveal">
     <h2>Hiring at a Canadian game studio?</h2>
     <p>Use the job submission form or email <a href="mailto:mapledevsbusiness@gmail.com">mapledevsbusiness@gmail.com</a>.</p>
-    <div class="about-price">Standard listings are <b>free</b>. Featured listings stay <b>$29 CAD</b>, payable by Interac e-Transfer to <b>wupeiheng11@gmail.com</b>. Featured placement payments are non-refundable once live.</div>
+    <div class="about-price">Standard listings are <b>free</b>. Paid tiers start at <b>$19 CAD</b>, payable by Interac e-Transfer to <b>wupeiheng11@gmail.com</b>. Payments are non-refundable once live.</div>
   </section>
 
   <div id="about-platform-sections" class="about-platform-sections" aria-label="More about MapleDevs"></div>
@@ -3335,6 +3431,8 @@ select {
   <p class="subtext">Your bookmarked opportunities</p>
   <div id="sv-list" class="job-list"></div>
 </div></div>
+
+
 
 <!-- ═══════ PRIVACY VIEW ═══════ -->
 <div id="privacy-view" class="view" role="main"><div class="about-c">
@@ -3378,12 +3476,12 @@ select {
   
   <h2>2. Our Verification Guarantee</h2>
   <p>We promise that every job listing on MapleDevs is for a <strong>verified Canadian studio</strong>. We manually vet new studios to ensure they have a real presence in Canada. We do not post "ghost jobs," unpaid roles (unless internships), or roles from studios outside of Canada.</p>
-  
+
   <h2>3. For Job Seekers</h2>
   <p>MapleDevs is free for job seekers. We provide links to external application portals. We are not responsible for the content of external sites, nor are we involved in the hiring process or decisions made by studios.</p>
   
   <h2>4. For Employers & Payments</h2>
-  <p>Standard job listings are currently free. <strong>Featured Listings</strong> are available for <strong>$29 CAD</strong>. Featured roles stay at the top of the board, receive priority in our newsletter, and are highlighted on social media. 
+  <p>Standard job listings are currently free. <strong>Paid Listings</strong> are available starting from <strong>$19 CAD</strong>. Paid roles stay at the top of the board, receive priority in our newsletter, and are highlighted on social media. 
   <br><br>Payments must be sent via <strong>Interac e-Transfer</strong> to <a href="mailto:wupeiheng11@gmail.com">wupeiheng11@gmail.com</a>. Listings are published/featured only after payment is confirmed. All sales are final and non-refundable once the listing is live.</p>
   
   <h2>5. Featured Listing Refund Policy</h2>
@@ -3401,35 +3499,11 @@ select {
   <section class="ft-discovery">
     <div class="ft-disc-in">
       <div class="ft-col">
-        <h4>Jobs by City</h4>
-        <ul>
-          <li><a href="/vancouver/">Vancouver Jobs</a></li>
-          <li><a href="/toronto/">Toronto Jobs</a></li>
-          <li><a href="/montreal/">Montreal Jobs</a></li>
-          <li><a href="/ottawa/">Ottawa Jobs</a></li>
-          <li><a href="/quebec-city/">Quebec City Jobs</a></li>
-          <li><a href="/calgary/">Calgary Jobs</a></li>
-          <li><a href="/halifax/">Halifax Jobs</a></li>
-        </ul>
-      </div>
-      <div class="ft-col">
-        <h4>Jobs by Role</h4>
-        <ul>
-          <li><a href="/programming/">Programming Jobs</a></li>
-          <li><a href="/art/">Artist Jobs</a></li>
-          <li><a href="/design/">Design Jobs</a></li>
-          <li><a href="/ui-ux/">UI/UX Jobs</a></li>
-          <li><a href="/producer/">Producer Jobs</a></li>
-          <li><a href="/qa/">QA & Testing Jobs</a></li>
-          <li><a href="/audio/">Audio Jobs</a></li>
-        </ul>
-      </div>
-      <div class="ft-col">
         <h4>Categories</h4>
         <ul>
-          <li><a href="/junior/">Junior Roles</a></li>
-          <li><a href="/remote/">Remote Jobs</a></li>
-          <li><a href="/internship/">Internships</a></li>
+          <li><a href="/#exp=junior">Junior Roles</a></li>
+          <li><a href="/#mode=Remote">Remote Jobs</a></li>
+          <li><a href="/#type=Internship">Internships</a></li>
           <li><a href="/#exp=senior">Senior Roles</a></li>
         </ul>
       </div>
@@ -3450,10 +3524,11 @@ select {
     </div>
   </section>
   <div class="ft-inner">
-  <div class="ft-brand"><img src="/favicon.png" alt="MapleDevs" width="16" height="16" style="border-radius:2px;"> Maple<span>Devs</span></div>
-  <nav class="ft-links"><a href="/talent/" onclick="goLocalPage(event,'talent')">Talent</a><button onclick="showStudios()">Studios</button><button onclick="showAbout()">About</button><a href="/account/" onclick="goAccount(event)">Account</a><button onclick="openPostModal()">Post a Job</button><a href="mailto:mapledevsbusiness@gmail.com">Contact</a><button onclick="showPrivacy()">Privacy</button><button onclick="showTerms()">Terms</button></nav>
-  <p class="ft-copy">© 2026 MapleDevs · Canada's game industry job board · <a href="mailto:mapledevsbusiness@gmail.com">mapledevsbusiness@gmail.com</a></p>
-</div></footer>
+    <div class="ft-brand"><img src="/favicon.png" alt="MapleDevs" width="16" height="16" style="border-radius:2px;"> Maple<span>Devs</span></div>
+    <nav class="ft-links"><a href="/talent/" onclick="goLocalPage(event,'talent')">Talent</a><button onclick="showStudios()">Studios</button><button onclick="showAbout()">About</button><a href="/account/" onclick="goAccount(event)">Account</a><button onclick="openPostModal()">Post a Job</button><a href="/contact/">Contact</a><button onclick="showPrivacy()">Privacy</button><button onclick="showTerms()">Terms</button></nav>
+    <p class="ft-copy">© 2026 MapleDevs · Canada's game industry job board · <a href="mailto:mapledevsbusiness@gmail.com">mapledevsbusiness@gmail.com</a></p>
+  </div>
+</footer>
 
 <script>
 /* ═══════════════════════════════════════════════════
@@ -3508,9 +3583,9 @@ document.getElementById('theme-btn').onclick=togTheme;
 (function(){const bg=document.getElementById('hero-bg'); if(bg) bg.setAttribute('aria-hidden','true');})();
 
 /* ═══════ COUNTER ═══════ */
-function animC(el,target){if(!el)return; if(!target){el.textContent='0';return;}const dur=1000,st=performance.now();(function t(now){const p=Math.min((now-st)/dur,1);el.textContent=Math.round(target*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(t);})(performance.now());}
+function animC(el,target){if(!target){el.textContent='0';return;}const dur=1000,st=performance.now();(function t(now){const p=Math.min((now-st)/dur,1);el.textContent=Math.round(target*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(t);})(performance.now());}
 let statsAni=false;
-const sObs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting&&!statsAni&&ALL.length){statsAni=true;animC(document.getElementById('s-jobs'),ALL.length);animC(document.getElementById('s-studios'),new Set(ALL.map(j=>j.studio)).size);const fresh=ALL.filter(j=>{const d=new Date(j.posted);return !isNaN(d)&&(Date.now()-d)/864e5<=7;}).length;animC(document.getElementById('s-fresh'),fresh);}});},{threshold:0.3});
+const sObs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting&&!statsAni&&ALL.length){statsAni=true;animC(document.getElementById('s-jobs'),ALL.length);animC(document.getElementById('s-studios'),new Set(ALL.map(j=>j.studio)).size);animC(document.getElementById('s-cities'),new Set(ALL.map(j=>j.location).filter(Boolean)).size);}});},{threshold:0.3});
 sObs.observe(document.querySelector('.hero-stats'));
 
 /* ═══════ TOAST ═══════ */
@@ -3746,28 +3821,16 @@ updBadge();
 async function loadJobs(){
   const url="https://docs.google.com/spreadsheets/d/"+SHEET_DOC_ID+"/gviz/tq?tqx=out:csv&sheet="+encodeURIComponent(LIVE_SHEET_NAME);
   try{const r=await fetch(url);if(!r.ok)throw 0;const csv=await r.text();ALL=parseCSV(csv);injectJobSchema(ALL);initFilters();updateStats();buildDashboard();updateLatestJobs();applyHash();render();buildTrusted();updateCompareTray();}
-  catch(e){console.error('Job Load Error:',e);document.getElementById("job-list").innerHTML='<div class="state-msg"><span class="ic">⚠️</span>Error: '+e.message+'<br><span class="sub">Please refresh or check back later.</span></div>';}
+  catch(e){console.error('Job Load Error:',e);document.getElementById("job-list").innerHTML='<div class="state-msg"><span class="ic">⚠️</span>Couldn\'t load jobs.<span class="sub">Please refresh or check back later.</span></div>';}
 }
 function hkey(s){return cl(s).toLowerCase().replace(/[^a-z0-9]+/g,'_').replace(/^_|_$/g,'');}
 function cell(r,h,names,fallback){for(const n of names){const i=h.indexOf(hkey(n));if(i>-1)return cl(r[i]);}return fallback!==undefined?cl(r[fallback]):"";}
-function normalizeTitle(raw){if(!raw)return'';let t=raw.trim().replace(/^\[.*?\]\s*/g,'');if(t.includes(' - ')){const p=t.split(' - ');if(p.length===2){const fr=/\(trice\)|\(e\)(?!\w)|\(euse\)|responsable|développeur|programmeur|directeur|artiste|concepteur|analyste|spécialiste|ingénieur/i;const p1fr=fr.test(p[0]),p2fr=fr.test(p[1]);if(p1fr&&!p2fr)t=p[1];else if(p2fr&&!p1fr)t=p[0];}}t=t.replace(/\s*\([hmf]\/[hmf](?:\/[x])?\)/ig,'').replace(/\[.*?\]/g,'').trim();return t;}
-function parseCSV(t){const rows=[],jobs=[];let r=[],c="",q=false;for(let i=0;i<t.length;i++){const ch=t[i],nx=t[i+1];if(ch==='"'){if(q&&nx==='"'){c+='"';i++;}else{q=!q;}}else if(ch===','&&!q){r.push(c);c="";}else if(ch==='\n'&&!q){r.push(c);rows.push(r);r=[];c="";}else if(ch!=='\r'||q){c+=ch;}}if(r.length||c){r.push(c);rows.push(r);}if(!rows.length)return jobs;const h=rows[0].map(hkey),seen=new Set();for(let i=1;i<rows.length;i++){const rw=rows[i];const status=cell(rw,h,['status']);const link=cell(rw,h,['link_status']);const linkKey=hkey(link);const featured=cell(rw,h,['feature','Featured','(Featured)'],8).toLowerCase()==="yes";if(status&&!['approved','live','active'].includes(hkey(status)))continue;if(['stale_by_date','outdated','date_expired'].includes(linkKey))continue;if(['expired','dead','missing_from_source','inactive','closed','not_found'].includes(linkKey))continue;const title=normalizeTitle(cell(rw,h,['Job Title','title'],0)),studio=cell(rw,h,['Studio Name','studio'],1),location=cell(rw,h,['Location'],2),apply=cell(rw,h,['How to Apply','Apply URL','apply','source_url'],6),id=cell(rw,h,['job_id']);if(KNOWN_DEAD_APPLY_URLS.has(apply))continue;if(!rw||!title||!studio)continue;const key=hkey(title+'|'+studio+'|'+location);if(seen.has(key))continue;seen.add(key);jobs.push({id,title,studio,location,type:cell(rw,h,['Job Type','type'],3),mode:cell(rw,h,['Work Mode','mode'],4),desc:cell(rw,h,['Description','desc'],5),apply,posted:cell(rw,h,['Date Posted','posted'],7),featured,student:cell(rw,h,['Student Friendly','(Student Friendly)'],9).toLowerCase()==="yes",salary:cell(rw,h,['Salary'],10),engine:cell(rw,h,['Engine'],11),visa:cell(rw,h,['Visa Sponsorship','visa'],12)});}return jobs;}
+function parseCSV(t){const rows=[],jobs=[];let r=[],c="",q=false;for(let i=0;i<t.length;i++){const ch=t[i],nx=t[i+1];if(ch==='"'){if(q&&nx==='"'){c+='"';i++;}else{q=!q;}}else if(ch===','&&!q){r.push(c);c="";}else if(ch==='\n'&&!q){r.push(c);rows.push(r);r=[];c="";}else if(ch!=='\r'||q){c+=ch;}}if(r.length||c){r.push(c);rows.push(r);}if(!rows.length)return jobs;const h=rows[0].map(hkey),seen=new Set();for(let i=1;i<rows.length;i++){const rw=rows[i];const status=cell(rw,h,['status']);const link=cell(rw,h,['link_status']);const linkKey=hkey(link);const featured=cell(rw,h,['feature','Featured','(Featured)'],8).toLowerCase()==="yes";if(status&&!['approved','live','active'].includes(hkey(status)))continue;if(['stale_by_date','outdated','date_expired'].includes(linkKey))continue;if(['expired','dead','missing_from_source','inactive','closed','not_found'].includes(linkKey))continue;const title=cell(rw,h,['Job Title','title'],0),studio=cell(rw,h,['Studio Name','studio'],1),location=cell(rw,h,['Location'],2),apply=cell(rw,h,['How to Apply','Apply URL','apply','source_url'],6),id=cell(rw,h,['job_id']);if(KNOWN_DEAD_APPLY_URLS.has(apply))continue;if(!rw||!title||!studio)continue;const key=hkey(title+'|'+studio+'|'+location);if(seen.has(key))continue;seen.add(key);jobs.push({id,title,studio,location,type:cell(rw,h,['Job Type','type'],3),mode:cell(rw,h,['Work Mode','mode'],4),desc:cell(rw,h,['Description','desc'],5),apply,posted:cell(rw,h,['Date Posted','posted'],7),featured,student:cell(rw,h,['Student Friendly','(Student Friendly)'],9).toLowerCase()==="yes",salary:cell(rw,h,['Salary'],10),engine:cell(rw,h,['Engine'],11),visa:cell(rw,h,['Visa Sponsorship','visa'],12)});}return jobs;}
 function cl(s){return s?s.trim():"";}
 function toSlug(s){return s.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');}
 function initFilters(){const cs=[...new Set(ALL.map(j=>j.location).filter(Boolean))].sort(),s=document.getElementById("f-city");s.innerHTML='<option value="">All cities</option>';cs.forEach(c=>{const o=document.createElement("option");o.value=c;o.textContent=c;s.appendChild(o);});}
 function setText(id,value){const el=document.getElementById(id);if(el)el.textContent=value;}
-function updateStats(){
-  const jc=ALL.length, sc=new Set(ALL.map(j=>j.studio)).size;
-  const fc=ALL.filter(j=>{const d=new Date(j.posted); return !isNaN(d) && (Date.now()-d)/864e5<=7;}).length;
-  console.log("Stats debug:", {jc, sc, fc, sJobs:!!document.getElementById('s-jobs'), sStudios:!!document.getElementById('s-studios'), sFresh:!!document.getElementById('s-fresh')});
-  setText('premium-role-count',jc); setText('premium-studio-count',sc);
-  if(!statsAni){
-    statsAni=true;
-    animC(document.getElementById('s-jobs'),jc);
-    animC(document.getElementById('s-studios'),sc);
-    animC(document.getElementById('s-fresh'),fc);
-  }
-}
+function updateStats(){const jc=ALL.length,sc=new Set(ALL.map(j=>j.studio)).size,cc=new Set(ALL.map(j=>j.location).filter(Boolean)).size;setText('premium-role-count',jc);setText('premium-studio-count',sc);setText('premium-city-count',cc);if(!statsAni){statsAni=true;animC(document.getElementById('s-jobs'),jc);animC(document.getElementById('s-studios'),sc);animC(document.getElementById('s-cities'),cc);}}
 function injectJobSchema(jobs){const jld=jobs.map(j=>({"@context":"https://schema.org/","@type":"JobPosting","title":j.title,"description":j.desc||"Opportunity at "+j.studio,"datePosted":j.posted?new Date(j.posted).toISOString():new Date().toISOString(),"validThrough":new Date(Date.now()+30*24*60*60*1000).toISOString(),"employmentType":j.type?j.type.toUpperCase().replace("-","_"):"FULL_TIME","hiringOrganization":{"@type":"Organization","name":j.studio,"logo":"https://mapledevs.ca/og-image.png"},"jobLocation":{"@type":"Place","address":{"@type":"PostalAddress","addressLocality":j.location||"Canada","addressCountry":"CA"}},"jobLocationType":(j.mode||"").toLowerCase().includes("remote")?"TELECOMMUTE":undefined,"applicantLocationRequirements":(j.mode||"").toLowerCase().includes("remote")?{"@type":"Country","name":"Canada"}:undefined}));const el=document.getElementById("job-schema-dynamic");if(el)el.remove();const s=document.createElement("script");s.id="job-schema-dynamic";s.type="application/ld+json";s.text=JSON.stringify(jld);document.head.appendChild(s);}
 function buildTrusted(){const studios=[...new Set(ALL.map(j=>j.studio))].slice(0,12);const el=document.getElementById('trusted-logos');if(!el)return;el.innerHTML=studios.map(s=>'<span class="trusted-name">'+esc(s)+'</span>').join('');}
 
@@ -3882,11 +3945,6 @@ function renderCompareTable(jobs){const table=document.getElementById('compare-t
 /* ═══════ URL FILTERS ═══════ */
 function applyHash(){
   const h = location.hash.replace('#','');
-  if(h === 'post') {
-    openPostModal();
-    history.replaceState(null, '', location.pathname);
-    return;
-  }
   if(h.startsWith('id=')){
     const slug = h.replace('id=','');
     const idx = ALL.findIndex(j => toSlug(`${j.title}-${j.studio}-${j.location}`) === slug);
@@ -3979,7 +4037,6 @@ function render(){
   const spotlightEl=document.getElementById("spotlight-s");
   const spotlightGrid=document.getElementById("spotlight-grid");
   const list=document.getElementById("job-list");
-  const hasSearch = document.getElementById('search').value.trim() !== '';
   
   document.getElementById("r-count").textContent=allFiltered.length+" role"+(allFiltered.length!==1?"s":"");
   updPills(); syncHash();
@@ -4005,9 +4062,6 @@ function render(){
     spotlightEl.style.display='block';
     spotJobs = featured;
     spotlightGrid.innerHTML = spotJobs.map(j => spotlightHTML(j, ALL.indexOf(j))).join('');
-  } else if(!hasSearch) {
-    spotlightEl.style.display='block';
-    spotlightGrid.innerHTML = '<div class="spotlight-empty" onclick="openPostModal()" role="button" tabindex="0"><div class="se-content"><div class="se-icon">✨</div><div class="se-text"><h3>Claim the Homepage Spotlight</h3><p>There are currently no featured roles. For $29 CAD, your job will be pinned here and highlighted in all searches.</p></div></div><div class="se-action"><span class="btn-feature">Feature Your Job</span></div></div>';
   } else {
     spotlightEl.style.display='none';
   }
@@ -4156,13 +4210,41 @@ function togSaveDet(e,idx){e.stopPropagation();const j=ALL[idx],k=jKey(j),i=save
 function togCompareDet(e,idx){toggleCompare(e,idx,false);const b=e.currentTarget,c=isCompared(ALL[idx]);b.classList.toggle('on',c);b.innerHTML=c?'Compared':'Compare';}
 
 function getSimilar(j,idx){return ALL.filter((o,i)=>i!==idx&&(o.studio===j.studio||o.location===j.location||o.type===j.type)).slice(0,3);}
-function openDet(idx,e){history.pushState({idx},"","#job-"+idx);const j=ALL[idx];hideAll();document.getElementById("detail-view").classList.add("on");document.body.classList.add('detail-actions-open');
-document.getElementById("d-crumbs").innerHTML='<button onclick="showBoard()">Jobs</button>'+(j.location?'<span class="sep">›</span><button onclick="filterCity(\''+esc(j.location)+'\')">'+esc(j.location)+'</button>':'')+'<span class="sep">›</span><span class="cur">'+esc(j.title)+'</span>';
-document.getElementById("d-content").innerHTML=detailHTML(j,idx);
-const sim=getSimilar(j,idx),ss=document.getElementById("sim-sec"),sl=document.getElementById("sim-jobs");
-if(sim.length){ss.style.display="block";sl.innerHTML=sim.map((s,i)=>cardHTML(s,ALL.indexOf(s),i)).join("");}else ss.style.display="none";
-window.scrollTo(0,0);
-trackView(j.title + ' | MapleDevs');}
+function openDet(idx, e) {
+  if(e) e.preventDefault();
+  if(window.innerWidth >= 900) {
+    const pane = document.getElementById('inline-detail-pane');
+    if(pane) {
+      const j = ALL[idx];
+      const headerDiv = document.createElement('div');
+      headerDiv.className = 'detail-header';
+      headerDiv.innerHTML = `
+        <div class="d-title">${esc(j.title)}</div>
+        <div class="d-studio">${esc(j.studio)}</div>
+        <a href="${esc(j.apply)}" target="_blank" rel="noopener" class="detail-apply-btn" onclick="trackApply(event)">Apply Now</a>
+      `;
+      const contentDiv = document.createElement('div');
+      contentDiv.className = 'detail-scroll-content';
+      contentDiv.innerHTML = detailHTML(j, idx);
+      pane.innerHTML = '';
+      pane.appendChild(headerDiv);
+      pane.appendChild(contentDiv);
+      document.querySelectorAll('.jc').forEach(c => c.classList.remove('active'));
+      const card = document.querySelector(`.jc[onclick*="openDet(${idx},"]`) || e?.currentTarget;
+      if(card) card.classList.add('active');
+      return;
+    }
+  }
+  history.pushState({idx},"","#job-"+idx);
+  const j=ALL[idx];
+  hideAll();
+  document.getElementById("detail-view").classList.add("on");
+  document.body.classList.add('detail-actions-open');
+  document.getElementById("d-crumbs").innerHTML='<button onclick="showBoard()">Jobs</button>'+(j.location?'<span class="sep">›</span><button onclick="filterCity(\' '+esc(j.location)+' \')">'+esc(j.location)+'</button>':'')+'<span class="sep">›</span><span class="cur">'+esc(j.title)+'</span>';
+  document.getElementById("d-content").innerHTML=detailHTML(j,idx);
+  window.scrollTo(0,0);
+  trackView(j.title + ' | MapleDevs');
+}
 
 function filterCity(c){showBoard();document.getElementById('f-city').value=c;render();setTimeout(()=>document.getElementById('main-content').scrollIntoView({behavior:'smooth'}),100);}
 
@@ -4331,7 +4413,7 @@ function submitPostForm(e){
 }
 
 /* ═══════ SIGNUP & ALERTS ═══════ */
-function handleSignup(){const e=(document.getElementById('nl-email')||document.getElementById('signup-email')).value;if(!e||!e.includes('@')){(document.getElementById('nl-email')||document.getElementById('signup-email')).focus();return;}window.open('http://eepurl.com/jDQFL2','_blank');const sf=document.getElementById('signup-form');if(sf)sf.style.display='none';const ok=document.getElementById('signup-ok');if(ok)ok.classList.add('show');toast('You are on the list','');}
+function handleSignup(){const e=document.getElementById('signup-email').value;if(!e||!e.includes('@')){document.getElementById('signup-email').focus();return;}window.open('http://eepurl.com/jDQFL2','_blank');document.getElementById('signup-form').style.display='none';document.getElementById('signup-ok').classList.add('show');toast('You are on the list','');}
 function openAlertModal(){document.getElementById('alert-modal').classList.add('on');document.body.style.overflow='hidden';}
 function closeAlertModal(){document.getElementById('alert-modal').classList.remove('on');document.body.style.overflow='';}
 function handleAlertSignup(){const e=document.getElementById('alert-email').value;if(!e||!e.includes('@')){document.getElementById('alert-email').focus();return;}window.open('http://eepurl.com/jDQFL2','_blank');closeAlertModal();toast('Alerts enabled','');}
@@ -4360,32 +4442,7 @@ function movePlatformSectionsToAbout(){
 /* ═══════ INIT ═══════ */
 movePlatformSectionsToAbout();
 function handleHash(){const h=location.hash;if(h==='#about')showAbout();else if(h==='#privacy')showPrivacy();else if(h==='#terms')showTerms();else if(h==='#studios')showStudios();else if(h==='#saved')showSaved();else if(h.startsWith('#job-')){const i=parseInt(h.replace('#job-',''),10);if(!isNaN(i)&&ALL[i])openDet(i);}else if(h.startsWith('#studio-')){const sn=h.replace('#studio-','').replace(/-/g,' ').toLowerCase();const s=ALL.find(j=>j.studio.toLowerCase()==sn);if(s)openStudioProfile(s.studio);}}
-loadJobs().then(() => { handleHash(); trackView(); updateGrowthCounters(); });
-
-/* ═══════ GROWTH COUNTERS & BANNER ═══════ */
-function updateGrowthCounters(){
-  const fresh=ALL.filter(j=>{const d=new Date(j.posted);return !isNaN(d)&&(Date.now()-d)/864e5<=7;}).length;
-  const freshEl=document.getElementById('s-fresh');
-  if(freshEl)animC(freshEl,fresh);
-  const trustEl=document.getElementById('trust-fresh');
-  if(trustEl)trustEl.textContent=fresh+' added this week';
-}
-
-/* Sticky feature banner: show after scrolling past 5th job card */
-let featureBannerDismissed=false;
-const featureBannerEl=document.getElementById('feature-banner');
-if(featureBannerEl){
-  window.addEventListener('scroll',function(){
-    if(featureBannerDismissed)return;
-    const cards=document.querySelectorAll('#job-list .jc');
-    if(cards.length>=5){
-      const fifth=cards[4];
-      const rect=fifth.getBoundingClientRect();
-      featureBannerEl.classList.toggle('show',rect.top<0);
-    }
-  },{passive:true});
-}
-function closeFeatureBanner(){featureBannerDismissed=true;featureBannerEl.classList.remove('show');}
+loadJobs().then(() => { handleHash(); trackView(); });
 </script>
 
 <!-- Sticky Feature Banner -->
