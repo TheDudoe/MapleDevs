@@ -4631,11 +4631,12 @@ async function renderResources(){
     data.forEach(item=>{
       const grid=grids[item.category];
       if(grid) {
+        const btnText = item.buttonText || 'View Resource';
         grid.innerHTML+=`<article class="res-card">
           <div class="res-tags">${item.tags ? item.tags.map(t=>`<span class="res-tag ${t.toLowerCase()==='new'?'new':''}">${esc(t)}</span>`).join('') : ''}</div>
           <h3>${item.icon||''} ${esc(item.title)}</h3>
           <p>${esc(item.description)}</p>
-          <a href="${item.link==='#'?'javascript:void(0)':esc(item.link)}" onclick="${item.link==='#'?`openGuide('${item.id}')`:''}" target="${item.link==='#'?'':'_blank'}" rel="noopener" class="res-btn">View Resource <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+          <a href="${item.link==='#'?'javascript:void(0)':esc(item.link)}" onclick="${item.link==='#'?`openGuide('${item.id}')`:''}" target="${item.link==='#'?'':'_blank'}" rel="noopener" class="res-btn">${esc(btnText)} <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
         </article>`;
       }
     });
