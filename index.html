@@ -152,6 +152,79 @@ header::after { content: ''; position: absolute; bottom: -1px; left: 0; right: 0
 .n-link { font-size: 13px; font-weight: 500; color: var(--text-2); text-decoration: none; cursor: pointer; padding: 7px 12px; border: none; border-radius: var(--r-s); transition: all var(--dur); background: none; font-family: inherit; white-space: nowrap; }
 .n-link:hover { color: var(--text-1); background: var(--bg-subtle); }
 .n-link.active { color: var(--maple); background: var(--maple-glow); }
+
+/* ═══════ RESOURCES ═══════ */
+.resources-c { max-width: var(--max-w); margin: 0 auto; padding: 4rem 1.5rem; position: relative; }
+.res-hdr { margin-bottom: 4rem; text-align: center; }
+.res-hdr h1 { font-family: 'DM Serif Display', serif; font-size: clamp(2.5rem, 6vw, 4.2rem); line-height: 1.05; margin-bottom: 1.25rem; color: var(--text-1); letter-spacing: -0.02em; }
+.res-hdr p { font-size: 19px; color: var(--text-2); max-width: 720px; margin: 0 auto 1.5rem; line-height: 1.65; }
+.res-disclaimer { font-size: 12px; color: var(--text-3); font-style: italic; opacity: 0.7; }
+.res-section { margin-bottom: 5rem; }
+.res-section-hdr { display: flex; align-items: center; gap: 12px; margin-bottom: 2rem; }
+.res-section-hdr h2 { font-size: 1.75rem; color: var(--text-1); margin: 0; }
+.res-section-hdr .line { flex: 1; height: 1px; background: var(--border); }
+.res-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
+.res-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-l);
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s var(--ease-spring);
+  box-shadow: var(--shadow-s);
+  position: relative;
+  overflow: hidden;
+}
+.res-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 4px;
+  background: var(--maple-gradient);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.res-card:hover { transform: translateY(-6px); border-color: var(--maple-light); box-shadow: var(--shadow-l); }
+.res-card:hover::before { opacity: 1; }
+.res-card h3 { font-size: 1.35rem; margin-bottom: 0.85rem; color: var(--text-1); display: flex; align-items: center; gap: 8px; }
+.res-card p { font-size: 14.5px; color: var(--text-2); line-height: 1.7; margin-bottom: 1.75rem; flex-grow: 1; }
+.res-tags { display: flex; gap: 6px; margin-bottom: 1rem; }
+.res-tag { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding: 3px 8px; border-radius: var(--r-s); background: var(--bg-subtle); color: var(--text-3); }
+.res-tag.new { background: var(--maple-glow); color: var(--maple); }
+.res-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background: var(--bg-body);
+  color: var(--text-1);
+  border-radius: var(--r-s);
+  text-decoration: none;
+  font-size: 13.5px;
+  font-weight: 700;
+  transition: all 0.2s;
+  border: 1px solid var(--border-s);
+}
+.res-btn:hover { background: var(--maple); color: #fff; border-color: var(--maple); transform: scale(1.02); }
+
+/* Resource Button Repositioning */
+.cta-stack { display: flex; flex-direction: column; gap: 8px; }
+.cta-row { display: flex; gap: 10px; flex-wrap: wrap; }
+
+/* ═══════ GUIDE MODAL ═══════ */
+.guide-modal { max-width: 720px; width: 95%; }
+.guide-content { padding: 2.5rem; }
+.guide-content h1 { font-family: 'DM Serif Display', serif; font-size: 2.2rem; margin-bottom: 1.5rem; color: var(--text-1); }
+.guide-content h2 { font-size: 1.3rem; margin: 2rem 0 1rem; color: var(--maple); }
+.guide-content p { color: var(--text-2); line-height: 1.8; margin-bottom: 1.25rem; font-size: 15.5px; }
+.guide-content ul { padding-left: 1.5rem; margin-bottom: 1.5rem; }
+.guide-content li { margin-bottom: 0.75rem; color: var(--text-2); font-size: 15px; }
+.guide-content strong { color: var(--text-1); }
+.guide-tip { background: var(--forest-light); border-left: 4px solid var(--forest); padding: 1.25rem; border-radius: var(--r-s); margin: 2rem 0; }
+.guide-tip strong { color: var(--forest); display: block; margin-bottom: 0.5rem; text-transform: uppercase; font-size: 11px; letter-spacing: 0.05em; }
+.guide-tip p { margin: 0; font-size: 14.5px; color: var(--text-1); }
+@media (max-width: 600px) { .guide-content { padding: 1.5rem; } }
 .n-badge { display: inline-flex; align-items: center; justify-content: center; min-width: 17px; height: 17px; background: var(--maple); color: #fff; font-size: 10px; font-weight: 700; border-radius: var(--r-pill); padding: 0 5px; margin-left: 3px; transform: scale(0); transition: transform 0.25s var(--ease-spring); }
 .n-badge.show { transform: scale(1); }
 .post-job-nav { font-size: 13px; font-weight: 600; color: #fff; background: var(--maple-gradient); border: none; border-radius: var(--r-s); padding: 8px 16px; cursor: pointer; font-family: inherit; transition: all var(--dur); box-shadow: 0 2px 8px rgba(200,55,45,0.2); white-space: nowrap; }
@@ -2297,6 +2370,107 @@ select {
   .hero-cta,
   .hero-stats { display: none !important; }
   .hero-tag {
+  /* ═══════ RESOURCES VIEW ═══════ */
+  .res-container { max-width: var(--max-w); margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .res-hero { 
+    background: var(--maple-gradient); 
+    color: #fff; 
+    padding: 4rem 2rem; 
+    border-radius: var(--r-xl); 
+    margin-bottom: 4rem;
+    text-align: center;
+    box-shadow: var(--shadow-l);
+    position: relative;
+    overflow: hidden;
+  }
+  .res-hero::after {
+    content: '🍁';
+    position: absolute;
+    bottom: -20px;
+    right: -20px;
+    font-size: 120px;
+    opacity: 0.1;
+    transform: rotate(-15deg);
+  }
+  .res-hero h1 { font-family: 'DM Serif Display', serif; font-size: clamp(2.5rem, 6vw, 3.5rem); margin-bottom: 1.5rem; color: #fff; line-height: 1.1; }
+  .res-hero p { font-size: 1.25rem; opacity: 0.95; max-width: 700px; margin: 0 auto 1.5rem; line-height: 1.6; }
+  .res-disclaimer { font-size: 13px; opacity: 0.8; font-style: italic; background: rgba(0,0,0,0.1); padding: 8px 16px; border-radius: var(--r-pill); display: inline-block; }
+  
+  .res-section { margin-bottom: 5rem; }
+  .res-section h2 { 
+    font-family: 'DM Serif Display', serif; 
+    font-size: 2.2rem; 
+    margin-bottom: 2rem; 
+    display: flex; 
+    align-items: center; 
+    gap: 16px;
+    color: var(--text-1);
+  }
+  .res-section h2::after {
+    content: '';
+    flex: 1;
+    height: 2px;
+    background: var(--maple-glow);
+  }
+  
+  .res-grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); 
+    gap: 24px; 
+  }
+  
+  .res-card { 
+    background: var(--bg-card); 
+    border: 1px solid var(--border); 
+    border-radius: var(--r-l); 
+    padding: 2rem; 
+    display: flex; 
+    flex-direction: column; 
+    transition: all 0.4s var(--ease-spring);
+    position: relative;
+    box-shadow: var(--shadow-s);
+  }
+  .res-card:hover { 
+    transform: translateY(-8px); 
+    box-shadow: var(--shadow-l), 0 20px 40px rgba(0,0,0,0.05);
+    border-color: var(--maple-light);
+  }
+  
+  .res-category-tag {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--maple);
+    font-weight: 850;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .res-card h3 { font-family: 'DM Serif Display', serif; font-size: 1.4rem; margin-bottom: 1rem; color: var(--text-1); line-height: 1.3; }
+  .res-card p { font-size: 15px; color: var(--text-2); margin-bottom: 2rem; flex: 1; line-height: 1.7; }
+  
+  .res-btn { 
+    display: inline-flex; 
+    align-items: center; 
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 24px; 
+    background: var(--bg-subtle); 
+    color: var(--text-1); 
+    text-decoration: none; 
+    border-radius: var(--r-s); 
+    font-size: 14px; 
+    font-weight: 700; 
+    transition: all 0.3s;
+    border: 1px solid var(--border-s);
+  }
+  .res-card:hover .res-btn {
+    background: var(--maple-gradient);
+    color: #fff;
+    border-color: transparent;
+    box-shadow: 0 4px 12px rgba(200,55,45,0.3);
+  }
     margin-bottom: 10px;
     padding: 4px 9px;
     font-size: 10px;
@@ -2827,6 +3001,7 @@ select {
         <svg width="14" height="14" viewBox="0 0 127.14 96.36" fill="currentColor"><path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a67.59,67.59,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.31,60,73.31,53s5-12.74,11.43-12.74S96.2,46,96.09,53,91.08,65.69,84.69,65.69Z"/></svg>
         Discord
       </a>
+      <button class="n-link" id="nav-resources" onclick="showResources()">Resources</button>
       <button class="post-job-nav" onclick="openPostModal()">Post a Job</button>
       <button class="theme-btn" id="theme-btn" aria-label="Toggle dark mode"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" id="theme-ic"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button>
     </nav>
@@ -2981,7 +3156,10 @@ select {
         </form>
         <div class="hero-cta">
           <a href="#main-content" class="btn-p" id="browse-btn">Browse Jobs</a>
-          <button class="btn-feature" onclick="window.location.href='/hire/index.html'">★ Boost Your Job</button>
+          <div class="cta-stack">
+            <button class="btn-feature" onclick="window.location.href='/hire/index.html'">★ Boost Your Job</button>
+            <button class="btn-s" onclick="showResources()" style="width: 100%; justify-content: center; background: var(--bg-subtle);">🛠️ View Resources</button>
+          </div>
         </div>
         <div class="hero-stats" role="region" aria-label="MapleDevs statistics">
           <div><span class="stat-n" id="s-jobs" data-t="0">0</span><div class="stat-l">Open roles</div></div>
@@ -3345,6 +3523,19 @@ select {
 </div>
 </main>
 
+  <section class="newsletter-bar">
+    <div class="newsletter-bar-inner">
+      <div class="res-promo" style="display:flex; align-items:center; gap:1rem; flex:1; min-width:300px; padding:1rem; background:var(--maple-glow); border:1px solid rgba(200,55,45,0.1); border-radius:var(--r-s); margin-bottom:1rem;">
+        <div style="font-size:1.5rem;">🛠️</div>
+        <div>
+          <h3 style="font-size:14px; color:var(--text-1); margin:0;">Resources for Developers</h3>
+          <p style="font-size:12px; color:var(--text-2); margin:2px 0 0;">Check out our curated list of tools and courses.</p>
+        </div>
+        <button onclick="showResources()" class="btn-s" style="margin-left:auto; padding:6px 12px; font-size:12px;">View Resources</button>
+      </div>
+    </div>
+  </section>
+
   <section class="newsletter-bar" aria-label="Newsletter">
     <div class="newsletter-bar-inner">
       <span class="nl-text">📬 Get the latest game dev jobs weekly</span>
@@ -3365,11 +3556,12 @@ select {
   <button class="btn-p" type="button" onclick="openCompareModal()">Compare</button>
 </div>
 
-<div id="detail-view" class="view" role="main"><main>
-  <div id="d-crumbs" class="crumbs"></div>
-  <div class="d-card" id="d-content"></div>
-  <div class="sim-sec" id="sim-sec" style="display:none"><h3>Similar opportunities</h3><div class="job-list" id="sim-jobs"></div></div>
-</main></div>
+  <div id="detail-view" class="view" role="main"><main>
+    <div id="d-crumbs" class="crumbs"></div>
+    <div class="d-card" id="d-content"></div>
+    <div class="sim-sec" id="sim-sec" style="display:none"><h3>Similar opportunities</h3><div class="job-list" id="sim-jobs"></div></div>
+  </main></div>
+
 
 <!-- ═══════ ABOUT VIEW ═══════ -->
 <div id="about-view" class="view" role="main"><div class="about-c">
@@ -3446,6 +3638,48 @@ select {
   <p class="subtext">All studios currently hiring on MapleDevs</p>
   <div class="st-grid" id="st-grid"></div>
 </div></div>
+
+<!-- ═══════ RESOURCES VIEW ═══════ -->
+<div id="resources-view" class="view" role="main">
+  <div class="resources-c">
+    <button class="back-b" onclick="showBoard()">← Back to jobs</button>
+    <div class="res-hdr">
+      <h1>Best Tools & Resources for Game Developers in Canada</h1>
+      <p>Curated tools, courses, and resources to help you improve your skills and get hired in the game industry.</p>
+      <p class="res-disclaimer">Some links may be affiliate links. We only recommend resources we believe are useful for game developers.</p>
+    </div>
+
+    <!-- ═══════ GUIDE MODAL ═══════ -->
+    <div class="modal-bg" id="guide-modal" onclick="if(event.target===this)closeGuide()">
+      <div class="modal guide-modal" role="dialog" aria-labelledby="guide-title">
+        <div class="modal-hdr" style="border-bottom:none;">
+          <button class="modal-close" onclick="closeGuide()" aria-label="Close">&times;</button>
+        </div>
+        <div class="modal-body" id="guide-body" style="padding:0"></div>
+      </div>
+    </div>
+
+    <section class="res-section" id="res-featured">
+      <div class="res-section-hdr"><h2>Featured</h2><div class="line"></div></div>
+      <div class="res-grid" id="grid-featured"></div>
+    </section>
+
+    <section class="res-section" id="res-learn">
+      <div class="res-section-hdr"><h2>Learn Game Development</h2><div class="line"></div></div>
+      <div class="res-grid" id="grid-learn"></div>
+    </section>
+
+    <section class="res-section" id="res-tools">
+      <div class="res-section-hdr"><h2>Tools Developers Use</h2><div class="line"></div></div>
+      <div class="res-grid" id="grid-tools"></div>
+    </section>
+
+    <section class="res-section" id="res-career">
+      <div class="res-section-hdr"><h2>Get Hired Faster</h2><div class="line"></div></div>
+      <div class="res-grid" id="grid-career"></div>
+    </section>
+  </div>
+</div>
 
 <!-- ═══════ STUDIO PROFILE VIEW ═══════ -->
 <div id="studio-prof-view" class="view" role="main"><div class="studios-c" id="sp-content"></div></div>
@@ -3534,6 +3768,7 @@ select {
         <h4>Resources</h4>
         <ul>
           <li><a href="/about/">About MapleDevs</a></li>
+          <li><button onclick="showResources()" style="background:none;border:none;color:var(--text-2);font:inherit;cursor:pointer;padding:0;text-align:left;">Resources</button></li>
           <li><a href="#studios" onclick="showStudios()">Top Studios</a></li>
           <li><a href="mailto:mapledevsbusiness@gmail.com">Partner with us</a></li>
         </ul>
@@ -3542,7 +3777,7 @@ select {
   </section>
   <div class="ft-inner">
     <div class="ft-brand"><img src="/favicon.png" alt="MapleDevs" width="16" height="16" style="border-radius:2px;"> Maple<span>Devs</span></div>
-    <nav class="ft-links"><a href="/talent/" onclick="goLocalPage(event,'talent')">Talent</a><button onclick="showStudios()">Studios</button><button onclick="showAbout()">About</button><a href="/account/" onclick="goAccount(event)">Account</a><button onclick="openPostModal()">Post a Job</button><a href="/contact/">Contact</a><button onclick="showPrivacy()">Privacy</button><button onclick="showTerms()">Terms</button></nav>
+    <nav class="ft-links"><a href="/talent/" onclick="goLocalPage(event,'talent')">Talent</a><button onclick="showResources()">Resources</button><button onclick="showStudios()">Studios</button><button onclick="showAbout()">About</button><a href="/account/" onclick="goAccount(event)">Account</a><button onclick="openPostModal()">Post a Job</button><a href="/contact/">Contact</a><button onclick="showPrivacy()">Privacy</button><button onclick="showTerms()">Terms</button></nav>
     <p class="ft-copy">© 2026 MapleDevs · Canada's game industry job board · <a href="mailto:mapledevsbusiness@gmail.com">mapledevsbusiness@gmail.com</a></p>
   </div>
 </footer>
@@ -4230,7 +4465,8 @@ const detailFacts='<div class="jc-meta" style="display:flex !important; flex-wra
 const hdr = isInline ? `<div class="d-hdr" style="padding-top:0">${detailFacts}<div class="d-pills" style="margin-top:12px">${(j.type?'<span class="pill p-type">'+esc(j.type)+'</span>':'')+(j.engine?'<span class="pill p-engine">'+esc(j.engine)+'</span>':'')+(hasVisa(j)?'<span class="pill p-visa">'+visaText(j)+'</span>':'')+(j.student?'<span class="pill p-stu">Student-friendly</span>':'')}</div><div class="d-acts"><button class="d-act-btn" onclick="shareJob(${idx})">Share</button><button class="d-act-btn compare-btn${cmp?' on':''}" onclick="togCompareDet(event,${idx})">${cmp?'Compared':'Compare'}</button><button class="d-act-btn${sv?' saved':''}" onclick="togSaveDet(event,${idx})">${sv?'Saved':'Save'}</button></div></div>` 
   : `<div class="d-hdr"><div class="d-title">${esc(j.title)}</div><div class="d-studio">${esc(j.studio)}${j.posted?' - Posted '+relDate(j.posted):''}</div>${detailFacts}<div class="d-pills" style="margin-top:12px">${(j.type?'<span class="pill p-type">'+esc(j.type)+'</span>':'')+(j.engine?'<span class="pill p-engine">'+esc(j.engine)+'</span>':'')+(hasVisa(j)?'<span class="pill p-visa">'+visaText(j)+'</span>':'')+(j.student?'<span class="pill p-stu">Student-friendly</span>':'')}</div><div class="d-acts"><button class="d-act-btn" onclick="shareJob(${idx})">Share</button><button class="d-act-btn compare-btn${cmp?' on':''}" onclick="togCompareDet(event,${idx})">${cmp?'Compared':'Compare'}</button><button class="d-act-btn${sv?' saved':''}" onclick="togSaveDet(event,${idx})">${sv?'Saved':'Save'}</button></div></div>`;
 
-return hdr + (j.desc?'<div class="d-sec"><div class="d-label">About the role</div><div class="d-text">'+esc(j.desc)+'</div></div>':'')+apSec+mobileActions;}
+const careerBox = '<div class="res-card" style="margin-top:2rem; background:var(--maple-glow); border-color:rgba(200,55,45,0.15);"><h3 style="font-size:16px;">Want to get hired faster?</h3><p style="font-size:13px; margin-bottom:1rem;">Check out tools and resources used by game developers to improve your portfolio and skills.</p><button onclick="showResources()" class="btn-p" style="width:auto; padding:10px 20px;">View Resources</button></div>';
+return hdr + (j.desc?'<div class="d-sec"><div class="d-label">About the role</div><div class="d-text">'+esc(j.desc)+'</div></div>':'')+apSec+careerBox+mobileActions;}
 
 function shareJob(idx){const url=location.origin+location.pathname+'#job-'+idx;navigator.clipboard.writeText(url).then(()=>toast('Link copied','')).catch(()=>toast('Couldn\'t copy',''));}
 function togSaveDet(e,idx){e.stopPropagation();const j=ALL[idx],k=jKey(j),i=saved.indexOf(k);if(i>-1){saved.splice(i,1);toast('Removed','');}else{saved.push(k);toast('Saved','');}localStorage.setItem('md_saved',JSON.stringify(saved));updBadge();const b=e.currentTarget,s=isSaved(j);b.classList.toggle('saved',s);b.innerHTML=s?'Saved':'Save';}
@@ -4279,6 +4515,49 @@ function filterCity(c){showBoard();document.getElementById('f-city').value=c;ren
 
 /* ═══════ STUDIOS ═══════ */
 function showStudios(){history.pushState({v:'studios'},"","#studios");hideAll();document.getElementById("studios-view").classList.add("on");clearNav();document.getElementById("nav-studios").classList.add("active");renderStudios();window.scrollTo(0,0);trackView('Studios | MapleDevs');}
+
+/* ═══════ RESOURCES ═══════ */
+function showResources(){
+  history.pushState({v:'resources'},"","#resources");
+  hideAll();
+  document.getElementById("resources-view").classList.add("on");
+  clearNav();
+  const el=document.getElementById('nav-resources');
+  if(el)el.classList.add('active');
+  renderResources();
+  window.scrollTo(0,0);
+  trackView('Resources | MapleDevs');
+}
+async function renderResources(){
+  const grids={
+    'Learn':document.getElementById('grid-learn'),
+    'Tools':document.getElementById('grid-tools'),
+    'Career':document.getElementById('grid-career'),
+    'Featured':document.getElementById('grid-featured')
+  };
+  
+  Object.values(grids).forEach(g=>g.innerHTML='<div class="state-msg">Loading resources...</div>');
+  
+  try {
+    const r=await fetch('/resources.json'); 
+    if(!r.ok)throw 0; 
+    const data=await r.json();
+    
+    Object.values(grids).forEach(g=>g.innerHTML='');
+    data.forEach(item=>{
+      const grid=grids[item.category];
+      if(grid) {
+        grid.innerHTML+=`<article class="res-card">
+          <div class="res-tags">${item.tags ? item.tags.map(t=>`<span class="res-tag ${t.toLowerCase()==='new'?'new':''}">${esc(t)}</span>`).join('') : ''}</div>
+          <h3>${item.icon||''} ${esc(item.title)}</h3>
+          <p>${esc(item.description)}</p>
+          <a href="${item.link==='#'?'javascript:void(0)':esc(item.link)}" onclick="${item.link==='#'?`openGuide('${item.id}')`:''}" target="${item.link==='#'?'':'_blank'}" rel="noopener" class="res-btn">View Resource <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+        </article>`;
+      }
+    });
+    Object.keys(grids).forEach(cat=>{const s=document.getElementById('res-'+cat.toLowerCase()); if(s)s.style.display=grids[cat].children.length?'block':'none';});
+  }catch(e){Object.values(grids).forEach(g=>g.innerHTML='<div class="state-msg">Couldn\'t load resources.</div>');}
+}
 
 function renderStudios(){const m={};ALL.forEach(j=>{if(!m[j.studio])m[j.studio]={n:j.studio,c:j.location,ct:0};m[j.studio].ct++;});const ss=Object.values(m).sort((a,b)=>b.ct-a.ct),g=document.getElementById("st-grid");if(!ss.length){g.innerHTML='<div class="state-msg"><span class="ic">🏢</span>No studios yet.</div>';return;}
 g.innerHTML=ss.map(s=>'<div class="st-card" onclick="openStudioProfile(\''+esc(s.n).replace(/'/g,"\\'")+'\')"><div class="st-name">'+esc(s.n)+'</div><div class="st-city">'+esc(s.c||'Canada')+'</div><span class="st-count">'+s.ct+' role'+(s.ct!==1?'s':'')+'</span></div>').join('');}
@@ -4439,6 +4718,102 @@ function openAlertModal(){document.getElementById('alert-modal').classList.add('
 function closeAlertModal(){document.getElementById('alert-modal').classList.remove('on');document.body.style.overflow='';}
 function handleAlertSignup(){const e=document.getElementById('alert-email').value;if(!e||!e.includes('@')){document.getElementById('alert-email').focus();return;}window.open('http://eepurl.com/jDQFL2','_blank');closeAlertModal();toast('Alerts enabled','');}
 
+
+/* ═══════ GUIDES ═══════ */
+const GUIDES = {
+  'resume': {
+    title: 'Game Industry Resume Guide',
+    content: `
+      <div class="guide-content">
+        <h1>Crafting a Resume that Gets Read</h1>
+        <p>In the game industry, recruiters often scan resumes for only 6-10 seconds before deciding to move on. Think of your resume as a <strong>movie trailer</strong> for your career.</p>
+        
+        <h2>1. The "Golden Triangle"</h2>
+        <p>Place your most important links in the top-left or centered header: Your <strong>Portfolio</strong>, <strong>GitHub</strong>, and <strong>LinkedIn</strong>. If a recruiter has to hunt for your work, you've already lost them.</p>
+
+        <h2>2. Use Action Verbs</h2>
+        <p>Start every bullet point with a strong action verb. Avoid "Responsible for..." or "Helped with..."</p>
+        <ul>
+          <li><strong>Architected</strong> a modular inventory system in C# for a Unity project.</li>
+          <li><strong>Optimized</strong> shader calculations, improving frame rates by 20% on mobile.</li>
+          <li><strong>Collaborated</strong> with 3 artists to integrate high-fidelity assets without impacting performance.</li>
+        </ul>
+
+        <div class="guide-tip">
+          <strong>Pro Tip</strong>
+          <p>Quantify your wins whenever possible. Numbers (%, $$, hours saved) jump off the page and provide concrete proof of your impact.</p>
+        </div>
+
+        <h2>3. Match the Engine</h2>
+        <p>If you're applying for an Unreal role, make sure "Unreal Engine" and "C++" are prominent. Tailor your skills section for every unique application to pass through ATS (Applicant Tracking Systems) and catch the human eye.</p>
+      </div>
+    `
+  },
+  'interview': {
+    title: 'Interview Prep Kit',
+    content: `
+      <div class="guide-content">
+        <h1>Acing the Game Studio Interview</h1>
+        <p>Technical skill gets you the interview; cultural fit and communication get you the job.</p>
+
+        <h2>1. The STAR Method</h2>
+        <p>When asked behavioral questions ("Tell me about a time you failed"), use the <strong>STAR</strong> framework:</p>
+        <ul>
+          <li><strong>Situation:</strong> Set the scene.</li>
+          <li><strong>Task:</strong> What was the goal?</li>
+          <li><strong>Action:</strong> What did <em>you</em> specifically do?</li>
+          <li><strong>Result:</strong> What was the positive outcome?</li>
+        </ul>
+
+        <h2>2. Technical Fundamentals</h2>
+        <p>Be prepared to discuss memory management, data structures, and engine-specific quirks. If you use Unity, know the difference between <em>Update</em> and <em>FixedUpdate</em>. If you use Unreal, understand <em>Blueprints vs C++</em> trade-offs.</p>
+
+        <div class="guide-tip">
+          <strong>Key Question to Ask</strong>
+          <p>"What does a typical production sprint look like at this studio, and how does the team handle unexpected roadblocks?"</p>
+        </div>
+      </div>
+    `
+  },
+  'portfolio': {
+    title: 'Portfolio Review Checklist',
+    content: `
+      <div class="guide-content">
+        <h1>The Ultimate Portfolio Checklist</h1>
+        <p>Your portfolio is your most important asset. It should show not just what you made, but <strong>how you think</strong>.</p>
+
+        <h2>1. Quality over Quantity</h2>
+        <p>Three incredible projects are better than ten mediocre ones. Remove your old student work if it doesn't represent your current skill level.</p>
+
+        <h2>2. Show the "How"</h2>
+        <p>Don't just post a finished video. Include:</p>
+        <ul>
+          <li>Wireframes or sketches.</li>
+          <li>Code snippets of interesting systems.</li>
+          <li>Brief explanations of challenges you overcame.</li>
+        </ul>
+
+        <div class="guide-tip">
+          <strong>Accessibility Check</strong>
+          <p>Does your portfolio work on mobile? Does it require a login or a slow download? If it takes more than 3 clicks to see your work, simplify it.</p>
+        </div>
+      </div>
+    `
+  }
+};
+
+function openGuide(id){
+  const g = GUIDES[id];
+  if(!g) return;
+  document.getElementById('guide-body').innerHTML = g.content;
+  document.getElementById('guide-modal').classList.add('on');
+  document.body.style.overflow = 'hidden';
+}
+function closeGuide(){
+  document.getElementById('guide-modal').classList.remove('on');
+  document.body.style.overflow = '';
+}
+
 /* ═══════ KEYBOARD SHORTCUTS ═══════ */
 document.addEventListener('keydown',function(e){if(e.key==='/'&&!e.ctrlKey&&!e.metaKey){const a=document.activeElement;if(a.tagName==='INPUT'||a.tagName==='TEXTAREA'||a.tagName==='SELECT')return;e.preventDefault();document.getElementById('search').focus();}if(e.key==='Escape'){const s=document.getElementById('search');if(document.activeElement===s&&s.value){s.value='';s.blur();render();}if(document.getElementById('post-modal').classList.contains('on'))closePostModal();if(document.getElementById('alert-modal').classList.contains('on'))closeAlertModal();if(document.getElementById('compare-modal').classList.contains('on'))closeCompareModal();}});
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeMobileFilters();});
@@ -4462,8 +4837,11 @@ function movePlatformSectionsToAbout(){
 
 /* ═══════ INIT ═══════ */
 movePlatformSectionsToAbout();
-function handleHash(){const h=location.hash;if(h==='#about')showAbout();else if(h==='#privacy')showPrivacy();else if(h==='#terms')showTerms();else if(h==='#studios')showStudios();else if(h==='#saved')showSaved();else if(h.startsWith('#job-')){const i=parseInt(h.replace('#job-',''),10);if(!isNaN(i)&&ALL[i])openDet(i);}else if(h.startsWith('#studio-')){const sn=h.replace('#studio-','').replace(/-/g,' ').toLowerCase();const s=ALL.find(j=>j.studio.toLowerCase()==sn);if(s)openStudioProfile(s.studio);}}
-loadJobs().then(() => { handleHash(); });
+function handleHash(){const h=location.hash;if(h==='#about')showAbout();else if(h==='#resources')showResources();else if(h==='#privacy')showPrivacy();else if(h==='#terms')showTerms();else if(h==='#studios')showStudios();else if(h==='#saved')showSaved();else if(h.startsWith('#job-')){const i=parseInt(h.replace('#job-',''),10);if(!isNaN(i)&&ALL[i])openDet(i);}else if(h.startsWith('#studio-')){const sn=h.replace('#studio-','').replace(/-/g,' ').toLowerCase();const s=ALL.find(j=>j.studio.toLowerCase()==sn);if(s)openStudioProfile(s.studio);}}
+loadJobs().then(() => { 
+  handleHash(); 
+  if(location.hash==='#resources') showResources();
+});
 </script>
 
 <!-- Sticky Feature Banner -->
