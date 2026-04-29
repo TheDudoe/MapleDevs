@@ -8,6 +8,7 @@
   <url><loc>https://mapledevs.ca/about/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://mapledevs.ca/studios/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://mapledevs.ca/resources/</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://mapledevs.ca/jobs/</loc><changefreq>daily</changefreq><priority>0.9</priority></url>
   <url><loc>https://mapledevs.ca/jobs/data-science-lead-epic-games-montreal-qc/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://mapledevs.ca/jobs/design-director-battle-pass-epic-games-montreal-qc/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://mapledevs.ca/jobs/design-director-battle-pass-epic-games-vancouver-bc/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
@@ -100,4 +101,17 @@
   <url><loc>https://mapledevs.ca/jobs/solutions-architect-animation-epic-games-montreal-quebec/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://mapledevs.ca/jobs/epic-games-montreal-quebec/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://mapledevs.ca/jobs/senior-technical-producer-epic-games-montreal-quebec/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://mapledevs.ca/jobs/3d-level-artist-disney-dreamlight-valley-gameloft-remote/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://mapledevs.ca/jobs/project-manager-gameloft-remote/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://mapledevs.ca/jobs/technical-game-designer-gameloft-remote/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://mapledevs.ca/jobs/3d-props-artist-disney-dreamlight-valley-gameloft-remote/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://mapledevs.ca/jobs/2d-artist-casual-stylized-gameloft-remote/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://mapledevs.ca/jobs/ui-artist-disney-dreamlight-valley-middlesenior-gameloft-remote/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://mapledevs.ca/jobs/senior-animation-programmer-randd-cd-projekt-red-vancouver-bc/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://mapledevs.ca/jobs/machine-learning-and-game-tech-architect-cd-projekt-red-remote/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://mapledevs.ca/jobs/senior-vfx-artist-cd-projekt-red-remote/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://mapledevs.ca/jobs/senior-gameplay-engineer-cd-projekt-red-remote/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://mapledevs.ca/jobs/senior-web-designer-cd-projekt-red-remote/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://mapledevs.ca/jobs/outsourcing-expert-cd-projekt-red-remote/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://mapledevs.ca/jobs/gameplay-animator-contract-cd-projekt-red-remote/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
 </urlset>
