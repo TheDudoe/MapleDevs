@@ -3809,9 +3809,9 @@ select,
           <button type="submit">Search jobs</button>
         </form>
         <div class="hero-cta">
-          <button class="btn-p" id="browse-btn" onclick="document.getElementById('search').focus();document.getElementById('main-content').scrollIntoView({behavior:'smooth'});">Browse jobs</button>
+          <button class="btn-p" id="browse-btn" onclick="showBoard();document.getElementById('job-list').scrollIntoView({behavior:'smooth'});">Browse jobs</button>
           <button class="btn-s" onclick="showResources()">Resources</button>
-          <button class="btn-s" onclick="openPage('hire')">Hiring</button>
+          <button class="btn-s" onclick="goLocalPage('hire')">Hiring</button>
         </div>
         <div class="hero-stats" role="region" aria-label="MapleDevs statistics">
           <div><span class="stat-n" id="s-jobs" data-t="0">0</span><div class="stat-l">Open roles</div></div>
@@ -3823,10 +3823,10 @@ select,
         <h2>Hiring market snapshot</h2>
         <p>Quick signals candidates need before applying: pay, engine, location model, visa notes, and student-friendly fit.</p>
         <div class="market-list">
-          <a href="/#mode=Remote"><span>Remote and hybrid roles</span><b>Browse</b></a>
-          <a href="/#exp=junior"><span>Junior and student pathways</span><b>Find</b></a>
-          <a href="/#role=programming"><span>Programming and engine roles</span><b>Explore</b></a>
-          <a href="/hire/index.html"><span>Featured listing price</span><b>See tiers</b></a>
+          <a href="#" onclick="showBoard();applyFilter('mode','Remote');return false;"><span>Remote and hybrid roles</span><b>Browse</b></a>
+          <a href="#" onclick="showBoard();applyFilter('exp','junior');return false;"><span>Junior and student pathways</span><b>Find</b></a>
+          <a href="#" onclick="showBoard();applyFilter('role','programming');return false;"><span>Programming and engine roles</span><b>Explore</b></a>
+          <a href="#" onclick="goLocalPage('hire');return false;"><span>Featured listing price</span><b>See tiers</b></a>
         </div>
         <div class="signal-engine" aria-label="Animated hiring signal visualization">
           <span class="signal-sweep"></span>
