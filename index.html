@@ -5433,9 +5433,11 @@ function goHome(e){
   }
 }
 function goLocalPage(e,page){
-  if(location.protocol!=='file:')return;
-  e.preventDefault();
-  location.href=localSiteRoot()+page+'/index.html';
+  // Handle case where only page is passed
+  if(!page && typeof e === 'string') { page = e; e = null; }
+  if(location.protocol!=='file:') return;
+  if(e && e.preventDefault) e.preventDefault();
+  location.href = (window.localSiteRoot ? localSiteRoot() : './') + page + '/index.html';
 }
 function goAccount(e){
   goLocalPage(e,'account');
