@@ -3641,7 +3641,7 @@ select,
         Discord
       </a>
       <button class="n-link" id="nav-resources" onclick="showResources()">Resources</button>
-      <a href="/hire/" class="n-link nav-hire" onclick="goLocalPage(event,'hire')">Hiring</a>
+      <a href="/hire" class="n-link nav-hire" onclick="goLocalPage(event,'hire')">Hiring</a>
       <button class="post-job-nav" onclick="openPostModal()">Post job</button>
       <button class="theme-btn" id="theme-btn" aria-label="Toggle dark mode"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" id="theme-ic"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button>
     </nav>
@@ -3812,7 +3812,7 @@ select,
           <a href="/#mode=Remote"><span>Remote and hybrid roles</span><b>Browse</b></a>
           <a href="/#exp=junior"><span>Junior and student pathways</span><b>Find</b></a>
           <a href="/#role=programming"><span>Programming and engine roles</span><b>Explore</b></a>
-          <a href="/hire/index.html"><span>Featured listing price</span><b>See tiers</b></a>
+          <a href="/hire"><span>Featured listing price</span><b>See tiers</b></a>
         </div>
         <div class="signal-engine" aria-label="Animated hiring signal visualization">
           <span class="signal-sweep"></span>
@@ -4372,6 +4372,7 @@ select,
   
   <h2>4. For Employers & Payments</h2>
   <p>Standard job listings are currently free. <strong>Paid Listings</strong> are available for featured placement. Paid roles stay at the top of the board, receive priority in our newsletter, and are highlighted on social media. 
+
   <br><br>Payments must be sent via <strong>Interac e-Transfer</strong> to <a href="mailto:wupeiheng11@gmail.com">wupeiheng11@gmail.com</a>. Listings are published/featured only after payment is confirmed. All sales are final and non-refundable once the listing is live.</p>
   
   <h2>5. Featured Listing Refund Policy</h2>
@@ -5383,8 +5384,13 @@ function submitPostForm(e){
   }).then(r=>r.json()).then(d=>{
     if(d.success){
       msg.className='form-msg show'; 
+<<<<<<< HEAD
+      msg.innerHTML='✓ <b>Submitted!</b> To feature this role ($49 CAD) and get 5x more applicants, please send an Interac e-Transfer to <b>wupeiheng11@gmail.com</b> with your job title in the notes. Hiring Boost placements are $149 CAD. We will review and publish within 24 hours.';
+      toast('Job submitted! Email sent.','📋');
+=======
       msg.innerHTML='<b>Submitted.</b> We will review the role before publishing. If you requested featured placement, send the $29 CAD Interac e-Transfer to <b>wupeiheng11@gmail.com</b> with the job title in the notes. Featured placement payments are final and non-refundable once the listing is live.';
       toast('Job submitted. Email sent.','OK');
+>>>>>>> main
       form.reset();
     } else { throw 0; }
   }).catch(()=>{
