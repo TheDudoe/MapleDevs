@@ -2256,7 +2256,7 @@ select {
 }
 .sv-btn { border-radius: var(--r-s); }
 
-.spotlight-s { display: none; }
+/* .spotlight-s visibility is controlled via JS in render() */
 .cta-section {
   background: #111820;
   color: #fff;
@@ -3811,9 +3811,9 @@ select,
           <button type="submit">Search jobs</button>
         </form>
         <div class="hero-cta">
-          <button class="btn-p" id="browse-btn" onclick="document.getElementById('search').focus();document.getElementById('main-content').scrollIntoView({behavior:'smooth'});">Browse jobs</button>
+          <button class="btn-p" id="browse-btn" onclick="showBoard();document.getElementById('job-list').scrollIntoView({behavior:'smooth'});">Browse jobs</button>
           <button class="btn-s" onclick="showResources()">Resources</button>
-          <button class="btn-s" onclick="openPage('hire')">Hiring</button>
+          <button class="btn-s" onclick="goLocalPage('hire')">Hiring</button>
         </div>
         <div class="hero-stats" role="region" aria-label="MapleDevs statistics">
           <div><span class="stat-n" id="s-jobs" data-t="0">0</span><div class="stat-l">Open roles</div></div>
@@ -3825,10 +3825,10 @@ select,
         <h2>Hiring market snapshot</h2>
         <p>Quick signals candidates need before applying: pay, engine, location model, visa notes, and student-friendly fit.</p>
         <div class="market-list">
-          <a href="/#mode=Remote"><span>Remote and hybrid roles</span><b>Browse</b></a>
-          <a href="/#exp=junior"><span>Junior and student pathways</span><b>Find</b></a>
-          <a href="/#role=programming"><span>Programming and engine roles</span><b>Explore</b></a>
-          <a href="/hire/index.html"><span>Featured listing price</span><b>See tiers</b></a>
+          <a href="#" onclick="showBoard();applyFilter('mode','Remote');return false;"><span>Remote and hybrid roles</span><b>Browse</b></a>
+          <a href="#" onclick="showBoard();applyFilter('exp','junior');return false;"><span>Junior and student pathways</span><b>Find</b></a>
+          <a href="#" onclick="showBoard();applyFilter('role','programming');return false;"><span>Programming and engine roles</span><b>Explore</b></a>
+          <a href="#" onclick="goLocalPage('hire');return false;"><span>Featured listing price</span><b>See tiers</b></a>
         </div>
         <div class="signal-engine" aria-label="Animated hiring signal visualization">
           <span class="signal-sweep"></span>
@@ -4782,7 +4782,55 @@ async function loadJobs(){
 }
 function hkey(s){return cl(s).toLowerCase().replace(/[^a-z0-9]+/g,'_').replace(/^_|_$/g,'');}
 function cell(r,h,names,fallback){for(const n of names){const i=h.indexOf(hkey(n));if(i>-1)return cl(r[i]);}return fallback!==undefined?cl(r[fallback]):"";}
-function parseCSV(t){const rows=[],jobs=[];let r=[],c="",q=false;for(let i=0;i<t.length;i++){const ch=t[i],nx=t[i+1];if(ch==='"'){if(q&&nx==='"'){c+='"';i++;}else{q=!q;}}else if(ch===','&&!q){r.push(c);c="";}else if(ch==='\n'&&!q){r.push(c);rows.push(r);r=[];c="";}else if(ch!=='\r'||q){c+=ch;}}if(r.length||c){r.push(c);rows.push(r);}if(!rows.length)return jobs;const h=rows[0].map(hkey),seen=new Set();for(let i=1;i<rows.length;i++){const rw=rows[i];const status=cell(rw,h,['status']);const link=cell(rw,h,['link_status']);const linkKey=hkey(link);const featVal=cell(rw,h,['feature','Featured','(Featured)'],8).toLowerCase();const tier=featVal.includes("boost")?"hiring_boost":(featVal.includes("yes")?"featured":"standard");const featured=tier!=="standard";if(status&&!['approved','live','active'].includes(hkey(status)))continue;if(['stale_by_date','outdated','date_expired'].includes(linkKey))continue;if(['expired','dead','missing_from_source','inactive','closed','not_found'].includes(linkKey))continue;const title=cell(rw,h,['Job Title','title'],0),studio=cell(rw,h,['Studio Name','studio'],1),location=cell(rw,h,['Location'],2),apply=cell(rw,h,['How to Apply','Apply URL','apply','source_url'],6),id=cell(rw,h,['job_id']);if(KNOWN_DEAD_APPLY_URLS.has(apply))continue;if(!rw||!title||!studio)continue;const key=hkey(title+'|'+studio+'|'+location);if(seen.has(key))continue;seen.add(key);jobs.push({id,title,studio,location,type:cell(rw,h,['Job Type','type'],3),mode:cell(rw,h,['Work Mode','mode'],4),desc:cell(rw,h,['Description','desc'],5),apply,posted:cell(rw,h,['Date Posted','posted'],7),featured,tier,student:cell(rw,h,['Student Friendly','(Student Friendly)'],9).toLowerCase()==="yes",salary:cell(rw,h,['Salary'],10),engine:cell(rw,h,['Engine'],11),visa:cell(rw,h,['Visa Sponsorship','visa'],12)});}return jobs;}
+function parseCSV(t){
+  const rows=[],jobs=[];let r=[],c="",q=false;
+  for(let i=0;i<t.length;i++){
+    const ch=t[i],nx=t[i+1];
+    if(ch==='"'){if(q&&nx==='"'){c+='"';i++;}else{q=!q;}}
+    else if(ch===','&&!q){r.push(c);c="";}
+    else if(ch==='\n'&&!q){r.push(c);rows.push(r);r=[];c="";}
+    else if(ch!=='\r'||q){c+=ch;}
+  }
+  if(r.length||c){r.push(c);rows.push(r);}
+  if(!rows.length)return jobs;
+  const h=rows[0].map(hkey),seen=new Set();
+  for(let i=1;i<rows.length;i++){
+    const rw=rows[i];
+    const statusVal=hkey(cell(rw,h,['status','Status'],16));
+    const link=cell(rw,h,['link_status']);
+    const linkKey=hkey(link);
+    const featVal=cell(rw,h,['feature','Featured','(Featured)'],8).toLowerCase();
+    const tier=featVal.includes("boost")?"hiring_boost":(featVal.includes("yes")?"featured":"standard");
+    const featured=tier!=="standard";
+    
+    // Status Filtering: Include approved/live/active/reviewed
+    if(statusVal && !['approved','live','active','reviewed'].includes(statusVal)) continue;
+    if(['stale_by_date','outdated','date_expired'].includes(linkKey))continue;
+    if(['expired','dead','missing_from_source','inactive','closed','not_found'].includes(linkKey))continue;
+    
+    const title=cell(rw,h,['Job Title','title'],0),studio=cell(rw,h,['Studio Name','studio'],1),location=cell(rw,h,['Location'],2),apply=cell(rw,h,['How to Apply','Apply URL','apply','source_url'],6),id=cell(rw,h,['job_id']);
+    if(KNOWN_DEAD_APPLY_URLS.has(apply))continue;
+    if(!rw||!title||!studio)continue;
+    const key=hkey(title+'|'+studio+'|'+location);
+    if(seen.has(key))continue;
+    seen.add(key);
+    jobs.push({
+      id,title,studio,location,
+      type:cell(rw,h,['Job Type','type'],3),
+      mode:cell(rw,h,['Work Mode','mode'],4),
+      desc:cell(rw,h,['Description','desc'],5),
+      apply,
+      posted:cell(rw,h,['Date Posted','posted'],7),
+      featured,tier,
+      student:cell(rw,h,['Student Friendly','(Student Friendly)'],9).toLowerCase()==="yes",
+      salary:cell(rw,h,['Salary'],10),
+      engine:cell(rw,h,['Engine'],11),
+      visa:cell(rw,h,['Visa Sponsorship','visa'],12)
+    });
+  }
+  console.log(`[Data] Loaded ${jobs.length} roles. Premium: ${jobs.filter(j=>j.featured).length}`);
+  return jobs;
+}
 function cl(s){return s?s.trim():"";}
 function toSlug(s){return s.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');}
 function initFilters(){const cs=[...new Set(ALL.map(j=>j.location).filter(Boolean))].sort(),s=document.getElementById("f-city");s.innerHTML='<option value="">All cities</option>';cs.forEach(c=>{const o=document.createElement("option");o.value=c;o.textContent=c;s.appendChild(o);});}
@@ -5387,9 +5435,11 @@ function goHome(e){
   }
 }
 function goLocalPage(e,page){
-  if(location.protocol!=='file:')return;
-  e.preventDefault();
-  location.href=localSiteRoot()+page+'/index.html';
+  // Handle case where only page is passed
+  if(!page && typeof e === 'string') { page = e; e = null; }
+  if(location.protocol!=='file:') return;
+  if(e && e.preventDefault) e.preventDefault();
+  location.href = (window.localSiteRoot ? localSiteRoot() : './') + page + '/index.html';
 }
 function goAccount(e){
   goLocalPage(e,'account');
