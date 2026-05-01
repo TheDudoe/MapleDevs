@@ -3641,7 +3641,7 @@ select,
 <!-- ═══════ HEADER ═══════ -->
 <header role="banner">
   <div class="h-inner">
-    <a href="index.html" class="logo" onclick="goHome(event)" aria-label="MapleDevs home">
+    <a href="/" class="logo" onclick="goHome(event)" aria-label="MapleDevs home">
       <img class="logo-i" src="favicon.png" alt="MapleDevs" width="24" height="24" style="border-radius:2px;">
       <span class="logo-w">Maple<span>Devs</span></span>
     </a>
@@ -4805,8 +4805,13 @@ function parseCSV(t){
     
     // Status Filtering: Include approved/live/active/reviewed
     if(statusVal && !['approved','live','active','reviewed'].includes(statusVal)) continue;
-    if(['stale_by_date','outdated','date_expired'].includes(linkKey))continue;
-    if(['expired','dead','missing_from_source','inactive','closed','not_found'].includes(linkKey))continue;
+
+    // Link Status Filtering: Only skip standard jobs if link is dead.
+    // If it's a Featured/Boosted job, we trust the manual 'approved' status.
+    if(!featured) {
+      if(['stale_by_date','outdated','date_expired'].includes(linkKey))continue;
+      if(['expired','dead','missing_from_source','inactive','closed','not_found'].includes(linkKey))continue;
+    }
     
     const title=cell(rw,h,['Job Title','title'],0),studio=cell(rw,h,['Studio Name','studio'],1),location=cell(rw,h,['Location'],2),apply=cell(rw,h,['How to Apply','Apply URL','apply','source_url'],6),id=cell(rw,h,['job_id']);
     if(KNOWN_DEAD_APPLY_URLS.has(apply))continue;
@@ -5423,17 +5428,19 @@ function openPage(page){
 }
 function goHome(e){
   if(location.protocol==='file:'){
-    e.preventDefault();
+    if(e) e.preventDefault();
     location.href=localSiteRoot()+'index.html';
     return false;
   }
-  const atHome=location.pathname==='/'||/\/index\.html$/i.test(location.pathname);
-  if(atHome){
-    e.preventDefault();
+  const isRoot = location.pathname === '/' || location.pathname === '';
+  const isIndex = /\/index\.html$/i.test(location.pathname);
+  if(isRoot || isIndex){
+    if(e) e.preventDefault();
     showBoard();
+    if(isIndex) history.replaceState({v:'board'}, '', '/');
     return false;
   }
-}
+}}
 function goLocalPage(e,page){
   // Handle case where only page is passed
   if(!page && typeof e === 'string') { page = e; e = null; }
