@@ -4449,6 +4449,10 @@ function openDiscord(e){
   return false;
 }
 
+function trackView(title){
+  if(title) document.title = title;
+}
+
 async function shareSite(){
   const url = location.origin && location.origin !== 'null' ? location.origin + '/' : 'https://mapledevs.ca/';
   const text = 'MapleDevs: verified Canadian game developer jobs by city, role, engine, salary, work mode, visa support, and student-friendly paths.';

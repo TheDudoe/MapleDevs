@@ -2369,8 +2369,10 @@ select {
   .hero-panel,
   .hero-cta,
   .hero-stats { display: none !important; }
-  .hero-tag {
-  /* ═══════ RESOURCES VIEW ═══════ */
+  .hero-tag { margin-bottom: 0.8rem !important; }
+}
+
+/* ═══════ RESOURCES VIEW ═══════ */
   .res-container { max-width: var(--max-w); margin: 0 auto; padding: 2rem 1.5rem 4rem; }
   .res-hero { 
     background: var(--maple-gradient); 
@@ -3037,9 +3039,7 @@ header::after,
   gap: 4px;
 }
 
-.h-nav .nav-optional {
-  display: none !important;
-}
+
 
 .n-link,
 .post-job-nav,
@@ -4446,6 +4446,10 @@ function openDiscord(e){
   return false;
 }
 
+function trackView(title){
+  if(title) document.title = title;
+}
+
 async function shareSite(){
   const url = location.origin && location.origin !== 'null' ? location.origin + '/' : 'https://mapledevs.ca/';
   const text = 'MapleDevs: verified Canadian game developer jobs by city, role, engine, salary, work mode, visa support, and student-friendly paths.';
@@ -5377,20 +5381,20 @@ function submitPostForm(e){
   msg.className='form-msg'; msg.style.display='none';
 
   const data=new FormData(form);
+  const tier=String(data.get('Tier')||'free');
   fetch('https://formsubmit.co/ajax/mapledevsbusiness@gmail.com',{
     method:'POST',
     headers:{'Content-Type':'application/json','Accept':'application/json'},
     body:JSON.stringify(Object.fromEntries(data))
   }).then(r=>r.json()).then(d=>{
     if(d.success){
-      msg.className='form-msg show'; 
-<<<<<<< HEAD
-      msg.innerHTML='✓ <b>Submitted!</b> To feature this role ($49 CAD) and get 5x more applicants, please send an Interac e-Transfer to <b>wupeiheng11@gmail.com</b> with your job title in the notes. Hiring Boost placements are $149 CAD. We will review and publish within 24 hours.';
-      toast('Job submitted! Email sent.','📋');
-=======
-      msg.innerHTML='<b>Submitted.</b> We will review the role before publishing. If you requested featured placement, send the $29 CAD Interac e-Transfer to <b>wupeiheng11@gmail.com</b> with the job title in the notes. Featured placement payments are final and non-refundable once the listing is live.';
+      msg.className='form-msg show';
+      const paidTier=tier==='hiring_boost'?'Hiring Boost':(tier==='featured'?'Featured':'');
+      const paidAmount=tier==='hiring_boost'?'$39 CAD':(tier==='featured'?'$29 CAD':'');
+      msg.innerHTML=paidTier
+        ? '<b>Submitted.</b> We will review the role before publishing. To activate '+paidTier+', send '+paidAmount+' by Interac e-Transfer to <b>wupeiheng11@gmail.com</b> with the job title in the notes. Paid placement is final and non-refundable once the listing is live.'
+        : '<b>Submitted.</b> We will review the free listing before publishing.';
       toast('Job submitted. Email sent.','OK');
->>>>>>> main
       form.reset();
     } else { throw 0; }
   }).catch(()=>{
