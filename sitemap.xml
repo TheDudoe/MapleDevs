@@ -24,8 +24,6 @@
   <url><loc>https://mapledevs.ca/jobs/senior-systems-designer-epic-games-vancouver-bc/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://mapledevs.ca/jobs/senior-technical-designer-in-animation-epic-games-vancouver-bc/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://mapledevs.ca/jobs/senior-technical-designer-in-animation-epic-games-montreal-qc/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://mapledevs.ca/jobs/principal-lighter-assassins-creed-invictus-ubisoft-montreal-qc/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://mapledevs.ca/jobs/eclairagiste-3d-principale-assassins-creed-invictus-ubisoft-montreal-qc/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://mapledevs.ca/jobs/dungeons-and-dragons-pc-console-stagiaire-concepteur-trice-experience-utilisateur-ux-designer-intern-gameloft-montreal-qc/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://mapledevs.ca/jobs/lead-technical-ui-designer-epic-games-montrealquebec/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://mapledevs.ca/jobs/hr-generalist-digital-extremes-london-on/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
@@ -34,7 +32,6 @@
   <url><loc>https://mapledevs.ca/jobs/art-director-blackbird-interactive-vancouver-bc/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://mapledevs.ca/jobs/character-artist-8-month-contract-blackbird-interactive-vancouver-bc/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://mapledevs.ca/jobs/game-director-blackbird-interactive-vancouver-bc/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://mapledevs.ca/jobs/intermediate-gameplay-software-engineer-proprietary-engine-blackbird-interactive-vancouver-bc/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://mapledevs.ca/jobs/lead-environment-artist-blackbird-interactive-vancouver-bc/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://mapledevs.ca/jobs/lead-producer-blackbird-interactive-vancouver-bc/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://mapledevs.ca/jobs/lead-producer-tactical-shooter-unreal-5-blackbird-interactive-vancouver-bc/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
@@ -63,7 +60,6 @@
   <url><loc>https://mapledevs.ca/jobs/technical-artist-vfx-ubisoft-montreal-qc/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://mapledevs.ca/jobs/artiste-2d-3d-helix-ubisoft-montreal-qc/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://mapledevs.ca/jobs/2d-3d-artist-heix-ubisoft-montreal-qc/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://mapledevs.ca/jobs/dungeons-and-dragons-pc-console-programmeur-euse-engin-engine-programmer-gameloft-montreal-qc/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://mapledevs.ca/jobs/disney-dreamlight-valley-producteurtrice-producer-gameloft-montreal-qc/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://mapledevs.ca/jobs/dungeons-and-dragons-pc-console-responsable-des-effets-visuels-lead-vfx-gameloft-montreal-qc/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://mapledevs.ca/jobs/dungeons-and-dragons-pc-console-programmeureuse-outils-tools-programmer-gameloft-montreal-qc/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
@@ -121,4 +117,11 @@
   <url><loc>https://mapledevs.ca/jobs/senior-tools-programmer-digital-extremes-remote/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://mapledevs.ca/jobs/technical-artist-gameloft-montreal-qc/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://mapledevs.ca/jobs/3d-propsenvironment-artist-disney-dreamlight-valley-gameloft-remote/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://mapledevs.ca/jobs/assassins-creed-ubisoft-quebec-city-qc/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://mapledevs.ca/jobs/community-developer-assassins-creed-ubisoft-quebec-city-qc/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://mapledevs.ca/jobs/assassins-creed-ubisoft-montreal-qc/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://mapledevs.ca/jobs/community-developer-assassins-creed-ubisoft-montreal-qc/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://mapledevs.ca/jobs/stagiaire-en-communication-communication-intern-gameloft-montreal-qc/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://mapledevs.ca/jobs/customer-care-agent-english-and-spanish-gameloft-remote/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://mapledevs.ca/jobs/customer-care-agent-english-and-german-gameloft-remote/</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
 </urlset>
